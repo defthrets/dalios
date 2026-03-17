@@ -132,6 +132,8 @@ const ASSETS = {
     { id: "MICHI", name: "Michi", base: 0.12, vol: 10.5, sector: "Meme", s: 714 }, { id: "GOAT", name: "Goatseus Maximus", base: 0.35, vol: 11.5, sector: "Meme", s: 715 },
     { id: "FARTCOIN", name: "Fartcoin", base: 0.85, vol: 13, sector: "Meme", s: 716 }, { id: "AI16Z", name: "ai16z", base: 0.95, vol: 12, sector: "Meme", s: 717 },
     { id: "BABYDOGE", name: "Baby Doge", base: 0.0000000015, vol: 10, sector: "Meme", s: 718 }, { id: "LADYS", name: "Milady", base: 0.0000001, vol: 11, sector: "Meme", s: 719 },
+    { id: "XMR", name: "Monero", base: 165, vol: 3.5, sector: "Privacy", s: 720 }, { id: "ZEC", name: "Zcash", base: 25, vol: 4.5, sector: "Privacy", s: 721 },
+    { id: "DASH", name: "Dash", base: 28, vol: 4.0, sector: "Payments", s: 722 }, { id: "XTZ", name: "Tezos", base: 0.85, vol: 4.8, sector: "L1", s: 723 },
   ]},
   commodities: { label: "Commodities", icon: "⬡", items: [
     { id: "GOLD", name: "Gold", base: 2340, vol: 1.2, sector: "Precious", s: 66 }, { id: "SILVER", name: "Silver", base: 28.5, vol: 2.1, sector: "Precious", s: 77 },
@@ -184,6 +186,19 @@ const ASSETS = {
     { id: "MIN", name: "Mineral Resources", base: 52, vol: 4.2, sector: "Mining", s: 520 }, { id: "PME", name: "Pro Medicus", base: 112, vol: 3.5, sector: "Health", s: 521 },
     { id: "JHX", name: "James Hardie", base: 48, vol: 2.5, sector: "Industrial", s: 522 }, { id: "SGP", name: "Stockland", base: 4.8, vol: 1.8, sector: "REIT", s: 523 },
     { id: "SHL", name: "Sonic Healthcare", base: 28, vol: 1.5, sector: "Health", s: 524 }, { id: "QAN", name: "Qantas", base: 6.5, vol: 2.8, sector: "Aviation", s: 525 },
+    { id: "RHM", name: "Rheinmetall (ASX)", base: 58, vol: 3.8, sector: "Defence", s: 530 }, { id: "BSL", name: "BlueScope Steel", base: 20, vol: 3.2, sector: "Steel", s: 531 },
+    { id: "S32", name: "South32", base: 3.8, vol: 3.5, sector: "Mining", s: 532 }, { id: "NHC", name: "New Hope Coal", base: 5.2, vol: 3.8, sector: "Coal", s: 533 },
+    { id: "WHC", name: "Whitehaven Coal", base: 7.5, vol: 4.0, sector: "Coal", s: 534 }, { id: "LYC", name: "Lynas Rare Earths", base: 7.2, vol: 4.5, sector: "Rare Earths", s: 535 },
+    { id: "PLS", name: "Pilbara Minerals", base: 3.5, vol: 5.0, sector: "Lithium", s: 536 }, { id: "LTR", name: "Liontown Resources", base: 1.2, vol: 5.5, sector: "Lithium", s: 537 },
+    { id: "IGO", name: "IGO Limited", base: 6.8, vol: 4.0, sector: "Lithium", s: 538 }, { id: "AZJ", name: "Aurizon", base: 3.8, vol: 1.8, sector: "Rail", s: 539 },
+    { id: "WTC", name: "WiseTech Global", base: 82, vol: 3.2, sector: "Tech", s: 540 }, { id: "CPU", name: "Computershare", base: 27, vol: 2.5, sector: "Fintech", s: 541 },
+    { id: "ORI", name: "Orica", base: 17, vol: 2.0, sector: "Chemicals", s: 542 }, { id: "ILU", name: "Iluka Resources", base: 7.5, vol: 3.5, sector: "Mining", s: 543 },
+    { id: "DRR", name: "Deterra Royalties", base: 4.5, vol: 2.2, sector: "Mining", s: 544 }, { id: "EVN", name: "Evolution Mining", base: 3.8, vol: 4.2, sector: "Gold", s: 545 },
+    { id: "NST", name: "Northern Star", base: 13, vol: 3.8, sector: "Gold", s: 546 }, { id: "NEM", name: "Newmont (ASX)", base: 52, vol: 3.0, sector: "Gold", s: 547 },
+    { id: "ALD", name: "Ampol", base: 32, vol: 2.5, sector: "Energy", s: 548 }, { id: "ORG", name: "Origin Energy", base: 9.5, vol: 2.2, sector: "Energy", s: 549 },
+    { id: "APX", name: "Appen", base: 1.8, vol: 6.0, sector: "AI/Data", s: 550 }, { id: "MP1", name: "Megaport", base: 10, vol: 4.5, sector: "Tech", s: 551 },
+    { id: "SEK", name: "SEEK", base: 24, vol: 2.8, sector: "Tech", s: 552 }, { id: "CAR", name: "CAR Group", base: 35, vol: 2.5, sector: "Tech", s: 553 },
+    { id: "ALX", name: "Atlas Arteria", base: 5.5, vol: 1.5, sector: "Infra", s: 554 }, { id: "TWE", name: "Treasury Wine", base: 12, vol: 2.8, sector: "Consumer", s: 555 },
   ]},
   asiaEquities: { label: "Asia", icon: "🌏", items: [
     { id: "TSM", name: "TSMC", base: 142, vol: 2.8, sector: "Semi", s: 600 }, { id: "BABA", name: "Alibaba", base: 78, vol: 4.5, sector: "Tech", s: 601 },
@@ -939,8 +954,8 @@ const PriceChart = ({ data, w = 600, h = 75, showBB }) => {
       <path d={path} fill="none" stroke={col} strokeWidth="0.5" />
       {s20 && <path d={s20} fill="none" stroke={T.warn} strokeWidth="0.3" strokeDasharray="1.5,1.5" opacity="0.35" />}
       {s50 && <path d={s50} fill="none" stroke={T.acc2} strokeWidth="0.3" strokeDasharray="1.5,1.5" opacity="0.35" />}
-      <text x="2" y="5" fill={T.t4} fontSize="4.5">{mx.toFixed(mx > 100 ? 0 : 2)}</text>
-      <text x="2" y={h - 1} fill={T.t4} fontSize="4.5">{mn.toFixed(mn > 100 ? 0 : 2)}</text>
+      <text x="2" y="5" fill={T.t4} fontSize="5.5">{mx.toFixed(mx > 100 ? 0 : 2)}</text>
+      <text x="2" y={h - 1} fill={T.t4} fontSize="5.5">{mn.toFixed(mn > 100 ? 0 : 2)}</text>
     </svg>
   );
 };
@@ -968,9 +983,9 @@ const RSIChart = ({ data, w = 600, h = 24 }) => {
       <line x1="0" y1={Y(50)} x2={w} y2={Y(50)} stroke="rgba(255,255,255,0.02)" strokeWidth="0.2" />
       <path d={path} fill="none" stroke={col} strokeWidth="0.4" />
       <circle cx={X(rsiData.length - 1)} cy={Y(last)} r="1" fill={col} />
-      <text x={w - 2} y={Y(70) - 0.5} fill="rgba(255,45,85,0.25)" fontSize="4" textAnchor="end">70</text>
-      <text x={w - 2} y={Y(30) + 3.5} fill="rgba(0,232,123,0.25)" fontSize="4" textAnchor="end">30</text>
-      <text x={X(rsiData.length - 1) + 2} y={Y(last) + 1.5} fill={col} fontSize="4.5" fontWeight="700">{last}</text>
+      <text x={w - 2} y={Y(70) - 0.5} fill="rgba(255,45,85,0.25)" fontSize="6" textAnchor="end">70</text>
+      <text x={w - 2} y={Y(30) + 3.5} fill="rgba(0,232,123,0.25)" fontSize="6" textAnchor="end">30</text>
+      <text x={X(rsiData.length - 1) + 2} y={Y(last) + 1.5} fill={col} fontSize="5.5" fontWeight="700">{last}</text>
     </svg>
   );
 };
@@ -1030,10 +1045,10 @@ const HBarChart = ({ items, w = 300, barH = 12 }) => {
         const isPos = item.v >= 0;
         return (
           <g key={i}>
-            <text x={mid - 6} y={y + barH / 2 + 0.5} textAnchor="end" fill={T.t2} fontSize="5" fontWeight="600" dominantBaseline="middle">{item.label}</text>
+            <text x={mid - 6} y={y + barH / 2 + 0.5} textAnchor="end" fill={T.t2} fontSize="6" fontWeight="600" dominantBaseline="middle">{item.label}</text>
             <rect x={isPos ? mid : mid - bw} y={y} width={bw} height={barH} rx="2" fill={isPos ? T.acc : T.danger} opacity="0.15" />
             <rect x={isPos ? mid : mid - bw} y={y} width={bw} height={barH} rx="2" fill="none" stroke={isPos ? T.acc : T.danger} strokeWidth="0.4" opacity="0.4" />
-            <text x={isPos ? mid + bw + 3 : mid - bw - 3} y={y + barH / 2 + 0.5} textAnchor={isPos ? "start" : "end"} fill={isPos ? T.acc : T.danger} fontSize="5" fontWeight="700" dominantBaseline="middle">{isNaN(item.v) ? "—" : `${item.v > 0 ? "+" : ""}${item.v}%`}</text>
+            <text x={isPos ? mid + bw + 3 : mid - bw - 3} y={y + barH / 2 + 0.5} textAnchor={isPos ? "start" : "end"} fill={isPos ? T.acc : T.danger} fontSize="6" fontWeight="700" dominantBaseline="middle">{isNaN(item.v) ? "—" : `${item.v > 0 ? "+" : ""}${item.v}%`}</text>
           </g>
         );
       })}
@@ -1049,13 +1064,13 @@ const CorrHeatmap = ({ matrix, ids, maxCorr }) => {
   const colFor = v => { if (v >= 0.6) return T.acc; if (v >= 0.3) return "rgba(0,232,123,0.5)"; if (v <= -0.6) return T.danger; if (v <= -0.3) return "rgba(255,45,85,0.5)"; return "rgba(255,255,255,0.1)"; };
   return (
     <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", height: "auto", display: "block" }}>
-      {ids.map((a, ai) => <text key={`r${ai}`} x={pad - 3} y={pad + ai * sz + sz / 2 + 1} textAnchor="end" fill={T.t3} fontSize="5" dominantBaseline="middle">{a}</text>)}
-      {ids.map((b, bi) => <text key={`c${bi}`} x={pad + bi * sz + sz / 2} y={pad - 4} textAnchor="middle" fill={T.t3} fontSize="5" transform={`rotate(-45,${pad + bi * sz + sz / 2},${pad - 4})`}>{b}</text>)}
+      {ids.map((a, ai) => <text key={`r${ai}`} x={pad - 3} y={pad + ai * sz + sz / 2 + 1} textAnchor="end" fill={T.t3} fontSize="6" dominantBaseline="middle">{a}</text>)}
+      {ids.map((b, bi) => <text key={`c${bi}`} x={pad + bi * sz + sz / 2} y={pad - 4} textAnchor="middle" fill={T.t3} fontSize="6" transform={`rotate(-45,${pad + bi * sz + sz / 2},${pad - 4})`}>{b}</text>)}
       {ids.map((a, ai) => ids.map((b, bi) => {
         const v = matrix[a]?.[b] || 0; const abs = Math.abs(v);
         return <g key={`${ai}-${bi}`}>
           <rect x={pad + bi * sz} y={pad + ai * sz} width={sz - 1} height={sz - 1} rx="2" fill={a === b ? "rgba(255,255,255,0.03)" : colFor(v)} opacity={a === b ? 1 : Math.max(0.15, abs * 0.7)} stroke={abs > maxCorr && a !== b ? T.danger : "none"} strokeWidth="0.8" />
-          {a !== b && abs > 0.15 && <text x={pad + bi * sz + sz / 2 - 0.5} y={pad + ai * sz + sz / 2 + 1} textAnchor="middle" dominantBaseline="middle" fill={abs > 0.5 ? "#fff" : T.t3} fontSize="4.5" fontWeight={abs > 0.5 ? "700" : "400"}>{v.toFixed(2)}</text>}
+          {a !== b && abs > 0.15 && <text x={pad + bi * sz + sz / 2 - 0.5} y={pad + ai * sz + sz / 2 + 1} textAnchor="middle" dominantBaseline="middle" fill={abs > 0.5 ? "#fff" : T.t3} fontSize="5.5" fontWeight={abs > 0.5 ? "700" : "400"}>{v.toFixed(2)}</text>}
         </g>;
       }))}
     </svg>
@@ -1079,7 +1094,7 @@ const CycleGauge = ({ pos, size = 180 }) => {
       <circle cx={p.x} cy={p.y} r="5" fill={T.warn} stroke={T.bg} strokeWidth="2" />
       <text x={cx} y={cy - 6} textAnchor="middle" fill={T.t1} fontSize="16" fontWeight="800">{pos}</text>
       <text x={cx} y={cy + 7} textAnchor="middle" fill={T.t3} fontSize="6">/100</text>
-      {labels.map((lb, i) => { const lp = arcPt(lb.a); const ox = (lp.x - cx) * 0.2, oy = (lp.y - cy) * 0.2; return <text key={i} x={lp.x + ox} y={lp.y + oy} textAnchor="middle" fill={T.t4} fontSize="5">{lb.t}</text>; })}
+      {labels.map((lb, i) => { const lp = arcPt(lb.a); const ox = (lp.x - cx) * 0.2, oy = (lp.y - cy) * 0.2; return <text key={i} x={lp.x + ox} y={lp.y + oy} textAnchor="middle" fill={T.t4} fontSize="6">{lb.t}</text>; })}
     </svg>
   );
 };
@@ -1115,7 +1130,7 @@ const Gauge = ({ value, label, size = 64 }) => {
         {pct > 0.01 && <path d={`M${cx - r},${cy} A${r},${r} 0 ${a > 180 ? 1 : 0} 1 ${ex},${ey}`} fill="none" stroke={col} strokeWidth="3.5" strokeLinecap="round" />}
         <text x={cx} y={cy - 1} textAnchor="middle" fill={col} fontSize="11" fontWeight="800">{value}</text>
       </svg>
-      <div style={{ fontSize: 8, color: T.t3, letterSpacing: 0.6, marginTop: -1 }}>{label}</div>
+      <div style={{ fontSize: 12, color: T.t3, letterSpacing: 0.6, marginTop: -1 }}>{label}</div>
     </div>
   );
 };
@@ -1861,7 +1876,7 @@ RULES:
         .stat-card{background:${T.s1};border:1px solid ${T.bd};border-radius:8px;padding:10px 12px}
         .stat-val{font-size:16px;font-weight:800}
         .stat-sub{font-size:8px;color:${T.t3};margin-top:2px}
-        .row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid ${T.bd}}.row:last-child{border-bottom:none}
+        .row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid ${T.bd}}.row:last-child{border-bottom:none}
         .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
         .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
         .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
@@ -1921,17 +1936,17 @@ RULES:
           <div style={{ display: "flex", gap: 3, marginBottom: 16 }}>
             {WIZARD_STEPS.map((_, i) => <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: i <= wizStep ? T.acc : "rgba(255,255,255,.06)", transition: ".3s" }} />)}
           </div>
-          <div style={{ fontSize: 8, color: T.t4, letterSpacing: 1.5, marginBottom: 4 }}>STEP {wizStep + 1} OF {WIZARD_STEPS.length}</div>
+          <div style={{ fontSize: 12, color: T.t4, letterSpacing: 1.5, marginBottom: 4 }}>STEP {wizStep + 1} OF {WIZARD_STEPS.length}</div>
           <div style={{ fontSize: 16, fontWeight: 800, color: T.t1, marginBottom: 6 }}>{WIZARD_STEPS[wizStep].title}</div>
-          <div style={{ fontSize: 10, color: T.t2, lineHeight: 1.5, marginBottom: 16 }}>{WIZARD_STEPS[wizStep].desc}</div>
+          <div style={{ fontSize: 12, color: T.t2, lineHeight: 1.5, marginBottom: 16 }}>{WIZARD_STEPS[wizStep].desc}</div>
 
           {/* Step 0: Welcome */}
           {wizStep === 0 && <div>
             <div style={{ background: T.s2, borderRadius: 8, padding: 14, marginBottom: 12 }}>
-              <div style={{ fontSize: 10, color: T.acc, fontWeight: 700, marginBottom: 8 }}>This wizard will:</div>
-              {["Configure your investor profile & risk parameters", "Test connections to free market data APIs", "Set up asset tracking across crypto, commodities, equities & prediction markets", "Activate Dalio's 8 principle scoring engine", "Enable Holy Grail diversification tracking (15 uncorrelated streams)", "Configure circuit breaker & drawdown protection"].map((t, i) => <div key={i} style={{ fontSize: 9, color: T.t2, padding: "3px 0", display: "flex", gap: 6 }}><span style={{ color: T.acc }}>✓</span>{t}</div>)}
+              <div style={{ fontSize: 12, color: T.acc, fontWeight: 700, marginBottom: 8 }}>This wizard will:</div>
+              {["Configure your investor profile & risk parameters", "Test connections to free market data APIs", "Set up asset tracking across crypto, commodities, equities & prediction markets", "Activate Dalio's 8 principle scoring engine", "Enable Holy Grail diversification tracking (15 uncorrelated streams)", "Configure circuit breaker & drawdown protection"].map((t, i) => <div key={i} style={{ fontSize: 12, color: T.t2, padding: "3px 0", display: "flex", gap: 6 }}><span style={{ color: T.acc }}>✓</span>{t}</div>)}
             </div>
-            <div style={{ fontSize: 9, color: T.t3, padding: 8, background: "rgba(123,97,255,.06)", borderRadius: 6, border: `1px solid rgba(123,97,255,.12)` }}>
+            <div style={{ fontSize: 12, color: T.t3, padding: 8, background: "rgba(123,97,255,.06)", borderRadius: 6, border: `1px solid rgba(123,97,255,.12)` }}>
               <b style={{ color: T.purple }}>No API keys required.</b> All data sources are free public endpoints (CoinGecko, Alternative.me Fear & Greed, CoinCap). If any fail due to CORS, the system falls back to high-fidelity simulation.
             </div>
           </div>}
@@ -1943,8 +1958,8 @@ RULES:
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {[{ k: "beginner", l: "Beginner", d: "New to trading. Conservative defaults." }, { k: "intermediate", l: "Intermediate", d: "Some experience. Balanced risk." }, { k: "advanced", l: "Advanced", d: "Experienced. Higher risk tolerance." }].map(o => (
                   <div key={o.k} onClick={() => setWizProfile(p => ({ ...p, experience: o.k }))} style={{ flex: "1 1 120px", padding: 10, borderRadius: 6, cursor: "pointer", background: wizProfile.experience === o.k ? "rgba(0,232,123,.08)" : T.s2, border: `1px solid ${wizProfile.experience === o.k ? "rgba(0,232,123,.25)" : T.bd}`, transition: ".15s" }}>
-                    <div style={{ fontWeight: 700, fontSize: 11, color: wizProfile.experience === o.k ? T.acc : T.t1 }}>{o.l}</div>
-                    <div style={{ fontSize: 8, color: T.t3, marginTop: 2 }}>{o.d}</div>
+                    <div style={{ fontWeight: 700, fontSize: 12, color: wizProfile.experience === o.k ? T.acc : T.t1 }}>{o.l}</div>
+                    <div style={{ fontSize: 12, color: T.t3, marginTop: 2 }}>{o.d}</div>
                   </div>
                 ))}
               </div>
@@ -1954,8 +1969,8 @@ RULES:
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {[{ k: "conservative", l: "Preserve Capital", d: "Low drawdown, stable returns." }, { k: "balanced", l: "Balanced Growth", d: "Moderate risk for growth." }, { k: "aggressive", l: "Max Returns", d: "Higher risk accepted." }].map(o => (
                   <div key={o.k} onClick={() => setWizProfile(p => ({ ...p, goal: o.k }))} style={{ flex: "1 1 120px", padding: 10, borderRadius: 6, cursor: "pointer", background: wizProfile.goal === o.k ? "rgba(0,232,123,.08)" : T.s2, border: `1px solid ${wizProfile.goal === o.k ? "rgba(0,232,123,.25)" : T.bd}`, transition: ".15s" }}>
-                    <div style={{ fontWeight: 700, fontSize: 11, color: wizProfile.goal === o.k ? T.acc : T.t1 }}>{o.l}</div>
-                    <div style={{ fontSize: 8, color: T.t3, marginTop: 2 }}>{o.d}</div>
+                    <div style={{ fontWeight: 700, fontSize: 12, color: wizProfile.goal === o.k ? T.acc : T.t1 }}>{o.l}</div>
+                    <div style={{ fontSize: 12, color: T.t3, marginTop: 2 }}>{o.d}</div>
                   </div>
                 ))}
               </div>
@@ -1965,8 +1980,8 @@ RULES:
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {[{ k: "short", l: "Short-Term", d: "Days to weeks." }, { k: "medium", l: "Medium-Term", d: "Weeks to months." }, { k: "long", l: "Long-Term", d: "Months to years." }].map(o => (
                   <div key={o.k} onClick={() => setWizProfile(p => ({ ...p, horizon: o.k }))} style={{ flex: "1 1 120px", padding: 10, borderRadius: 6, cursor: "pointer", background: wizProfile.horizon === o.k ? "rgba(0,232,123,.08)" : T.s2, border: `1px solid ${wizProfile.horizon === o.k ? "rgba(0,232,123,.25)" : T.bd}`, transition: ".15s" }}>
-                    <div style={{ fontWeight: 700, fontSize: 11, color: wizProfile.horizon === o.k ? T.acc : T.t1 }}>{o.l}</div>
-                    <div style={{ fontSize: 8, color: T.t3, marginTop: 2 }}>{o.d}</div>
+                    <div style={{ fontWeight: 700, fontSize: 12, color: wizProfile.horizon === o.k ? T.acc : T.t1 }}>{o.l}</div>
+                    <div style={{ fontSize: 12, color: T.t3, marginTop: 2 }}>{o.d}</div>
                   </div>
                 ))}
               </div>
@@ -1978,11 +1993,11 @@ RULES:
             {[{ k: "portfolio", l: "Portfolio Size ($)", desc: "Total capital to allocate" }, { k: "maxRisk", l: "Max Risk Per Trade (%)", desc: "Dalio: never risk what you can't lose" }, { k: "drawdownHalt", l: "Circuit Breaker (%)", desc: "Halt all trading if drawdown exceeds this" }, { k: "maxPos", l: "Max Open Positions", desc: "Limits concentration risk" }].map(({ k, l, desc }) => (
               <div key={k} style={{ marginBottom: 12 }}>
                 <div className="label">{l}</div>
-                <div style={{ fontSize: 8, color: T.t4, marginBottom: 4 }}>{desc}</div>
+                <div style={{ fontSize: 12, color: T.t4, marginBottom: 4 }}>{desc}</div>
                 <input type="number" className="ci" value={cfg[k]} onChange={e => setCfg(c => ({ ...c, [k]: +e.target.value }))} />
               </div>
             ))}
-            <div style={{ padding: 10, borderRadius: 6, background: "rgba(245,166,35,.06)", border: `1px solid rgba(245,166,35,.12)`, fontSize: 9, color: T.warn }}>
+            <div style={{ padding: 10, borderRadius: 6, background: "rgba(245,166,35,.06)", border: `1px solid rgba(245,166,35,.12)`, fontSize: 12, color: T.warn }}>
               <b>Dalio's Rule:</b> "Don't have debt rise faster than income, and don't have income rise faster than productivity." These limits protect you from the #1 cause of ruin — overleveraging.
             </div>
           </div>}
@@ -1997,9 +2012,9 @@ RULES:
               ].map(api => (
                 <div key={api.key} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: `1px solid ${T.bd}` }}>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: 11 }}><span style={{ marginRight: 4 }}>{api.icon}</span>{api.name}</div>
-                    <div style={{ fontSize: 8, color: T.t4 }}>{api.url}</div>
-                    <div style={{ fontSize: 8, color: T.t3, marginTop: 1 }}>{api.desc}</div>
+                    <div style={{ fontWeight: 700, fontSize: 12 }}><span style={{ marginRight: 4 }}>{api.icon}</span>{api.name}</div>
+                    <div style={{ fontSize: 12, color: T.t4 }}>{api.url}</div>
+                    <div style={{ fontSize: 12, color: T.t3, marginTop: 1 }}>{api.desc}</div>
                   </div>
                   <div style={{ textAlign: "right", flexShrink: 0, marginLeft: 8 }}>
                     {wizChecks[api.key] === null && <Pill c={T.t3}>PENDING</Pill>}
@@ -2012,7 +2027,7 @@ RULES:
               ))}
             </div>
             <Btn v="purple" full onClick={runWizardChecks}>⚡ TEST ALL CONNECTIONS</Btn>
-            <div style={{ fontSize: 8, color: T.t4, marginTop: 8, textAlign: "center" }}>
+            <div style={{ fontSize: 12, color: T.t4, marginTop: 8, textAlign: "center" }}>
               If any connection fails, the system uses high-fidelity simulation with live-like price movements. No functionality is lost.
             </div>
           </div>}
@@ -2022,7 +2037,7 @@ RULES:
           {wizStep === 4 && <div>
             <div style={{ marginBottom: 12 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <div><div style={{ fontWeight: 700, fontSize: 12 }}>AI Trade Analyst</div><div style={{ fontSize: 8, color: T.t3 }}>Reviews every trade against Dalio's 8 principles</div></div>
+                <div><div style={{ fontWeight: 700, fontSize: 12 }}>AI Trade Analyst</div><div style={{ fontSize: 12, color: T.t3 }}>Reviews every trade against Dalio's 8 principles</div></div>
                 <div className="tg" onClick={() => setAiEnabled(!aiEnabled)} style={{ padding: 0 }}><div className="tt" style={{ background: aiEnabled ? T.acc : "rgba(255,255,255,.08)" }}><div className="th" style={{ left: aiEnabled ? 15 : 2 }} /></div></div>
               </div>
             </div>
@@ -2032,8 +2047,8 @@ RULES:
                 {Object.entries(AI_PROVIDERS).map(([k, p]) => (
                   <div key={k} onClick={() => setAiProvider(k)} style={{ padding: "8px 10px", borderRadius: 6, cursor: "pointer", background: aiProvider === k ? `${p.color}10` : T.s2, border: `1px solid ${aiProvider === k ? `${p.color}35` : T.bd}`, display: "flex", justifyContent: "space-between", alignItems: "center", transition: ".15s" }}>
                     <div>
-                      <div style={{ fontWeight: 700, fontSize: 10, color: aiProvider === k ? p.color : T.t1 }}>{p.name}</div>
-                      <div style={{ fontSize: 8, color: T.t4 }}>{p.desc}</div>
+                      <div style={{ fontWeight: 700, fontSize: 12, color: aiProvider === k ? p.color : T.t1 }}>{p.name}</div>
+                      <div style={{ fontSize: 12, color: T.t4 }}>{p.desc}</div>
                     </div>
                     <div style={{ display: "flex", gap: 4, alignItems: "center", flexShrink: 0 }}>
                       {!p.keyNeeded && <Pill c={T.acc} bg="rgba(0,232,123,.08)">NO KEY</Pill>}
@@ -2059,7 +2074,7 @@ RULES:
               {aiProvider === "ollama" && <div style={{ marginBottom: 12 }}><div className="label">OLLAMA URL</div><input className="ci" placeholder="http://localhost:11434" value={aiConfig.ollamaUrl} onChange={e => setAiConfig(p => ({ ...p, ollamaUrl: e.target.value }))} /></div>}
               <div className="tg" onClick={() => setAiAutoRun(!aiAutoRun)} style={{ marginBottom: 8 }}>
                 <div className="tt" style={{ background: aiAutoRun ? T.purple : "rgba(255,255,255,.08)" }}><div className="th" style={{ left: aiAutoRun ? 15 : 2 }} /></div>
-                <div><span style={{ fontSize: 10, color: aiAutoRun ? T.purple : T.t2 }}>Auto-analyze on new signals</span><div style={{ fontSize: 8, color: T.t4 }}>Runs automatically when recommendations change</div></div>
+                <div><span style={{ fontSize: 12, color: aiAutoRun ? T.purple : T.t2 }}>Auto-analyze on new signals</span><div style={{ fontSize: 12, color: T.t4 }}>Runs automatically when recommendations change</div></div>
               </div>
             </>}
           </div>}
@@ -2068,18 +2083,18 @@ RULES:
           {wizStep === 5 && <div>
             {Object.entries(ASSETS).map(([key, cat]) => (
               <div key={key} style={{ marginBottom: 10 }}>
-                <div style={{ fontWeight: 700, fontSize: 11, color: T.acc, marginBottom: 6 }}>{cat.icon} {cat.label}</div>
+                <div style={{ fontWeight: 700, fontSize: 12, color: T.acc, marginBottom: 6 }}>{cat.icon} {cat.label}</div>
                 <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
                   {cat.items.map(a => {
                     const inWatch = watch.includes(a.id);
-                    return <div key={a.id} onClick={() => setWatch(w => inWatch ? w.filter(x => x !== a.id) : [...w, a.id])} style={{ padding: "6px 10px", borderRadius: 5, cursor: "pointer", background: inWatch ? "rgba(0,232,123,.08)" : T.s2, border: `1px solid ${inWatch ? "rgba(0,232,123,.25)" : T.bd}`, fontSize: 10, fontWeight: 600, color: inWatch ? T.acc : T.t2, transition: ".15s" }}>
-                      {inWatch ? "✓ " : ""}{a.id} <span style={{ fontSize: 8, color: T.t4, fontWeight: 400 }}>{a.name}</span>
+                    return <div key={a.id} onClick={() => setWatch(w => inWatch ? w.filter(x => x !== a.id) : [...w, a.id])} style={{ padding: "6px 10px", borderRadius: 5, cursor: "pointer", background: inWatch ? "rgba(0,232,123,.08)" : T.s2, border: `1px solid ${inWatch ? "rgba(0,232,123,.25)" : T.bd}`, fontSize: 12, fontWeight: 600, color: inWatch ? T.acc : T.t2, transition: ".15s" }}>
+                      {inWatch ? "✓ " : ""}{a.id} <span style={{ fontSize: 12, color: T.t4, fontWeight: 400 }}>{a.name}</span>
                     </div>;
                   })}
                 </div>
               </div>
             ))}
-            <div style={{ padding: 8, borderRadius: 6, background: "rgba(0,232,123,.05)", border: `1px solid rgba(0,232,123,.12)`, fontSize: 9, color: T.acc, marginTop: 6 }}>
+            <div style={{ padding: 8, borderRadius: 6, background: "rgba(0,232,123,.05)", border: `1px solid rgba(0,232,123,.12)`, fontSize: 12, color: T.acc, marginTop: 6 }}>
               <b>Holy Grail Target:</b> {watch.length} assets selected. Dalio recommends 15+ uncorrelated streams for 80% risk reduction. Select across ALL categories for maximum diversification.
             </div>
           </div>}
@@ -2088,7 +2103,7 @@ RULES:
           {wizStep === 6 && <div>
             <div style={{ textAlign: "center", padding: "12px 0" }}>
               <div style={{ fontSize: 14, fontWeight: 800, color: T.acc, marginBottom: 4 }}>SETUP COMPLETE</div>
-              <div style={{ fontSize: 10, color: T.t2, marginBottom: 16 }}>All systems configured. Dalio's principles are active.</div>
+              <div style={{ fontSize: 12, color: T.t2, marginBottom: 16 }}>All systems configured. Dalio's principles are active.</div>
             </div>
             <div style={{ background: T.s2, borderRadius: 8, padding: 12, marginBottom: 12 }}>
               {[
@@ -2100,7 +2115,7 @@ RULES:
                 { l: "APIs", v: `CG: ${wizChecks.coingecko === "ok" ? "✓" : "—"} FG: ${wizChecks.feargreed === "ok" ? "✓" : "—"} CC: ${wizChecks.coincap === "ok" ? "✓" : "—"}` },
                 { l: "AI Analyst", v: aiEnabled ? `${AI_PROVIDERS[aiProvider]?.name} ✓` : "Disabled" },
                 { l: "Dalio Engine", v: "8 principles active" },
-              ].map((r, i) => <div key={i} className="row" style={{ fontSize: 10 }}><span style={{ color: T.t3 }}>{r.l}</span><span style={{ fontWeight: 600 }}>{r.v}</span></div>)}
+              ].map((r, i) => <div key={i} className="row" style={{ fontSize: 12 }}><span style={{ color: T.t3 }}>{r.l}</span><span style={{ fontWeight: 600 }}>{r.v}</span></div>)}
             </div>
           </div>}
 
@@ -2109,15 +2124,15 @@ RULES:
             {wizStep > 0 ? <Btn v="ghost" onClick={() => setWizStep(s => s - 1)}>← Back</Btn> : <div />}
             {wizStep < WIZARD_STEPS.length - 1 ? <Btn onClick={() => setWizStep(s => s + 1)}>Next →</Btn> : <Btn onClick={() => setWizardOpen(false)}>Launch Dashboard →</Btn>}
           </div>
-          {wizStep > 0 && <div style={{ textAlign: "center", marginTop: 8 }}><span onClick={() => setWizardOpen(false)} style={{ fontSize: 8, color: T.t4, cursor: "pointer" }}>Skip wizard</span></div>}
+          {wizStep > 0 && <div style={{ textAlign: "center", marginTop: 8 }}><span onClick={() => setWizardOpen(false)} style={{ fontSize: 12, color: T.t4, cursor: "pointer" }}>Skip wizard</span></div>}
         </div>
       </div>}
 
       {cfgOpen && <div style={{ background: T.s1, borderBottom: `1px solid ${T.bd}`, padding: "12px 14px" }}>
-        <div style={{ fontSize: 9, fontWeight: 800, color: T.acc, letterSpacing: 1.2, marginBottom: 8, paddingBottom: 6, borderBottom: `1px solid ${T.bd}` }}>CONFIG</div>
+        <div style={{ fontSize: 12, fontWeight: 800, color: T.acc, letterSpacing: 1.2, marginBottom: 8, paddingBottom: 6, borderBottom: `1px solid ${T.bd}` }}>CONFIG</div>
         <div className="cfg-grid">
           {[{ k: "portfolio", l: "Portfolio ($)" }, { k: "maxRisk", l: "Risk (%)" }, { k: "stopPct", l: "Flat SL (%)" }, { k: "atrMult", l: "ATR Mult" }, { k: "rr", l: "R:R" }, { k: "maxPos", l: "Max Pos" }, { k: "maxCorr", l: "Max Corr" }, { k: "trailPct", l: "Trail (%)" }, { k: "timeStop", l: "Time (d)" }, { k: "drawdownHalt", l: "Halt (%)" }].map(({ k, l }) => <div key={k}><div className="label">{l}</div><input type="number" className="ci" value={cfg[k]} onChange={e => setCfg(c => ({ ...c, [k]: +e.target.value }))} /></div>)}
-          {[{ k: "dalio", l: "Dalio" }, { k: "useAtr", l: "ATR" }, { k: "shorts", l: "Shorts" }, { k: "trail", l: "Trail" }].map(({ k, l }) => <div key={k} className="tg" onClick={() => setCfg(c => ({ ...c, [k]: !c[k] }))}><div className="tt" style={{ background: cfg[k] ? T.acc : "rgba(255,255,255,.08)" }}><div className="th" style={{ left: cfg[k] ? 15 : 2 }} /></div><span style={{ fontSize: 9, color: T.t2 }}>{l}</span></div>)}
+          {[{ k: "dalio", l: "Dalio" }, { k: "useAtr", l: "ATR" }, { k: "shorts", l: "Shorts" }, { k: "trail", l: "Trail" }].map(({ k, l }) => <div key={k} className="tg" onClick={() => setCfg(c => ({ ...c, [k]: !c[k] }))}><div className="tt" style={{ background: cfg[k] ? T.acc : "rgba(255,255,255,.08)" }}><div className="th" style={{ left: cfg[k] ? 15 : 2 }} /></div><span style={{ fontSize: 12, color: T.t2 }}>{l}</span></div>)}
         </div>
       </div>}
 
@@ -2127,15 +2142,15 @@ RULES:
       <div className="layout">
         <div className={`sidebar ${sideOpen ? "open" : ""}`}>
           {sideOpen && <div style={{ padding: "10px 14px 4px", textAlign: "center" }}><div style={{ width: 40, height: 4, borderRadius: 2, background: "rgba(255,255,255,.15)", margin: "0 auto 6px" }} /></div>}
-          <div className="cg">{Object.entries(ASSETS).map(([k, v]) => <div key={k} className={`cb ${cat === k ? "on" : ""}`} onClick={() => { setCat(k); setSel(null); }}><div style={{ fontSize: 11 }}>{v.icon}</div>{v.label}</div>)}</div>
+          <div className="cg">{Object.entries(ASSETS).map(([k, v]) => <div key={k} className={`cb ${cat === k ? "on" : ""}`} onClick={() => { setCat(k); setSel(null); }}><div style={{ fontSize: 12 }}>{v.icon}</div>{v.label}</div>)}</div>
           <div style={{ flex: 1, overflow: "auto", padding: "0 6px 6px" }}>
             {items.map(a => { const d = anl[a.id]; if (!d) return null; return (
               <div key={a.id} className={`si ${sel === a.id ? "on" : ""}`} onClick={() => { setSel(a.id); setTab("analysis"); setSideOpen(false); }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 4, minWidth: 0 }}>{watch.includes(a.id) && <span style={{ color: T.warn, fontSize: 9 }}>★</span>}<span style={{ fontWeight: 700, fontSize: 11 }}>{a.id}</span><span style={{ fontSize: 8, color: T.t4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.name}</span></div>
-                  <div style={{ textAlign: "right", flexShrink: 0 }}><div style={{ fontWeight: 600, fontSize: 11 }}>${d.price.toLocaleString()}</div><div style={{ fontSize: 9, color: d.dR >= 0 ? T.acc : T.danger, fontWeight: 700 }}>{d.dR >= 0 ? "+" : ""}{d.dR}%</div></div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 4, minWidth: 0 }}>{watch.includes(a.id) && <span style={{ color: T.warn, fontSize: 12 }}>★</span>}<span style={{ fontWeight: 700, fontSize: 12 }}>{a.id}</span><span style={{ fontSize: 12, color: T.t4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.name}</span></div>
+                  <div style={{ textAlign: "right", flexShrink: 0 }}><div style={{ fontWeight: 600, fontSize: 12 }}>${d.price.toLocaleString()}</div><div style={{ fontSize: 12, color: d.dR >= 0 ? T.acc : T.danger, fontWeight: 700 }}>{d.dR >= 0 ? "+" : ""}{d.dR}%</div></div>
                 </div>
-                <div style={{ marginTop: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}><div style={{ display: "flex", gap: 3 }}><RecPill r={d.rec} />{d.short && cfg.shorts && <Pill c={T.purple} bg="rgba(123,97,255,.1)">SHORT</Pill>}</div><span style={{ fontSize: 8, color: T.t4 }}>D:{d.dalio.comp}</span></div>
+                <div style={{ marginTop: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}><div style={{ display: "flex", gap: 3 }}><RecPill r={d.rec} />{d.short && cfg.shorts && <Pill c={T.purple} bg="rgba(123,97,255,.1)">SHORT</Pill>}</div><span style={{ fontSize: 12, color: T.t4 }}>D:{d.dalio.comp}</span></div>
                 {pd[a.id] && <div style={{ marginTop: 3 }}><Spark data={pd[a.id].slice(-25)} w={220} h={28} /></div>}
               </div>
             ); })}
@@ -2149,14 +2164,14 @@ RULES:
             {tab === "overview" && <div>
               {/* DALIO ADVISORY */}
               {(advisory.msgs.length > 0 || advisory.actions.length > 0) && <div className="card" style={{ marginBottom: 12, borderColor: advisory.msgs[0]?.type === "DANGER" ? "rgba(255,45,85,.2)" : advisory.msgs[0]?.type === "WARN" ? "rgba(245,166,35,.15)" : T.bd }}>
-                <div className="label" style={{ color: T.warn, fontSize: 9 }}>◉ DALIO ADVISORY</div>
+                <div className="label" style={{ color: T.warn, fontSize: 12 }}>◉ DALIO ADVISORY</div>
                 {advisory.msgs.map((a, i) => <div key={`m${i}`} style={{ padding: "4px 0", borderBottom: `1px solid ${T.bd}`, display: "flex", gap: 6, alignItems: "flex-start" }}>
                   <Pill c={a.type === "DANGER" ? T.danger : a.type === "WARN" ? T.warn : a.type === "OPPORTUNITY" ? T.acc : T.acc2} bg={a.type === "DANGER" ? "rgba(255,45,85,.12)" : a.type === "WARN" ? "rgba(245,166,35,.1)" : a.type === "OPPORTUNITY" ? "rgba(0,232,123,.1)" : "rgba(0,201,255,.08)"}>{a.type}</Pill>
-                  <span style={{ fontSize: 9, color: T.t2, lineHeight: 1.4 }}>{a.msg}</span>
+                  <span style={{ fontSize: 12, color: T.t2, lineHeight: 1.4 }}>{a.msg}</span>
                 </div>)}
 
                 {advisory.actions.length > 0 && <>
-                  <div style={{ fontSize: 8, fontWeight: 800, color: T.acc, letterSpacing: 1.2, marginTop: 10, marginBottom: 6, paddingTop: 8, borderTop: `1px solid ${T.bd}` }}>RECOMMENDED ACTIONS</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: T.acc, letterSpacing: 1.2, marginTop: 10, marginBottom: 6, paddingTop: 8, borderTop: `1px solid ${T.bd}` }}>RECOMMENDED ACTIONS</div>
                   {advisory.actions.map((a, i) => {
                     const assetCat = Object.entries(ASSETS).find(([_, c]) => c.items.find(x => x.id === a.asset));
                     const catLabel = assetCat ? assetCat[1].label : "";
@@ -2168,30 +2183,30 @@ RULES:
                         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                           <Pill c={a.color} bg={`${a.color}18`}>{a.action}</Pill>
                           <div>
-                            <div style={{ fontSize: 8, color: T.t4, fontWeight: 600, letterSpacing: 0.5, lineHeight: 1 }}>{catIcon} {catLabel}{assetInfo ? ` · ${assetInfo.sector}` : ""}</div>
+                            <div style={{ fontSize: 12, color: T.t4, fontWeight: 600, letterSpacing: 0.5, lineHeight: 1 }}>{catIcon} {catLabel}{assetInfo ? ` · ${assetInfo.sector}` : ""}</div>
                             <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
                               <span style={{ fontWeight: 800, fontSize: 12, color: T.t1 }}>{a.asset}</span>
-                              {assetInfo && <span style={{ fontSize: 8, color: T.t3 }}>{assetInfo.name}</span>}
+                              {assetInfo && <span style={{ fontSize: 12, color: T.t3 }}>{assetInfo.name}</span>}
                             </div>
                           </div>
                           <Pill c={a.urgency === "HIGH" ? T.danger : a.urgency === "MEDIUM" ? T.warn : T.t3} bg={a.urgency === "HIGH" ? "rgba(255,45,85,.1)" : a.urgency === "MEDIUM" ? "rgba(245,166,35,.08)" : "rgba(255,255,255,.04)"}>{a.urgency}</Pill>
                         </div>
-                        {a.size && <div style={{ display: "flex", gap: 8, fontSize: 9 }}>
+                        {a.size && <div style={{ display: "flex", gap: 8, fontSize: 12 }}>
                           <span style={{ color: T.t2 }}>Size: <b>{a.size}</b></span>
                           {a.stop && <span style={{ color: T.danger }}>SL: {a.stop}</span>}
                           {a.tp && <span style={{ color: T.acc }}>TP: {a.tp}</span>}
                         </div>}
                       </div>
-                      <div style={{ fontSize: 9, color: T.t3, lineHeight: 1.4 }}>{a.reason}</div>
+                      <div style={{ fontSize: 12, color: T.t3, lineHeight: 1.4 }}>{a.reason}</div>
                       {/* Prediction */}
                       {a.pred && <div style={{ marginTop: 6, padding: "6px 8px", borderRadius: 5, background: `${a.pred.pct >= 0 ? "rgba(0,232,123,.06)" : "rgba(255,45,85,.06)"}`, border: `1px solid ${a.pred.pct >= 0 ? "rgba(0,232,123,.12)" : "rgba(255,45,85,.12)"}` }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 4 }}>
                           <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
                             <span style={{ fontSize: 16, fontWeight: 800, color: a.pred.pct >= 0 ? T.acc : T.danger }}>{a.pred.pct >= 0 ? "+" : ""}{a.pred.pct}%</span>
-                            <span style={{ fontSize: 9, color: T.t3 }}>predicted gain</span>
-                            {a.pred.dollar !== 0 && <span style={{ fontSize: 10, fontWeight: 700, color: a.pred.pct >= 0 ? T.acc : T.danger }}>({a.pred.dollar >= 0 ? "+" : ""}${a.pred.dollar.toLocaleString()})</span>}
+                            <span style={{ fontSize: 12, color: T.t3 }}>predicted gain</span>
+                            {a.pred.dollar !== 0 && <span style={{ fontSize: 12, fontWeight: 700, color: a.pred.pct >= 0 ? T.acc : T.danger }}>({a.pred.dollar >= 0 ? "+" : ""}${a.pred.dollar.toLocaleString()})</span>}
                           </div>
-                          <div style={{ display: "flex", gap: 6, fontSize: 8, color: T.t4 }}>
+                          <div style={{ display: "flex", gap: 6, fontSize: 12, color: T.t4 }}>
                             <span>Win: {a.pred.winProb}%</span>
                             <span>EV: {a.pred.ev > 0 ? "+" : ""}{a.pred.ev}%</span>
                             <span>Range: {a.pred.low}% to +{a.pred.high}%</span>
@@ -2203,7 +2218,7 @@ RULES:
                           <div style={{ position: "absolute", left: `${Math.max(0, Math.min(100, 50 + a.pred.low * 2))}%`, right: `${Math.max(0, Math.min(100, 50 - a.pred.high * 2))}%`, top: 1, height: 4, borderRadius: 2, background: a.pred.pct >= 0 ? "rgba(0,232,123,.2)" : "rgba(255,45,85,.2)" }} />
                           <div style={{ position: "absolute", left: `${Math.max(2, Math.min(98, 50 + a.pred.pct * 2))}%`, top: 0, width: 4, height: 6, borderRadius: 2, background: a.pred.pct >= 0 ? T.acc : T.danger, transform: "translateX(-2px)" }} />
                         </div>
-                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 8, color: T.t4, marginTop: 2 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: T.t4, marginTop: 2 }}>
                           <span>Downside</span>
                           <span>Pat:{a.pred.patBoost > 0 ? "+" : ""}{a.pred.patBoost} Mom:{a.pred.momFactor > 0 ? "+" : ""}{a.pred.momFactor} Conf:{a.pred.confBoost > 0 ? "+" : ""}{a.pred.confBoost}</span>
                           <span>Upside</span>
@@ -2212,14 +2227,14 @@ RULES:
                         {a.pred.holdTimer && <div style={{ marginTop: 6, padding: "6px 8px", borderRadius: 5, background: "rgba(255,255,255,.02)", border: `1px solid ${T.bd}` }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 4, marginBottom: 4 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                              <span style={{ fontSize: 9, color: T.t3 }}>⏱ ESTIMATED HOLD</span>
+                              <span style={{ fontSize: 12, color: T.t3 }}>⏱ ESTIMATED HOLD</span>
                               <span style={{ fontSize: 16, fontWeight: 800, color: a.pred.holdTimer.color }}>{a.pred.holdTimer.days}d</span>
-                              <span style={{ fontSize: 9, color: T.t4 }}>({a.pred.holdTimer.hours}h)</span>
+                              <span style={{ fontSize: 12, color: T.t4 }}>({a.pred.holdTimer.hours}h)</span>
                               <Pill c={a.pred.holdTimer.color} bg={`${a.pred.holdTimer.color}15`}>{a.pred.holdTimer.label}</Pill>
                             </div>
                             <div style={{ textAlign: "right" }}>
-                              <div style={{ fontSize: 9, fontWeight: 700, color: T.t2 }}>Sell by: {a.pred.holdTimer.sellDate}</div>
-                              <div style={{ fontSize: 8, color: T.t4 }}>{a.pred.holdTimer.sellTime}</div>
+                              <div style={{ fontSize: 12, fontWeight: 700, color: T.t2 }}>Sell by: {a.pred.holdTimer.sellDate}</div>
+                              <div style={{ fontSize: 12, color: T.t4 }}>{a.pred.holdTimer.sellTime}</div>
                             </div>
                           </div>
                           {/* Phase timeline bar */}
@@ -2228,13 +2243,13 @@ RULES:
                             <div style={{ flex: 1, background: a.pred.holdTimer.color, opacity: 0.3 }} title="Hold phase" />
                             <div style={{ width: `${(a.pred.holdTimer.exitDays / a.pred.holdTimer.days) * 100}%`, background: T.warn, borderRadius: "0 4px 4px 0", minWidth: 4 }} title="Exit window" />
                           </div>
-                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 8, color: T.t4 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: T.t4 }}>
                             <span style={{ color: T.acc2 }}>Entry {a.pred.holdTimer.entryDays}d</span>
                             <span>Hold {a.pred.holdTimer.holdDays}d</span>
                             <span style={{ color: T.warn }}>Exit {a.pred.holdTimer.exitDays}d</span>
                           </div>
                           {/* Timer factors */}
-                          <div style={{ display: "flex", gap: 6, marginTop: 4, fontSize: 8, color: T.t4, flexWrap: "wrap" }}>
+                          <div style={{ display: "flex", gap: 6, marginTop: 4, fontSize: 12, color: T.t4, flexWrap: "wrap" }}>
                             <span>Base: {a.pred.holdTimer.factors.base}d</span>
                             <span>Mom: ×{a.pred.holdTimer.factors.momentum}</span>
                             <span>Conf: ×{a.pred.holdTimer.factors.confluence}</span>
@@ -2278,7 +2293,7 @@ RULES:
                             </svg>
                             <div style={{ display: "flex", gap: 0 }}>
                               {projPts.map((pr, i) => (
-                                <div key={i} style={{ flex: 1, textAlign: "center", padding: "0px 1px", fontSize: 8 }}>
+                                <div key={i} style={{ flex: 1, textAlign: "center", padding: "0px 1px", fontSize: 12 }}>
                                   <span style={{ color: T.t4, fontSize: 4 }}>{pr.label} </span>
                                   <span style={{ fontWeight: 700, color: pr.pct >= 0 ? T.acc : T.danger, fontSize: 7 }}>{pr.pct > 0 ? "+" : ""}{pr.pct}%</span>
                                 </div>
@@ -2302,29 +2317,29 @@ RULES:
               {aiEnabled && <div className="card" style={{ marginBottom: 12, borderColor: `${AI_PROVIDERS[aiProvider]?.color || T.purple}30` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <div className="label" style={{ color: AI_PROVIDERS[aiProvider]?.color || T.purple, fontSize: 9, marginBottom: 0 }}>🧠 AI ANALYST</div>
+                    <div className="label" style={{ color: AI_PROVIDERS[aiProvider]?.color || T.purple, fontSize: 12, marginBottom: 0 }}>🧠 AI ANALYST</div>
                     <Pill c={AI_PROVIDERS[aiProvider]?.color || T.purple} bg={`${AI_PROVIDERS[aiProvider]?.color || T.purple}15`}>{AI_PROVIDERS[aiProvider]?.name || aiProvider}</Pill>
                   </div>
                   <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                    {aiAnalysis && <span style={{ fontSize: 8, color: T.t4 }}>{aiAnalysis.provider} · {new Date(aiAnalysis.ts).toLocaleTimeString()}</span>}
+                    {aiAnalysis && <span style={{ fontSize: 12, color: T.t4 }}>{aiAnalysis.provider} · {new Date(aiAnalysis.ts).toLocaleTimeString()}</span>}
                     <Btn v="purple" onClick={runAiAnalysis}>{aiLoading ? "Analyzing..." : "⚡ Run Analysis"}</Btn>
                   </div>
                 </div>
                 {aiLoading && <div style={{ padding: 16, textAlign: "center" }}>
                   <div style={{ fontSize: 18, marginBottom: 6, animation: "pulse 1.5s infinite" }}>🧠</div>
-                  <div style={{ fontSize: 9, color: T.purple }}>Claude is reviewing {advisory.actions.length} recommended actions against Dalio's 8 principles...</div>
+                  <div style={{ fontSize: 12, color: T.purple }}>Claude is reviewing {advisory.actions.length} recommended actions against Dalio's 8 principles...</div>
                 </div>}
-                {aiError && <div style={{ padding: 10, borderRadius: 6, background: "rgba(255,45,85,.06)", border: `1px solid rgba(255,45,85,.15)`, fontSize: 9, color: T.danger }}>{aiError}</div>}
+                {aiError && <div style={{ padding: 10, borderRadius: 6, background: "rgba(255,45,85,.06)", border: `1px solid rgba(255,45,85,.15)`, fontSize: 12, color: T.danger }}>{aiError}</div>}
                 {aiAnalysis && !aiLoading && <div>
-                  <div style={{ background: "#050710", borderRadius: 6, padding: 12, fontSize: 9, lineHeight: 1.6, color: "#99bbdd", maxHeight: 350, overflow: "auto", border: `1px solid ${T.bd}`, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                  <div style={{ background: "#050710", borderRadius: 6, padding: 12, fontSize: 12, lineHeight: 1.6, color: "#99bbdd", maxHeight: 350, overflow: "auto", border: `1px solid ${T.bd}`, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
                     {aiAnalysis.text}
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 8, color: T.t4 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 12, color: T.t4 }}>
                     <span>Model: {aiAnalysis.model}</span>
                     <span>Analysis at: {new Date(aiAnalysis.ts).toLocaleString()}</span>
                   </div>
                 </div>}
-                {!aiAnalysis && !aiLoading && !aiError && <div style={{ padding: 12, textAlign: "center", fontSize: 9, color: T.t3 }}>
+                {!aiAnalysis && !aiLoading && !aiError && <div style={{ padding: 12, textAlign: "center", fontSize: 12, color: T.t3 }}>
                   Click "Run Analysis" to have Claude review the {advisory.actions.length} recommended actions above. The AI will validate each trade against Dalio's principles and provide APPROVE/MODIFY/REJECT verdicts.
                 </div>}
               </div>}
@@ -2363,7 +2378,7 @@ RULES:
                 <Stat l="DATA" v={liveStatus} s={liveStatus === "LIVE" ? "CoinGecko API" : "Simulated"} c={liveStatus === "LIVE" ? T.acc : T.warn} />
                 <div className="stat-card">
                   <div className="label">EXPORT / IMPORT</div>
-                  <div style={{ display: "flex", gap: 4, marginTop: 4 }}><Btn v="ghost" onClick={exportState}>↓ Export</Btn><label className="btn" style={{ background: "rgba(255,255,255,.06)", color: T.t2, padding: "6px 10px", borderRadius: 6, fontSize: 9, cursor: "pointer", fontWeight: 800, fontFamily: "inherit" }}>↑ Import<input type="file" accept=".json" onChange={importState} style={{ display: "none" }} /></label></div>
+                  <div style={{ display: "flex", gap: 4, marginTop: 4 }}><Btn v="ghost" onClick={exportState}>↓ Export</Btn><label className="btn" style={{ background: "rgba(255,255,255,.06)", color: T.t2, padding: "6px 10px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 800, fontFamily: "inherit" }}>↑ Import<input type="file" accept=".json" onChange={importState} style={{ display: "none" }} /></label></div>
                 </div>
               </div>
 
@@ -2376,7 +2391,7 @@ RULES:
                     const X = i => (i / (pts.length - 1)) * 400, Y = v => 75 - ((v - mn) / rng) * 70;
                     const path = pts.map((p, i) => `${i ? "L" : "M"}${X(i)},${Y(p.y)}`).join("");
                     const up = pts[pts.length - 1].y >= pts[0].y;
-                    return <><path d={`${path} L400,80 L0,80 Z`} fill={up ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"} /><path d={path} fill="none" stroke={up ? T.acc : T.danger} strokeWidth="1.5" /><line x1="0" y1={Y(cfg.portfolio)} x2="400" y2={Y(cfg.portfolio)} stroke="rgba(255,255,255,.08)" strokeWidth="0.5" strokeDasharray="4,3" /><text x="2" y={Y(mx) + 3} fill={T.t4} fontSize="5">${(mx / 1000).toFixed(1)}K</text><text x="2" y={Y(mn) - 1} fill={T.t4} fontSize="5">${(mn / 1000).toFixed(1)}K</text></>;
+                    return <><path d={`${path} L400,80 L0,80 Z`} fill={up ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"} /><path d={path} fill="none" stroke={up ? T.acc : T.danger} strokeWidth="1.5" /><line x1="0" y1={Y(cfg.portfolio)} x2="400" y2={Y(cfg.portfolio)} stroke="rgba(255,255,255,.08)" strokeWidth="0.5" strokeDasharray="4,3" /><text x="2" y={Y(mx) + 3} fill={T.t4} fontSize="6">${(mx / 1000).toFixed(1)}K</text><text x="2" y={Y(mn) - 1} fill={T.t4} fontSize="6">${(mn / 1000).toFixed(1)}K</text></>;
                   })()}
                 </svg>
               </div>}
@@ -2386,7 +2401,7 @@ RULES:
                 <div className="card">
                   <div className="label" style={{ color: T.acc2 }}>SIGNAL DISTRIBUTION</div>
                   <DonutChart segments={[{ v: recCounts.buy, c: T.acc }, { v: recCounts.hold, c: T.warn }, { v: recCounts.sell, c: T.danger }]} size={120} label={`${Object.keys(anl).length}`} />
-                  <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 8, fontSize: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 8, fontSize: 12 }}>
                     <span><span style={{ color: T.acc }}>●</span> Buy {recCounts.buy}</span>
                     <span><span style={{ color: T.warn }}>●</span> Hold {recCounts.hold}</span>
                     <span><span style={{ color: T.danger }}>●</span> Sell {recCounts.sell}</span>
@@ -2399,16 +2414,16 @@ RULES:
                 <div className="card">
                   <div className="label" style={{ color: T.purple }}>WATCHLIST SPARKLINES</div>
                   {watch.slice(0, 4).map(id => anl[id] ? <div key={id} style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                    <span style={{ fontWeight: 700, fontSize: 9, width: 36 }}>{id}</span>
+                    <span style={{ fontWeight: 700, fontSize: 12, width: 36 }}>{id}</span>
                     <div style={{ flex: 1 }}>{pd[id] && <Spark data={pd[id].slice(-30)} w={120} h={18} />}</div>
-                    <span style={{ fontSize: 9, color: anl[id].dR >= 0 ? T.acc : T.danger, fontWeight: 700, width: 40, textAlign: "right" }}>{anl[id].dR >= 0 ? "+" : ""}{anl[id].dR}%</span>
+                    <span style={{ fontSize: 12, color: anl[id].dR >= 0 ? T.acc : T.danger, fontWeight: 700, width: 40, textAlign: "right" }}>{anl[id].dR >= 0 ? "+" : ""}{anl[id].dR}%</span>
                   </div> : null)}
                 </div>
               </div>
 
               <div className="g2">
-                <div className="card"><div className="label" style={{ color: T.acc }}>▲ TOP OPPORTUNITIES</div>{Object.values(anl).filter(a => a.rec.includes("BUY")).sort((a, b) => b.conf - a.conf).slice(0, 4).map(a => <div key={a.id} className="row"><div><b>{a.id}</b> <span style={{ fontSize: 8, color: T.t4 }}>{a.name}</span></div><div style={{ display: "flex", gap: 5, alignItems: "center" }}><span style={{ fontSize: 9, color: T.acc }}>{a.conf}%</span><RecPill r={a.rec} /></div></div>)}</div>
-                <div className="card"><div className="label" style={{ color: T.danger }}>⚠ RISK + VOLATILITY</div>{Object.values(anl).sort((a, b) => b.vol - a.vol).slice(0, 5).map(a => <div key={a.id} className="row" style={{ fontSize: 10 }}><b>{a.id}</b><div style={{ display: "flex", alignItems: "center", gap: 6 }}><div style={{ width: 50 }}><div style={{ height: 4, borderRadius: 2, background: "rgba(255,255,255,.04)" }}><div style={{ height: 4, borderRadius: 2, background: a.vol > 50 ? T.danger : a.vol > 30 ? T.warn : T.acc, width: `${Math.min(a.vol, 100)}%`, opacity: 0.6 }} /></div></div><span style={{ color: a.vol > 50 ? T.danger : T.warn, fontSize: 9 }}>{a.vol}%</span></div></div>)}</div>
+                <div className="card"><div className="label" style={{ color: T.acc }}>▲ TOP OPPORTUNITIES</div>{Object.values(anl).filter(a => a.rec.includes("BUY")).sort((a, b) => b.conf - a.conf).slice(0, 4).map(a => <div key={a.id} className="row"><div><b>{a.id}</b> <span style={{ fontSize: 12, color: T.t4 }}>{a.name}</span></div><div style={{ display: "flex", gap: 5, alignItems: "center" }}><span style={{ fontSize: 12, color: T.acc }}>{a.conf}%</span><RecPill r={a.rec} /></div></div>)}</div>
+                <div className="card"><div className="label" style={{ color: T.danger }}>⚠ RISK + VOLATILITY</div>{Object.values(anl).sort((a, b) => b.vol - a.vol).slice(0, 5).map(a => <div key={a.id} className="row" style={{ fontSize: 12 }}><b>{a.id}</b><div style={{ display: "flex", alignItems: "center", gap: 6 }}><div style={{ width: 50 }}><div style={{ height: 4, borderRadius: 2, background: "rgba(255,255,255,.04)" }}><div style={{ height: 4, borderRadius: 2, background: a.vol > 50 ? T.danger : a.vol > 30 ? T.warn : T.acc, width: `${Math.min(a.vol, 100)}%`, opacity: 0.6 }} /></div></div><span style={{ color: a.vol > 50 ? T.danger : T.warn, fontSize: 12 }}>{a.vol}%</span></div></div>)}</div>
               </div>
             </div>}
 
@@ -2417,15 +2432,15 @@ RULES:
               {/* Search + View Toggle */}
               <div style={{ display: "flex", gap: 6, marginBottom: 10, alignItems: "center", flexWrap: "wrap" }}>
                 <div style={{ flex: 1, minWidth: 150, position: "relative" }}>
-                  <input className="ci" placeholder="Search assets... (name, ticker, sector)" value={mktSearch} onChange={e => setMktSearch(e.target.value)} style={{ fontSize: 10, paddingLeft: 24 }} />
-                  <span style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", fontSize: 10, color: T.t4 }}>🔍</span>
+                  <input className="ci" placeholder="Search assets... (name, ticker, sector)" value={mktSearch} onChange={e => setMktSearch(e.target.value)} style={{ fontSize: 12, paddingLeft: 24 }} />
+                  <span style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", fontSize: 12, color: T.t4 }}>🔍</span>
                 </div>
                 <div style={{ display: "flex", gap: 2 }}>
                   {[{ k: "all", l: "All Assets" }, { k: "movers", l: "Movers" }].map(v => (
-                    <div key={v.k} onClick={() => setMktView(v.k)} style={{ padding: "4px 10px", borderRadius: 4, fontSize: 8, fontWeight: 700, cursor: "pointer", background: mktView === v.k ? "rgba(0,201,255,.12)" : "rgba(255,255,255,.03)", color: mktView === v.k ? T.acc2 : T.t3, border: `1px solid ${mktView === v.k ? "rgba(0,201,255,.2)" : T.bd}` }}>{v.l}</div>
+                    <div key={v.k} onClick={() => setMktView(v.k)} style={{ padding: "4px 10px", borderRadius: 4, fontSize: 11, fontWeight: 700, cursor: "pointer", background: mktView === v.k ? "rgba(0,201,255,.12)" : "rgba(255,255,255,.03)", color: mktView === v.k ? T.acc2 : T.t3, border: `1px solid ${mktView === v.k ? "rgba(0,201,255,.2)" : T.bd}` }}>{v.l}</div>
                   ))}
                 </div>
-                {mktData.ts && <span style={{ fontSize: 8, color: T.t4 }}>Updated: {new Date(mktData.ts).toLocaleTimeString()}</span>}
+                {mktData.ts && <span style={{ fontSize: 12, color: T.t4 }}>Updated: {new Date(mktData.ts).toLocaleTimeString()}</span>}
               </div>
 
               {mktView === "all" && (() => {
@@ -2458,15 +2473,15 @@ RULES:
                   return <div key={sec.key} className="card" style={{ marginBottom: 8 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                        <span style={{ fontSize: 11 }}>{sec.icon}</span>
-                        <span style={{ fontSize: 10, fontWeight: 800, color: sec.color }}>{sec.title}</span>
-                        <span style={{ fontSize: 8, color: T.t4 }}>{items.length} assets</span>
+                        <span style={{ fontSize: 12 }}>{sec.icon}</span>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: sec.color }}>{sec.title}</span>
+                        <span style={{ fontSize: 12, color: T.t4 }}>{items.length} assets</span>
                       </div>
                     </div>
                     <div style={{ maxHeight: items.length > 12 ? 280 : "none", overflow: items.length > 12 ? "auto" : "visible" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 8 }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                         <thead style={{ position: "sticky", top: 0, background: T.s1 }}><tr>
-                          {["", "Ticker", "Name", "Price", "24h", "Sector", "Vol", "Signal", ""].map((h, i) => <th key={i} style={{ padding: "2px 4px", textAlign: "left", color: T.t4, fontWeight: 600, borderBottom: `1px solid ${T.bd}`, whiteSpace: "nowrap", fontSize: 8 }}>{h}</th>)}
+                          {["", "Ticker", "Name", "Price", "24h", "Sector", "Vol", "Signal", ""].map((h, i) => <th key={i} style={{ padding: "2px 4px", textAlign: "left", color: T.t4, fontWeight: 600, borderBottom: `1px solid ${T.bd}`, whiteSpace: "nowrap", fontSize: 12 }}>{h}</th>)}
                         </tr></thead>
                         <tbody>{items.map((r, i) => (
                           <tr key={i} style={{ borderBottom: `1px solid ${T.bd}`, cursor: "pointer" }} onClick={() => { if (!r.external && anl[r.sym]) { setSel(r.sym); setTab("analysis"); } }}>
@@ -2478,7 +2493,7 @@ RULES:
                             <td style={{ padding: "3px 4px", color: T.t4 }}>{r.sector}</td>
                             <td style={{ padding: "3px 4px", color: r.vol > 50 ? T.danger : r.vol > 30 ? T.warn : T.t4 }}>{r.vol ? `${r.vol}%` : "—"}</td>
                             <td style={{ padding: "3px 4px" }}>{r.rec ? <Pill c={r.rec.includes("BUY") ? T.acc : r.rec.includes("SELL") ? T.danger : T.t3} bg={r.rec.includes("BUY") ? "rgba(0,232,123,.08)" : r.rec.includes("SELL") ? "rgba(255,45,85,.08)" : "rgba(255,255,255,.03)"}>{r.rec}</Pill> : <span style={{ color: T.t4 }}>—</span>}</td>
-                            <td style={{ padding: "3px 4px" }}><span onClick={e => { e.stopPropagation(); if (!r.external) setWatch(w => w.includes(r.sym) ? w.filter(x => x !== r.sym) : [...w, r.sym]); }} style={{ cursor: "pointer", color: r.watched ? T.warn : T.t4, fontSize: 10 }}>{r.watched ? "★" : "☆"}</span></td>
+                            <td style={{ padding: "3px 4px" }}><span onClick={e => { e.stopPropagation(); if (!r.external) setWatch(w => w.includes(r.sym) ? w.filter(x => x !== r.sym) : [...w, r.sym]); }} style={{ cursor: "pointer", color: r.watched ? T.warn : T.t4, fontSize: 12 }}>{r.watched ? "★" : "☆"}</span></td>
                           </tr>
                         ))}</tbody>
                       </table>
@@ -2489,15 +2504,15 @@ RULES:
 
               {mktView === "movers" && (() => {
                 const MoverRow = ({ data, isCrypto }) => {
-                  if (!data || data.length === 0) return <div style={{ fontSize: 8, color: T.t4, padding: 4 }}>No data</div>;
+                  if (!data || data.length === 0) return <div style={{ fontSize: 12, color: T.t4, padding: 4 }}>No data</div>;
                   const items = isCrypto ? data.map(c => ({ sym: c.symbol?.toUpperCase(), name: c.name, price: c.current_price, chg24: c.price_change_percentage_24h ? +c.price_change_percentage_24h.toFixed(2) : 0, img: c.image })) : data;
                   const risers = [...items].filter(i => i.chg24 > 0).sort((a, b) => b.chg24 - a.chg24).slice(0, 6);
                   const fallers = [...items].filter(i => i.chg24 < 0).sort((a, b) => a.chg24 - b.chg24).slice(0, 6);
-                  const Row = ({ r, up }) => <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "3px 0", borderBottom: `1px solid ${T.bd}`, fontSize: 8 }}>
+                  const Row = ({ r, up }) => <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "3px 0", borderBottom: `1px solid ${T.bd}`, fontSize: 12 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                       {isCrypto && r.img && <img src={r.img} width="10" height="10" style={{ borderRadius: 2 }} />}
                       <span style={{ fontWeight: 700 }}>{r.sym}</span>
-                      <span style={{ color: T.t4, fontSize: 8 }}>{r.name}</span>
+                      <span style={{ color: T.t4, fontSize: 12 }}>{r.name}</span>
                     </div>
                     <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
                       <span style={{ color: T.t3 }}>${typeof r.price === "number" ? r.price.toLocaleString(undefined, { maximumFractionDigits: r.price > 100 ? 0 : r.price > 1 ? 2 : 4 }) : r.price}</span>
@@ -2505,8 +2520,8 @@ RULES:
                     </div>
                   </div>;
                   return <div className="g2">
-                    <div><div style={{ fontSize: 8, fontWeight: 800, color: T.acc, letterSpacing: 0.8, marginBottom: 4 }}>▲ RISERS</div>{risers.map((r, i) => <Row key={i} r={r} up />)}</div>
-                    <div><div style={{ fontSize: 8, fontWeight: 800, color: T.danger, letterSpacing: 0.8, marginBottom: 4 }}>▼ FALLERS</div>{fallers.map((r, i) => <Row key={i} r={r} />)}</div>
+                    <div><div style={{ fontSize: 12, fontWeight: 800, color: T.acc, letterSpacing: 0.8, marginBottom: 4 }}>▲ RISERS</div>{risers.map((r, i) => <Row key={i} r={r} up />)}</div>
+                    <div><div style={{ fontSize: 12, fontWeight: 800, color: T.danger, letterSpacing: 0.8, marginBottom: 4 }}>▼ FALLERS</div>{fallers.map((r, i) => <Row key={i} r={r} />)}</div>
                   </div>;
                 };
                 return <>
@@ -2516,28 +2531,28 @@ RULES:
                     { t: "INDICES", icon: "◎", c: T.purple, d: mktData.indices },
                     { t: "FOREX", icon: "⚡", c: T.acc2, d: mktData.forex },
                   ].map((s, i) => <div key={i} className="card" style={{ marginBottom: 8 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}><span style={{ fontSize: 10 }}>{s.icon}</span><span style={{ fontSize: 9, fontWeight: 800, color: s.c }}>{s.t}</span></div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}><span style={{ fontSize: 12 }}>{s.icon}</span><span style={{ fontSize: 12, fontWeight: 800, color: s.c }}>{s.t}</span></div>
                     <MoverRow data={s.d} isCrypto={s.crypto} />
                   </div>)}
                 </>;
               })()}
 
-              {mktData.loading && <div style={{ textAlign: "center", padding: 20, color: T.t3, fontSize: 9 }}>Loading market data...</div>}
+              {mktData.loading && <div style={{ textAlign: "center", padding: 20, color: T.t3, fontSize: 12 }}>Loading market data...</div>}
             </div>}
 
             {/* ═══ PORTFOLIO OPTIMIZER (Markowitz) ═══ */}
             {tab === "settings" && <div style={{ display: "flex", gap: 3, marginBottom: 12, flexWrap: "wrap" }}>
               {[{ k: "broker", l: "🔗 Broker" }, { k: "api", l: "⬡ APIs" }, { k: "optimize", l: "⚖ Optimizer" }, { k: "fullbt", l: "↻ Backtest" }, { k: "backtest", l: "📊 Signals" }, { k: "alerts", l: "⚡ Alerts" }].map(t => (
-                <div key={t.k} onClick={() => setSettingsTab(t.k)} style={{ padding: "5px 12px", borderRadius: 5, fontSize: 9, fontWeight: 700, cursor: "pointer", background: settingsTab === t.k ? "rgba(0,201,255,.1)" : "rgba(255,255,255,.03)", color: settingsTab === t.k ? T.acc2 : T.t3, border: `1px solid ${settingsTab === t.k ? "rgba(0,201,255,.2)" : T.bd}` }}>{t.l}</div>
+                <div key={t.k} onClick={() => setSettingsTab(t.k)} style={{ padding: "5px 12px", borderRadius: 5, fontSize: 11, fontWeight: 700, cursor: "pointer", background: settingsTab === t.k ? "rgba(0,201,255,.1)" : "rgba(255,255,255,.03)", color: settingsTab === t.k ? T.acc2 : T.t3, border: `1px solid ${settingsTab === t.k ? "rgba(0,201,255,.2)" : T.bd}` }}>{t.l}</div>
               ))}
             </div>}
 
             {tab === "settings" && settingsTab === "optimize" && <div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <div className="label" style={{ color: T.purple, fontSize: 10, marginBottom: 0 }}>⚖ MARKOWITZ PORTFOLIO OPTIMIZATION</div>
+                <div className="label" style={{ color: T.purple, fontSize: 12, marginBottom: 0 }}>⚖ MARKOWITZ PORTFOLIO OPTIMIZATION</div>
                 <Btn v="purple" onClick={runOpt}>⚡ Run Optimizer</Btn>
               </div>
-              <div style={{ fontSize: 9, color: T.t3, marginBottom: 12 }}>Computes optimal weights across your watchlisted/active assets using mean-variance optimization. Compares Risk Parity (Dalio), Min Variance, and Max Sharpe portfolios.</div>
+              <div style={{ fontSize: 12, color: T.t3, marginBottom: 12 }}>Computes optimal weights across your watchlisted/active assets using mean-variance optimization. Compares Risk Parity (Dalio), Min Variance, and Max Sharpe portfolios.</div>
               {!optResult && <div className="card" style={{ textAlign: "center", padding: 24, color: T.t4 }}>Add assets to watchlist, then click Run Optimizer</div>}
               {optResult && <div>
                 <div className="g3" style={{ marginBottom: 12 }}>
@@ -2546,25 +2561,25 @@ RULES:
                     { title: "Min Variance", data: optResult.minVariance, color: T.acc2, desc: "Lowest possible portfolio volatility" },
                     { title: "Max Sharpe", data: optResult.maxSharpe, color: T.warn, desc: "Best risk-adjusted return (return per unit of risk)" },
                   ].map((p, i) => <div key={i} className="card" style={{ borderColor: `${p.color}25` }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: p.color, marginBottom: 4 }}>{p.title}</div>
-                    <div style={{ fontSize: 8, color: T.t4, marginBottom: 8 }}>{p.desc}</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: p.color, marginBottom: 4 }}>{p.title}</div>
+                    <div style={{ fontSize: 12, color: T.t4, marginBottom: 8 }}>{p.desc}</div>
                     <div className="g3" style={{ gap: 4, marginBottom: 8 }}>
-                      <div style={{ textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 800, color: p.data.ret >= 0 ? T.acc : T.danger }}>{p.data.ret > 0 ? "+" : ""}{p.data.ret}%</div><div style={{ fontSize: 8, color: T.t4 }}>Ann. Return</div></div>
-                      <div style={{ textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 800, color: p.data.vol > 30 ? T.danger : T.warn }}>{p.data.vol}%</div><div style={{ fontSize: 8, color: T.t4 }}>Volatility</div></div>
-                      <div style={{ textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 800, color: p.data.sharpe > 1 ? T.acc : T.warn }}>{p.data.sharpe}</div><div style={{ fontSize: 8, color: T.t4 }}>Sharpe</div></div>
+                      <div style={{ textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 800, color: p.data.ret >= 0 ? T.acc : T.danger }}>{p.data.ret > 0 ? "+" : ""}{p.data.ret}%</div><div style={{ fontSize: 12, color: T.t4 }}>Ann. Return</div></div>
+                      <div style={{ textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 800, color: p.data.vol > 30 ? T.danger : T.warn }}>{p.data.vol}%</div><div style={{ fontSize: 12, color: T.t4 }}>Volatility</div></div>
+                      <div style={{ textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 800, color: p.data.sharpe > 1 ? T.acc : T.warn }}>{p.data.sharpe}</div><div style={{ fontSize: 12, color: T.t4 }}>Sharpe</div></div>
                     </div>
                     {p.data.weights.filter(w => w.w > 0.01).sort((a, b) => b.w - a.w).map((w, j) => (
                       <div key={j} style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                        <span style={{ fontWeight: 700, fontSize: 9, width: 40 }}>{w.id}</span>
+                        <span style={{ fontWeight: 700, fontSize: 12, width: 40 }}>{w.id}</span>
                         <div style={{ flex: 1, height: 6, background: "rgba(255,255,255,.04)", borderRadius: 3 }}><div style={{ height: 6, borderRadius: 3, background: p.color, width: `${w.w * 100}%`, opacity: 0.5 }} /></div>
-                        <span style={{ fontSize: 9, fontWeight: 600, color: p.color, width: 36, textAlign: "right" }}>{(w.w * 100).toFixed(1)}%</span>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: p.color, width: 36, textAlign: "right" }}>{(w.w * 100).toFixed(1)}%</span>
                       </div>
                     ))}
                   </div>)}
                 </div>
                 <div className="card">
                   <div className="label" style={{ color: T.acc2 }}>OPTIMIZATION vs ALL WEATHER</div>
-                  <div style={{ fontSize: 9, color: T.t2, lineHeight: 1.5, padding: "4px 0" }}>
+                  <div style={{ fontSize: 12, color: T.t2, lineHeight: 1.5, padding: "4px 0" }}>
                     Dalio's All Weather: 30% stocks, 40% LT bonds, 15% IT bonds, 7.5% gold, 7.5% commodities. The optimizer above computes what the math says is optimal given YOUR specific asset universe and current correlations. Risk Parity is closest to Dalio's philosophy — it doesn't try to predict returns, just balances risk.
                   </div>
                 </div>
@@ -2574,10 +2589,10 @@ RULES:
             {/* ═══ FULL SYSTEM BACKTEST ═══ */}
             {tab === "settings" && settingsTab === "fullbt" && <div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <div className="label" style={{ color: T.acc, fontSize: 10, marginBottom: 0 }}>↻ DALIO SYSTEM BACKTEST</div>
+                <div className="label" style={{ color: T.acc, fontSize: 12, marginBottom: 0 }}>↻ DALIO SYSTEM BACKTEST</div>
                 <Btn onClick={runBt}>⚡ Run Backtest</Btn>
               </div>
-              <div style={{ fontSize: 9, color: T.t3, marginBottom: 12 }}>Runs the full Dalio scoring engine over historical data. Simulates taking the best signal every 5 days and holding for 5 days. Shows what following this system would have produced.</div>
+              <div style={{ fontSize: 12, color: T.t3, marginBottom: 12 }}>Runs the full Dalio scoring engine over historical data. Simulates taking the best signal every 5 days and holding for 5 days. Shows what following this system would have produced.</div>
               {!btResult && <div className="card" style={{ textAlign: "center", padding: 24, color: T.t4 }}>Click Run Backtest to simulate the Dalio system over historical data</div>}
               {btResult && <div>
                 <div className="g4" style={{ marginBottom: 12 }}>
@@ -2596,7 +2611,7 @@ RULES:
                         const X = i => (i / (pts.length - 1)) * 400, Y = v => 90 - ((v - mn) / rng) * 80;
                         const path = pts.map((p, i) => `${i ? "L" : "M"}${X(i)},${Y(p.equity)}`).join("");
                         const up = pts[pts.length - 1].equity >= pts[0].equity;
-                        return <><path d={`${path} L400,95 L0,95 Z`} fill={up ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"} /><path d={path} fill="none" stroke={up ? T.acc : T.danger} strokeWidth="1.5" /><line x1="0" y1={Y(cfg.portfolio)} x2="400" y2={Y(cfg.portfolio)} stroke="rgba(255,255,255,.06)" strokeWidth="0.5" strokeDasharray="3,3" /><text x="2" y="8" fill={T.t4} fontSize="5">${(mx/1000).toFixed(0)}K</text><text x="2" y="92" fill={T.t4} fontSize="5">${(mn/1000).toFixed(0)}K</text></>;
+                        return <><path d={`${path} L400,95 L0,95 Z`} fill={up ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"} /><path d={path} fill="none" stroke={up ? T.acc : T.danger} strokeWidth="1.5" /><line x1="0" y1={Y(cfg.portfolio)} x2="400" y2={Y(cfg.portfolio)} stroke="rgba(255,255,255,.06)" strokeWidth="0.5" strokeDasharray="3,3" /><text x="2" y="8" fill={T.t4} fontSize="6">${(mx/1000).toFixed(0)}K</text><text x="2" y="92" fill={T.t4} fontSize="6">${(mn/1000).toFixed(0)}K</text></>;
                       })()}
                     </svg>
                   </div>
@@ -2608,13 +2623,13 @@ RULES:
                       { l: "Profit Factor", v: btResult.profitFactor, c: btResult.profitFactor > 1.5 ? T.acc : T.warn },
                       { l: "Total Trades", v: btResult.totalTrades, c: T.t1 },
                       { l: "Sharpe Ratio", v: btResult.sharpe, c: btResult.sharpe > 1 ? T.acc : T.warn },
-                    ].map((r, i) => <div key={i} className="row" style={{ fontSize: 10 }}><span style={{ color: T.t2 }}>{r.l}</span><span style={{ fontWeight: 600, color: r.c }}>{r.v}</span></div>)}
+                    ].map((r, i) => <div key={i} className="row" style={{ fontSize: 12 }}><span style={{ color: T.t2 }}>{r.l}</span><span style={{ fontWeight: 600, color: r.c }}>{r.v}</span></div>)}
                   </div>
                 </div>
                 <div className="card">
                   <div className="label">RECENT TRADES (last 20)</div>
                   <div className="scroll-x" style={{ maxHeight: 200, overflow: "auto" }}>
-                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 8 }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                       <thead style={{ position: "sticky", top: 0, background: T.s1 }}><tr>{["Day", "Asset", "Entry", "Exit", "Return", "PnL", "Equity"].map(h => <th key={h} style={{ padding: "2px 4px", textAlign: "left", color: T.t3, fontWeight: 700, borderBottom: `1px solid ${T.bd}` }}>{h}</th>)}</tr></thead>
                       <tbody>{btResult.trades.map((t, i) => <tr key={i} style={{ borderBottom: `1px solid ${T.bd}` }}>
                         <td style={{ padding: "2px 4px", color: T.t4 }}>{t.day}</td>
@@ -2633,7 +2648,7 @@ RULES:
 
             {/* ═══ BROKER INTEGRATION ═══ */}
             {tab === "settings" && settingsTab === "broker" && <div>
-              <div className="label" style={{ color: T.acc2, fontSize: 10, marginBottom: 12 }}>🔗 BROKER INTEGRATION — {Object.keys(BROKERS).length} Brokers</div>
+              <div className="label" style={{ color: T.acc2, fontSize: 12, marginBottom: 12 }}>🔗 BROKER INTEGRATION — {Object.keys(BROKERS).length} Brokers</div>
               {/* Group by type */}
               {[
                 { type: "crypto", label: "Crypto Exchanges", icon: "◈", color: T.acc2 },
@@ -2645,21 +2660,21 @@ RULES:
                 if (brokers.length === 0) return null;
                 return <div key={group.type} style={{ marginBottom: 12 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
-                    <span style={{ fontSize: 10 }}>{group.icon}</span>
-                    <span style={{ fontSize: 9, fontWeight: 800, color: group.color, letterSpacing: 0.5 }}>{group.label}</span>
-                    <span style={{ fontSize: 8, color: T.t4 }}>{brokers.length}</span>
+                    <span style={{ fontSize: 12 }}>{group.icon}</span>
+                    <span style={{ fontSize: 12, fontWeight: 800, color: group.color, letterSpacing: 0.5 }}>{group.label}</span>
+                    <span style={{ fontSize: 12, color: T.t4 }}>{brokers.length}</span>
                   </div>
                   <div className="g3" style={{ gap: 4 }}>
                     {brokers.map(([key, b]) => (
                       <div key={key} onClick={() => setBroker(prev => ({ ...prev, active: key }))} style={{ padding: "6px 8px", borderRadius: 5, cursor: "pointer", background: broker.active === key ? `${group.color}08` : T.s2, border: `1px solid ${broker.active === key ? `${group.color}30` : T.bd}`, transition: ".15s" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 2 }}>
-                          <span style={{ fontWeight: 800, fontSize: 9, color: broker.active === key ? group.color : T.t1 }}>{b.name}</span>
+                          <span style={{ fontWeight: 800, fontSize: 12, color: broker.active === key ? group.color : T.t1 }}>{b.name}</span>
                           <div style={{ display: "flex", gap: 3 }}>
                             <Pill c={T.t4} bg="rgba(255,255,255,.04)">{b.region}</Pill>
                             {broker.active === key && broker.connected && <Pill c={T.acc} bg="rgba(0,232,123,.1)">✓</Pill>}
                           </div>
                         </div>
-                        <div style={{ fontSize: 8, color: T.t4, lineHeight: 1.3 }}>{b.desc}</div>
+                        <div style={{ fontSize: 12, color: T.t4, lineHeight: 1.3 }}>{b.desc}</div>
                       </div>
                     ))}
                   </div>
@@ -2668,17 +2683,17 @@ RULES:
               {broker.active && BROKERS[broker.active] && <div className="card" style={{ marginBottom: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <div className="label" style={{ marginBottom: 0 }}>{BROKERS[broker.active].name}</div>
-                  <span style={{ fontSize: 8, color: T.t4 }}>{BROKERS[broker.active].signup}</span>
+                  <span style={{ fontSize: 12, color: T.t4 }}>{BROKERS[broker.active].signup}</span>
                 </div>
                 {BROKERS[broker.active].fields.map(f => (
                   <div key={f} style={{ marginBottom: 6 }}>
-                    <div style={{ fontSize: 8, color: T.t4, marginBottom: 1 }}>{f}</div>
-                    <input type={f.includes("ecret") || f.includes("assphrase") ? "password" : "text"} className="ci" placeholder={`Enter ${f}...`} value={broker[f] || ""} onChange={e => setBroker(prev => ({ ...prev, [f]: e.target.value }))} style={{ fontSize: 9 }} />
+                    <div style={{ fontSize: 12, color: T.t4, marginBottom: 1 }}>{f}</div>
+                    <input type={f.includes("ecret") || f.includes("assphrase") ? "password" : "text"} className="ci" placeholder={`Enter ${f}...`} value={broker[f] || ""} onChange={e => setBroker(prev => ({ ...prev, [f]: e.target.value }))} style={{ fontSize: 12 }} />
                   </div>
                 ))}
                 <div className="tg" onClick={() => setBroker(prev => ({ ...prev, paper: !prev.paper }))}>
                   <div className="tt" style={{ background: broker.paper ? T.warn : T.danger }}><div className="th" style={{ left: broker.paper ? 15 : 2 }} /></div>
-                  <span style={{ fontSize: 8, color: broker.paper ? T.warn : T.danger }}>{broker.paper ? "Paper Trading (Safe)" : "⚠ LIVE TRADING"}</span>
+                  <span style={{ fontSize: 12, color: broker.paper ? T.warn : T.danger }}>{broker.paper ? "Paper Trading (Safe)" : "⚠ LIVE TRADING"}</span>
                 </div>
                 <div style={{ display: "flex", gap: 4, marginTop: 8 }}>
                   <Btn v="purple" onClick={() => { setBroker(prev => ({ ...prev, connected: true })); addLog(`BROKER: Connected to ${BROKERS[broker.active].name} (${broker.paper ? "paper" : "LIVE"})`); }}>Connect</Btn>
@@ -2687,17 +2702,17 @@ RULES:
               </div>}
               {broker.connected && <div className="card">
                 <div className="label" style={{ color: T.acc }}>STATUS</div>
-                {[{ l: "Broker", v: BROKERS[broker.active]?.name }, { l: "Region", v: BROKERS[broker.active]?.region }, { l: "Type", v: BROKERS[broker.active]?.type }, { l: "Mode", v: broker.paper ? "PAPER" : "LIVE", c: broker.paper ? T.warn : T.danger }, { l: "API", v: "Connected ✓", c: T.acc }].map((r, i) => <div key={i} className="row" style={{ fontSize: 9 }}><span style={{ color: T.t3 }}>{r.l}</span><span style={{ fontWeight: 600, color: r.c || T.t1 }}>{r.v}</span></div>)}
+                {[{ l: "Broker", v: BROKERS[broker.active]?.name }, { l: "Region", v: BROKERS[broker.active]?.region }, { l: "Type", v: BROKERS[broker.active]?.type }, { l: "Mode", v: broker.paper ? "PAPER" : "LIVE", c: broker.paper ? T.warn : T.danger }, { l: "API", v: "Connected ✓", c: T.acc }].map((r, i) => <div key={i} className="row" style={{ fontSize: 12 }}><span style={{ color: T.t3 }}>{r.l}</span><span style={{ fontWeight: 600, color: r.c || T.t1 }}>{r.v}</span></div>)}
               </div>}
             </div>}
 
             {tab === "analysis" && <div>
               {/* Search + Back bar */}
               <div style={{ display: "flex", gap: 6, marginBottom: 10, alignItems: "center" }}>
-                {selA && <div onClick={() => setSel(null)} style={{ padding: "4px 10px", borderRadius: 4, cursor: "pointer", background: "rgba(255,255,255,.04)", border: `1px solid ${T.bd}`, fontSize: 9, fontWeight: 700, color: T.t2, display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>← Back</div>}
+                {selA && <div onClick={() => setSel(null)} style={{ padding: "4px 10px", borderRadius: 4, cursor: "pointer", background: "rgba(255,255,255,.04)", border: `1px solid ${T.bd}`, fontSize: 12, fontWeight: 700, color: T.t2, display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>← Back</div>}
                 <div style={{ flex: 1, position: "relative" }}>
-                  <input className="ci" placeholder="Search assets... (ticker, name, sector)" value={mktSearch} onChange={e => setMktSearch(e.target.value)} style={{ fontSize: 9, paddingLeft: 22 }} />
-                  <span style={{ position: "absolute", left: 7, top: "50%", transform: "translateY(-50%)", fontSize: 9, color: T.t4 }}>🔍</span>
+                  <input className="ci" placeholder="Search assets... (ticker, name, sector)" value={mktSearch} onChange={e => setMktSearch(e.target.value)} style={{ fontSize: 12, paddingLeft: 22 }} />
+                  <span style={{ position: "absolute", left: 7, top: "50%", transform: "translateY(-50%)", fontSize: 12, color: T.t4 }}>🔍</span>
                 </div>
               </div>
               {/* Search results dropdown */}
@@ -2708,40 +2723,40 @@ RULES:
                     return all.filter(a => a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || a.sector.toLowerCase().includes(q))
                       .slice(0, 16).map(a => {
                         const an = anl[a.id];
-                        return <div key={a.id} onClick={() => { setSel(a.id); setMktSearch(""); }} style={{ padding: "4px 8px", borderRadius: 4, cursor: "pointer", background: T.s2, border: `1px solid ${T.bd}`, minWidth: 75, transition: ".15s" }}>
+                        return <div key={a.id} onClick={() => { setSel(a.id); setMktSearch(""); }} style={{ padding: "6px 10px", borderRadius: 4, cursor: "pointer", background: T.s2, border: `1px solid ${T.bd}`, minWidth: 75, transition: ".15s" }}>
                           <div style={{ display: "flex", justifyContent: "space-between", gap: 4, alignItems: "center" }}>
-                            <span style={{ fontWeight: 800, fontSize: 9 }}>{a.id}</span>
-                            {an && <span style={{ fontSize: 8, color: an.dR >= 0 ? T.acc : T.danger }}>{an.dR >= 0 ? "+" : ""}{an.dR}%</span>}
+                            <span style={{ fontWeight: 800, fontSize: 12 }}>{a.id}</span>
+                            {an && <span style={{ fontSize: 12, color: an.dR >= 0 ? T.acc : T.danger }}>{an.dR >= 0 ? "+" : ""}{an.dR}%</span>}
                           </div>
-                          <div style={{ fontSize: 8, color: T.t4 }}>{a.name}</div>
+                          <div style={{ fontSize: 12, color: T.t4 }}>{a.name}</div>
                           <div style={{ display: "flex", gap: 3, marginTop: 2 }}>
-                            {an && <span style={{ fontSize: 8, color: T.t3 }}>${an.price > 100 ? Math.round(an.price).toLocaleString() : an.price}</span>}
-                            <span onClick={e => { e.stopPropagation(); setWatch(w => w.includes(a.id) ? w.filter(x => x !== a.id) : [...w, a.id]); }} style={{ fontSize: 9, color: watch.includes(a.id) ? T.warn : T.t4, cursor: "pointer" }}>{watch.includes(a.id) ? "★" : "☆"}</span>
+                            {an && <span style={{ fontSize: 12, color: T.t3 }}>${an.price > 100 ? Math.round(an.price).toLocaleString() : an.price}</span>}
+                            <span onClick={e => { e.stopPropagation(); setWatch(w => w.includes(a.id) ? w.filter(x => x !== a.id) : [...w, a.id]); }} style={{ fontSize: 12, color: watch.includes(a.id) ? T.warn : T.t4, cursor: "pointer" }}>{watch.includes(a.id) ? "★" : "☆"}</span>
                           </div>
                         </div>;
                       });
                   })()}
                 </div>
-                {all.filter(a => { const q = mktSearch.toLowerCase().trim(); return a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || a.sector.toLowerCase().includes(q); }).length === 0 && <div style={{ fontSize: 8, color: T.t4, padding: 8 }}>No assets match "{mktSearch}"</div>}
+                {all.filter(a => { const q = mktSearch.toLowerCase().trim(); return a.id.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || a.sector.toLowerCase().includes(q); }).length === 0 && <div style={{ fontSize: 12, color: T.t4, padding: 8 }}>No assets match "{mktSearch}"</div>}
               </div>}
               {selA && selH ? <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
                   <div>
-                    <div style={{ fontSize: 20, fontWeight: 800 }}>{selA.id} <span style={{ fontSize: 12, color: T.t2, fontWeight: 400 }}>{selA.name}</span><span onClick={() => setWatch(w => w.includes(selA.id) ? w.filter(x => x !== selA.id) : [...w, selA.id])} style={{ cursor: "pointer", marginLeft: 6, fontSize: 13, color: watch.includes(selA.id) ? T.warn : T.t4 }}>{watch.includes(selA.id) ? "★" : "☆"}</span></div>
-                    <div style={{ fontSize: 22, fontWeight: 700 }}>${selA.price.toLocaleString()} <span style={{ fontSize: 12, color: selA.dR >= 0 ? T.acc : T.danger }}>{selA.dR >= 0 ? "+" : ""}{selA.dR}%</span></div>
+                    <div style={{ fontSize: 22, fontWeight: 800 }}>{selA.id} <span style={{ fontSize: 12, color: T.t2, fontWeight: 400 }}>{selA.name}</span><span onClick={() => setWatch(w => w.includes(selA.id) ? w.filter(x => x !== selA.id) : [...w, selA.id])} style={{ cursor: "pointer", marginLeft: 6, fontSize: 14, color: watch.includes(selA.id) ? T.warn : T.t4 }}>{watch.includes(selA.id) ? "★" : "☆"}</span></div>
+                    <div style={{ fontSize: 24, fontWeight: 700 }}>${selA.price.toLocaleString()} <span style={{ fontSize: 12, color: selA.dR >= 0 ? T.acc : T.danger }}>{selA.dR >= 0 ? "+" : ""}{selA.dR}%</span></div>
                   </div>
                   <div style={{ padding: "5px 14px", borderRadius: 6, background: selA.rec.includes("BUY") ? "rgba(0,232,123,.1)" : selA.rec.includes("SELL") ? "rgba(255,45,85,.1)" : "rgba(245,166,35,.1)", border: `1px solid ${selA.rec.includes("BUY") ? "rgba(0,232,123,.2)" : selA.rec.includes("SELL") ? "rgba(255,45,85,.2)" : "rgba(245,166,35,.2)"}` }}>
                     <div style={{ fontSize: 14, fontWeight: 800, color: selA.rec.includes("BUY") ? T.acc : selA.rec.includes("SELL") ? T.danger : T.warn, textAlign: "center" }}>{selA.rec}</div>
-                    <div style={{ fontSize: 8, color: T.t2, textAlign: "center" }}>{selA.conf}% conf</div>
+                    <div style={{ fontSize: 12, color: T.t2, textAlign: "center" }}>{selA.conf}% conf</div>
                   </div>
                 </div>
 
                 <div className="card" style={{ marginBottom: 10 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2, flexWrap: "wrap", gap: 3 }}>
-                    <span style={{ fontSize: 8, color: T.t3, fontWeight: 700 }}>PRICE · BB · SMA</span>
+                    <span style={{ fontSize: 12, color: T.t3, fontWeight: 700 }}>PRICE · BB · SMA</span>
                     <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
-                      {[30, 60, 90, 120].map(tf => <span key={tf} onClick={() => setTimeframe(tf)} style={{ fontSize: 8, padding: "1px 4px", borderRadius: 2, cursor: "pointer", background: timeframe === tf ? "rgba(0,232,123,.08)" : "transparent", color: timeframe === tf ? T.acc : T.t4, fontWeight: 700 }}>{tf}D</span>)}
-                      <span style={{ color: T.warn, fontSize: 8 }}>━ 20</span><span style={{ color: T.acc2, fontSize: 8 }}>━ 50</span>
+                      {[30, 60, 90, 120].map(tf => <span key={tf} onClick={() => setTimeframe(tf)} style={{ fontSize: 12, padding: "1px 4px", borderRadius: 2, cursor: "pointer", background: timeframe === tf ? "rgba(0,232,123,.08)" : "transparent", color: timeframe === tf ? T.acc : T.t4, fontWeight: 700 }}>{tf}D</span>)}
+                      <span style={{ color: T.warn, fontSize: 12 }}>━ 20</span><span style={{ color: T.acc2, fontSize: 12 }}>━ 50</span>
                     </div>
                   </div>
                   <PriceChart data={selH.slice(-timeframe)} w={600} h={75} showBB={true} />
@@ -2749,13 +2764,13 @@ RULES:
                 </div>
 
                 {/* RSI Chart */}
-                <div className="card" style={{ marginBottom: 8, padding: "4px 8px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ fontSize: 8, color: T.t3, fontWeight: 700 }}>RSI</span><span style={{ fontSize: 8, fontWeight: 700, color: selA.rsi > 70 ? T.danger : selA.rsi < 30 ? T.acc : T.t1 }}>{selA.rsi}</span></div>
+                <div className="card" style={{ marginBottom: 8, padding: "6px 10px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ fontSize: 12, color: T.t3, fontWeight: 700 }}>RSI</span><span style={{ fontSize: 12, fontWeight: 700, color: selA.rsi > 70 ? T.danger : selA.rsi < 30 ? T.acc : T.t1 }}>{selA.rsi}</span></div>
                   <RSIChart data={selH} w={600} h={24} />
                 </div>
 
                 <div className="g6" style={{ marginBottom: 8, gap: 3 }}>
-                  {[{ l: "1D", v: `${selA.dR > 0 ? "+" : ""}${selA.dR}%`, c: selA.dR >= 0 ? T.acc : T.danger }, { l: "7D", v: `${selA.wR > 0 ? "+" : ""}${selA.wR}%`, c: selA.wR >= 0 ? T.acc : T.danger }, { l: "30D", v: `${selA.mR > 0 ? "+" : ""}${selA.mR}%`, c: selA.mR >= 0 ? T.acc : T.danger }, { l: "VOL", v: `${selA.vol}%`, c: selA.vol > 50 ? T.danger : selA.vol > 30 ? T.warn : T.acc }, { l: "MOM", v: selA.mom, c: selA.mom > 60 ? T.acc : selA.mom < 40 ? T.danger : T.warn }, { l: "ATR", v: `$${selA.atr}`, c: T.t1 }].map((m, i) => <div key={i} className="card-dark" style={{ padding: "3px 4px" }}><div style={{ fontSize: 8, color: T.t4 }}>{m.l}</div><div style={{ fontSize: 10, fontWeight: 700, color: m.c }}>{m.v}</div></div>)}
+                  {[{ l: "1D", v: `${selA.dR > 0 ? "+" : ""}${selA.dR}%`, c: selA.dR >= 0 ? T.acc : T.danger }, { l: "7D", v: `${selA.wR > 0 ? "+" : ""}${selA.wR}%`, c: selA.wR >= 0 ? T.acc : T.danger }, { l: "30D", v: `${selA.mR > 0 ? "+" : ""}${selA.mR}%`, c: selA.mR >= 0 ? T.acc : T.danger }, { l: "VOL", v: `${selA.vol}%`, c: selA.vol > 50 ? T.danger : selA.vol > 30 ? T.warn : T.acc }, { l: "MOM", v: selA.mom, c: selA.mom > 60 ? T.acc : selA.mom < 40 ? T.danger : T.warn }, { l: "ATR", v: `$${selA.atr}`, c: T.t1 }].map((m, i) => <div key={i} className="card-dark" style={{ padding: "3px 4px" }}><div style={{ fontSize: 12, color: T.t4 }}>{m.l}</div><div style={{ fontSize: 12, fontWeight: 700, color: m.c }}>{m.v}</div></div>)}
                 </div>
 
                 {/* PATTERN RECOGNITION */}
@@ -2764,27 +2779,27 @@ RULES:
                   <div className="card">
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
                       <span className="label" style={{ marginBottom: 0, color: T.warn }}>PATTERN SCORE</span>
-                      <span style={{ fontSize: 16, fontWeight: 800, color: selA.patterns.patScore > 60 ? T.acc : selA.patterns.patScore < 40 ? T.danger : T.warn }}>{selA.patterns.patScore}<span style={{ fontSize: 9, color: T.t4 }}>/100</span></span>
+                      <span style={{ fontSize: 16, fontWeight: 800, color: selA.patterns.patScore > 60 ? T.acc : selA.patterns.patScore < 40 ? T.danger : T.warn }}>{selA.patterns.patScore}<span style={{ fontSize: 12, color: T.t4 }}>/100</span></span>
                     </div>
                     {/* Candlestick Patterns */}
                     <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>CANDLESTICK PATTERNS</div>
-                      {selA.patterns.candles.length === 0 ? <div style={{ fontSize: 8, color: T.t4, padding: 4 }}>No patterns detected</div> : selA.patterns.candles.slice(-4).map((c, i) => (
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>CANDLESTICK PATTERNS</div>
+                      {selA.patterns.candles.length === 0 ? <div style={{ fontSize: 12, color: T.t4, padding: 4 }}>No patterns detected</div> : selA.patterns.candles.slice(-4).map((c, i) => (
                         <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "3px 0", borderBottom: `1px solid ${T.bd}` }}>
                           <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
                             <Pill c={c.dir === "bullish" ? T.acc : c.dir === "bearish" ? T.danger : T.warn} bg={c.dir === "bullish" ? "rgba(0,232,123,.1)" : c.dir === "bearish" ? "rgba(255,45,85,.1)" : "rgba(245,166,35,.08)"}>{c.name}</Pill>
-                            <span style={{ fontSize: 8, color: T.t4 }}>{c.date}</span>
+                            <span style={{ fontSize: 12, color: T.t4 }}>{c.date}</span>
                           </div>
-                          <span style={{ fontSize: 8, color: T.t3 }}>{c.strength}%</span>
+                          <span style={{ fontSize: 12, color: T.t3 }}>{c.strength}%</span>
                         </div>
                       ))}
                     </div>
                     {/* Support/Resistance */}
                     <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>SUPPORT / RESISTANCE</div>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>SUPPORT / RESISTANCE</div>
                       {selA.patterns.sr.slice(0, 4).map((s, i) => {
                         const dist = +((s.price - selA.price) / selA.price * 100).toFixed(1);
-                        return <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid ${T.bd}`, fontSize: 9 }}>
+                        return <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid ${T.bd}`, fontSize: 12 }}>
                           <span><Pill c={s.type === "S" ? T.acc : T.danger} bg={s.type === "S" ? "rgba(0,232,123,.08)" : "rgba(255,45,85,.08)"}>{s.type === "S" ? "SUP" : "RES"}</Pill> ${s.price.toLocaleString()}</span>
                           <span style={{ color: T.t3 }}>{dist > 0 ? "+" : ""}{dist}% · {s.touches} touches</span>
                         </div>;
@@ -2792,8 +2807,8 @@ RULES:
                     </div>
                     {/* Volume Profile */}
                     <div>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>VOLUME PROFILE</div>
-                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>VOLUME PROFILE</div>
+                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 12 }}>
                         <span style={{ color: selA.patterns.volProf.climax ? T.danger : T.t3 }}>Climax: {selA.patterns.volProf.climax ? "YES ⚠" : "No"}</span>
                         <span style={{ color: selA.patterns.volProf.divergence !== "none" ? T.warn : T.t3 }}>Divergence: {selA.patterns.volProf.divergence}</span>
                         <span style={{ color: selA.patterns.volProf.accumulation === "accumulating" ? T.acc : selA.patterns.volProf.accumulation === "distributing" ? T.danger : T.t3 }}>Flow: {selA.patterns.volProf.accumulation}</span>
@@ -2805,8 +2820,8 @@ RULES:
                   <div className="card">
                     {/* MACD */}
                     {selA.patterns.macd && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MACD</div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MACD</div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 12 }}>
                         <span style={{ color: selA.patterns.macd.bullish ? T.acc : T.danger }}>Signal: {selA.patterns.macd.bullish ? "BULLISH" : "BEARISH"}</span>
                         <span style={{ color: T.t3 }}>Hist: {selA.patterns.macd.histogram}</span>
                         {selA.patterns.macd.crossUp && <Pill c={T.acc} bg="rgba(0,232,123,.12)">CROSS UP ↑</Pill>}
@@ -2815,19 +2830,19 @@ RULES:
                     </div>}
                     {/* Fibonacci */}
                     {selA.patterns.fib && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>FIBONACCI RETRACEMENT</div>
-                      <div style={{ display: "flex", gap: 4, flexWrap: "wrap", fontSize: 8 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>FIBONACCI RETRACEMENT</div>
+                      <div style={{ display: "flex", gap: 4, flexWrap: "wrap", fontSize: 12 }}>
                         {selA.patterns.fib.levels.map((l, i) => {
                           const isNearest = Math.abs(l.price - selA.price) < Math.abs(selA.patterns.fib.nearest.price - selA.price) * 1.5;
                           return <span key={i} style={{ padding: "2px 5px", borderRadius: 3, background: isNearest ? "rgba(123,97,255,.12)" : "rgba(255,255,255,.03)", color: isNearest ? T.purple : T.t4, fontWeight: isNearest ? 700 : 400 }}>{l.label} ${l.price.toLocaleString()}</span>;
                         })}
                       </div>
-                      <div style={{ fontSize: 8, color: T.purple, marginTop: 3 }}>Nearest: {selA.patterns.fib.nearest.label} · Retraced: {selA.patterns.fib.currentPct}%</div>
+                      <div style={{ fontSize: 12, color: T.purple, marginTop: 3 }}>Nearest: {selA.patterns.fib.nearest.label} · Retraced: {selA.patterns.fib.currentPct}%</div>
                     </div>}
                     {/* Volatility Regime */}
                     <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>VOLATILITY REGIME</div>
-                      <div style={{ display: "flex", gap: 8, fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>VOLATILITY REGIME</div>
+                      <div style={{ display: "flex", gap: 8, fontSize: 12 }}>
                         <Pill c={selA.patterns.volReg.regime === "high" ? T.danger : selA.patterns.volReg.regime === "medium" ? T.warn : T.acc} bg={selA.patterns.volReg.regime === "high" ? "rgba(255,45,85,.1)" : selA.patterns.volReg.regime === "medium" ? "rgba(245,166,35,.08)" : "rgba(0,232,123,.08)"}>{selA.patterns.volReg.regime.toUpperCase()}</Pill>
                         <Pill c={selA.patterns.volReg.transition === "expanding" ? T.danger : selA.patterns.volReg.transition === "compressing" ? T.acc2 : T.t3}>{selA.patterns.volReg.transition}</Pill>
                         <span style={{ color: T.t4 }}>20d:{selA.patterns.volReg.vol20}% 40d:{selA.patterns.volReg.vol40}%</span>
@@ -2835,10 +2850,10 @@ RULES:
                     </div>
                     {/* Momentum Confluence */}
                     <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MOMENTUM CONFLUENCE</div>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MOMENTUM CONFLUENCE</div>
                       <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
                         <span style={{ fontSize: 14, fontWeight: 800, color: selA.patterns.confluence.bias.includes("BULL") ? T.acc : selA.patterns.confluence.bias.includes("BEAR") ? T.danger : T.warn }}>{selA.patterns.confluence.bias}</span>
-                        <span style={{ fontSize: 8, color: T.t3 }}>{selA.patterns.confluence.bullish} bull / {selA.patterns.confluence.bearish} bear of {selA.patterns.confluence.total} indicators</span>
+                        <span style={{ fontSize: 12, color: T.t3 }}>{selA.patterns.confluence.bullish} bull / {selA.patterns.confluence.bearish} bear of {selA.patterns.confluence.total} indicators</span>
                       </div>
                       <div style={{ display: "flex", gap: 2, marginTop: 4 }}>
                         {Array.from({ length: selA.patterns.confluence.total }).map((_, i) => <div key={i} style={{ flex: 1, height: 4, borderRadius: 2, background: i < selA.patterns.confluence.bullish ? T.acc : i < selA.patterns.confluence.bullish + (selA.patterns.confluence.total - selA.patterns.confluence.bullish - selA.patterns.confluence.bearish) ? T.warn : T.danger, opacity: 0.6 }} />)}
@@ -2846,8 +2861,8 @@ RULES:
                     </div>
                     {/* Seasonal */}
                     {selA.patterns.season && <div>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>SEASONAL ({selA.patterns.season.month})</div>
-                      <div style={{ display: "flex", gap: 8, fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>SEASONAL ({selA.patterns.season.month})</div>
+                      <div style={{ display: "flex", gap: 8, fontSize: 12 }}>
                         <span style={{ color: selA.patterns.season.cryptoBias > 0 ? T.acc : T.danger }}>Crypto: {selA.patterns.season.cryptoBias > 0 ? "+" : ""}{selA.patterns.season.cryptoBias}%</span>
                         <span style={{ color: selA.patterns.season.equityBias > 0 ? T.acc : T.danger }}>Equity: {selA.patterns.season.equityBias > 0 ? "+" : ""}{selA.patterns.season.equityBias}%</span>
                         <span style={{ color: selA.patterns.season.commodBias > 0 ? T.acc : T.danger }}>Commod: {selA.patterns.season.commodBias > 0 ? "+" : ""}{selA.patterns.season.commodBias}%</span>
@@ -2861,8 +2876,8 @@ RULES:
                   <div className="card">
                     {/* Order Flow */}
                     <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>ORDER FLOW & LIQUIDITY</div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>ORDER FLOW & LIQUIDITY</div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 12 }}>
                         <Pill c={selA.patterns.oFlow.bidAsk === "bid_heavy" ? T.acc : selA.patterns.oFlow.bidAsk === "ask_heavy" ? T.danger : T.t3} bg={selA.patterns.oFlow.bidAsk === "bid_heavy" ? "rgba(0,232,123,.1)" : selA.patterns.oFlow.bidAsk === "ask_heavy" ? "rgba(255,45,85,.1)" : "rgba(255,255,255,.04)"}>{selA.patterns.oFlow.bidAsk.replace("_", " ")}</Pill>
                         {selA.patterns.oFlow.liquidityThin && <Pill c={T.warn} bg="rgba(245,166,35,.1)">THIN LIQUIDITY</Pill>}
                         {selA.patterns.oFlow.whaleWall && <Pill c={T.purple} bg="rgba(123,97,255,.1)">WHALE {selA.patterns.oFlow.whaleWall.type} @${selA.patterns.oFlow.whaleWall.price.toLocaleString()} ({selA.patterns.oFlow.whaleWall.strength}x)</Pill>}
@@ -2871,8 +2886,8 @@ RULES:
                     </div>
                     {/* On-Chain */}
                     {selA.patterns.onChain && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>ON-CHAIN SIGNALS</div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>ON-CHAIN SIGNALS</div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 12 }}>
                         <Pill c={selA.patterns.onChain.exchangeFlow === "outflow" ? T.acc : T.danger} bg={selA.patterns.onChain.exchangeFlow === "outflow" ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}>{selA.patterns.onChain.exchangeFlow}</Pill>
                         {selA.patterns.onChain.whaleAccum && <Pill c={T.acc} bg="rgba(0,232,123,.1)">WHALE ACCUM</Pill>}
                         <span style={{ color: T.t3 }}>Addr: {selA.patterns.onChain.activeAddrTrend}</span>
@@ -2882,8 +2897,8 @@ RULES:
                     </div>}
                     {/* Funding Rate */}
                     {selA.patterns.funding && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>FUNDING & OPEN INTEREST</div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>FUNDING & OPEN INTEREST</div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 12 }}>
                         <span style={{ color: selA.patterns.funding.rate > 0.03 ? T.danger : selA.patterns.funding.rate < -0.02 ? T.acc : T.t3 }}>Rate: {(selA.patterns.funding.rate * 100).toFixed(2)}%</span>
                         <span style={{ color: T.t3 }}>OI Δ: {selA.patterns.funding.oiChange > 0 ? "+" : ""}{selA.patterns.funding.oiChange}%</span>
                         <span style={{ color: T.t4 }}>L/S: {selA.patterns.funding.longShortRatio}</span>
@@ -2892,33 +2907,33 @@ RULES:
                     </div>}
                     {/* Mean Reversion */}
                     {selA.patterns.meanRev && <div>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MEAN REVERSION</div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MEAN REVERSION</div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", fontSize: 12 }}>
                         <span style={{ color: Math.abs(selA.patterns.meanRev.zScore) > 2 ? T.danger : T.t3 }}>Z-Score: {selA.patterns.meanRev.zScore}</span>
                         <span style={{ color: T.t4 }}>Dev: {selA.patterns.meanRev.devFromSMA50 > 0 ? "+" : ""}{selA.patterns.meanRev.devFromSMA50}%</span>
                         <Pill c={selA.patterns.meanRev.signal === "oversold" ? T.acc : selA.patterns.meanRev.signal === "overbought" ? T.danger : T.t3}>{selA.patterns.meanRev.signal}</Pill>
-                        {Math.abs(selA.patterns.meanRev.zScore) > 1.5 && <span style={{ color: T.acc2, fontSize: 8 }}>Revert → ${selA.patterns.meanRev.reversionTarget} ({selA.patterns.meanRev.reversionPct > 0 ? "+" : ""}{selA.patterns.meanRev.reversionPct}%)</span>}
+                        {Math.abs(selA.patterns.meanRev.zScore) > 1.5 && <span style={{ color: T.acc2, fontSize: 12 }}>Revert → ${selA.patterns.meanRev.reversionTarget} ({selA.patterns.meanRev.reversionPct > 0 ? "+" : ""}{selA.patterns.meanRev.reversionPct}%)</span>}
                       </div>
                     </div>}
                   </div>
                   <div className="card">
                     {/* Multi-Timeframe */}
                     {selA.patterns.mtf && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MULTI-TIMEFRAME ALIGNMENT</div>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>MULTI-TIMEFRAME ALIGNMENT</div>
                       <div style={{ display: "flex", gap: 4, alignItems: "center", marginBottom: 4 }}>
                         {[{ l: "Daily", v: selA.patterns.mtf.daily }, { l: "Weekly", v: selA.patterns.mtf.weekly }, { l: "Monthly", v: selA.patterns.mtf.monthly }].map((tf, i) => (
                           <div key={i} style={{ flex: 1, textAlign: "center", padding: "4px 2px", borderRadius: 4, background: tf.v === "BULL" ? "rgba(0,232,123,.08)" : "rgba(255,45,85,.08)", border: `1px solid ${tf.v === "BULL" ? "rgba(0,232,123,.15)" : "rgba(255,45,85,.15)"}` }}>
-                            <div style={{ fontSize: 8, color: T.t4 }}>{tf.l}</div>
-                            <div style={{ fontSize: 10, fontWeight: 800, color: tf.v === "BULL" ? T.acc : T.danger }}>{tf.v}</div>
+                            <div style={{ fontSize: 12, color: T.t4 }}>{tf.l}</div>
+                            <div style={{ fontSize: 12, fontWeight: 800, color: tf.v === "BULL" ? T.acc : T.danger }}>{tf.v}</div>
                           </div>
                         ))}
                       </div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: selA.patterns.mtf.aligned ? (selA.patterns.mtf.direction === "BULL" ? T.acc : T.danger) : T.warn }}>{selA.patterns.mtf.aligned ? `✓ ALL ALIGNED ${selA.patterns.mtf.direction}` : "✗ CONFLICTING TIMEFRAMES"}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: selA.patterns.mtf.aligned ? (selA.patterns.mtf.direction === "BULL" ? T.acc : T.danger) : T.warn }}>{selA.patterns.mtf.aligned ? `✓ ALL ALIGNED ${selA.patterns.mtf.direction}` : "✗ CONFLICTING TIMEFRAMES"}</div>
                     </div>}
                     {/* Relative Strength */}
                     {selA.patterns.relStr && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>RELATIVE STRENGTH</div>
-                      <div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>RELATIVE STRENGTH</div>
+                      <div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 12 }}>
                         <span style={{ fontSize: 14, fontWeight: 800, color: selA.patterns.relStr.quartile === 1 ? T.acc : selA.patterns.relStr.quartile === 4 ? T.danger : T.t1 }}>Q{selA.patterns.relStr.quartile}</span>
                         <span style={{ color: T.t3 }}>Rank #{selA.patterns.relStr.rank}/{selA.patterns.relStr.total} · P{selA.patterns.relStr.percentile}</span>
                         <span style={{ color: selA.patterns.relStr.ret20d >= 0 ? T.acc : T.danger }}>20d: {selA.patterns.relStr.ret20d > 0 ? "+" : ""}{selA.patterns.relStr.ret20d}%</span>
@@ -2927,17 +2942,17 @@ RULES:
                     </div>}
                     {/* Vol-Adjusted Return */}
                     {selA.patterns.volAdj && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>VOL-ADJUSTED Z-SCORE</div>
-                      <div style={{ display: "flex", gap: 6, fontSize: 9 }}>
-                        <span style={{ fontSize: 13, fontWeight: 800, color: Math.abs(selA.patterns.volAdj.zScore) > 2 ? T.danger : T.t1 }}>{selA.patterns.volAdj.zScore > 0 ? "+" : ""}{selA.patterns.volAdj.zScore}σ</span>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>VOL-ADJUSTED Z-SCORE</div>
+                      <div style={{ display: "flex", gap: 6, fontSize: 12 }}>
+                        <span style={{ fontSize: 14, fontWeight: 800, color: Math.abs(selA.patterns.volAdj.zScore) > 2 ? T.danger : T.t1 }}>{selA.patterns.volAdj.zScore > 0 ? "+" : ""}{selA.patterns.volAdj.zScore}σ</span>
                         <span style={{ color: T.t4 }}>Last: {selA.patterns.volAdj.lastRet > 0 ? "+" : ""}{selA.patterns.volAdj.lastRet}% · Avg: {selA.patterns.volAdj.mean > 0 ? "+" : ""}{selA.patterns.volAdj.mean}%</span>
                         {selA.patterns.volAdj.significant && <Pill c={T.warn} bg="rgba(245,166,35,.1)">UNUSUAL MOVE</Pill>}
                       </div>
                     </div>}
                     {/* Implied vs Realized Vol */}
                     {selA.patterns.volGap && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>IMPLIED vs REALIZED VOL</div>
-                      <div style={{ display: "flex", gap: 6, fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>IMPLIED vs REALIZED VOL</div>
+                      <div style={{ display: "flex", gap: 6, fontSize: 12 }}>
                         <span style={{ color: T.t3 }}>Impl: {selA.patterns.volGap.implied}%</span>
                         <span style={{ color: T.t3 }}>Real: {selA.patterns.volGap.realized}%</span>
                         <span style={{ fontWeight: 700, color: Math.abs(selA.patterns.volGap.gap) > 10 ? T.warn : T.t3 }}>Gap: {selA.patterns.volGap.gap > 0 ? "+" : ""}{selA.patterns.volGap.gap}%</span>
@@ -2946,9 +2961,9 @@ RULES:
                     </div>}
                     {/* Events Calendar */}
                     {selA.patterns.events?.events.length > 0 && <div style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>UPCOMING EVENTS</div>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>UPCOMING EVENTS</div>
                       {selA.patterns.events.events.map((e, i) => (
-                        <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid ${T.bd}`, fontSize: 9 }}>
+                        <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid ${T.bd}`, fontSize: 12 }}>
                           <div style={{ display: "flex", gap: 4, alignItems: "center" }}><Pill c={e.impact === "HIGH" ? T.danger : T.warn} bg={e.impact === "HIGH" ? "rgba(255,45,85,.1)" : "rgba(245,166,35,.08)"}>{e.impact}</Pill><span>{e.event}</span></div>
                           <span style={{ color: T.t4 }}>{e.daysOut === 0 ? "TODAY" : `${e.daysOut}d`}</span>
                         </div>
@@ -2956,8 +2971,8 @@ RULES:
                     </div>}
                     {/* Sentiment Divergence */}
                     {selA.patterns.sentDiv && <div>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>SENTIMENT DIVERGENCE</div>
-                      <div style={{ display: "flex", gap: 6, fontSize: 9 }}>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.8, marginBottom: 4 }}>SENTIMENT DIVERGENCE</div>
+                      <div style={{ display: "flex", gap: 6, fontSize: 12 }}>
                         <span style={{ color: T.t3 }}>Price: {selA.patterns.sentDiv.priceDir}</span>
                         <span style={{ color: T.t3 }}>Sentiment: {selA.patterns.sentDiv.sentDir} ({selA.patterns.sentDiv.avgSent > 0 ? "+" : ""}{selA.patterns.sentDiv.avgSent})</span>
                         {selA.patterns.sentDiv.divergent && <Pill c={selA.patterns.sentDiv.signal === "hidden_bull" ? T.acc : T.danger} bg={selA.patterns.sentDiv.signal === "hidden_bull" ? "rgba(0,232,123,.12)" : "rgba(255,45,85,.12)"}>{selA.patterns.sentDiv.signal.replace("_", " ")}</Pill>}
@@ -2974,12 +2989,12 @@ RULES:
                   </div>}
                   <div className="card">
                     <div className="label" style={{ color: T.acc, marginBottom: 6 }}>TRADE SETUP</div>
-                    {[{ l: "Size", v: `$${selA.posSize.toLocaleString()}` }, { l: "Stop", v: `$${selA.stop} (${selA.stopDist}%)`, c: T.danger }, { l: "Type", v: cfg.useAtr ? `ATR×${cfg.atrMult}` : `Flat ${cfg.stopPct}%` }, { l: "Target", v: `$${selA.tp}`, c: T.acc }, { l: "R:R", v: `1:${cfg.rr}` }, { l: "Trail", v: cfg.trail ? `${cfg.trailPct}%` : "OFF" }].map((r, i) => <div key={i} className="row" style={{ fontSize: 10 }}><span style={{ color: T.t2 }}>{r.l}</span><span style={{ fontWeight: 600, color: r.c || T.t1 }}>{r.v}</span></div>)}
-                    {kelly[selA.id] && <div className="row" style={{ fontSize: 10 }}>
+                    {[{ l: "Size", v: `$${selA.posSize.toLocaleString()}` }, { l: "Stop", v: `$${selA.stop} (${selA.stopDist}%)`, c: T.danger }, { l: "Type", v: cfg.useAtr ? `ATR×${cfg.atrMult}` : `Flat ${cfg.stopPct}%` }, { l: "Target", v: `$${selA.tp}`, c: T.acc }, { l: "R:R", v: `1:${cfg.rr}` }, { l: "Trail", v: cfg.trail ? `${cfg.trailPct}%` : "OFF" }].map((r, i) => <div key={i} className="row" style={{ fontSize: 12 }}><span style={{ color: T.t2 }}>{r.l}</span><span style={{ fontWeight: 600, color: r.c || T.t1 }}>{r.v}</span></div>)}
+                    {kelly[selA.id] && <div className="row" style={{ fontSize: 12 }}>
                       <span style={{ color: T.purple }}>Kelly Criterion</span>
-                      <span style={{ fontWeight: 700, color: T.purple }}>{kelly[selA.id].kellyPct}% <span style={{ fontSize: 8, color: T.t3 }}>(WR:{kelly[selA.id].winRate}% Pay:{kelly[selA.id].payoff})</span></span>
+                      <span style={{ fontWeight: 700, color: T.purple }}>{kelly[selA.id].kellyPct}% <span style={{ fontSize: 12, color: T.t3 }}>(WR:{kelly[selA.id].winRate}% Pay:{kelly[selA.id].payoff})</span></span>
                     </div>}
-                    {drawdown.halted && <div style={{ padding: "8px", borderRadius: 6, background: "rgba(255,45,85,.1)", border: "1px solid rgba(255,45,85,.2)", marginTop: 8, fontSize: 9, color: T.danger, textAlign: "center", fontWeight: 700 }}>⚠ CIRCUIT BREAKER ACTIVE — Drawdown {drawdown.ddPct}% exceeds {drawdown.limit}% limit. Trading halted.</div>}
+                    {drawdown.halted && <div style={{ padding: "8px", borderRadius: 6, background: "rgba(255,45,85,.1)", border: "1px solid rgba(255,45,85,.2)", marginTop: 8, fontSize: 12, color: T.danger, textAlign: "center", fontWeight: 700 }}>⚠ CIRCUIT BREAKER ACTIVE — Drawdown {drawdown.ddPct}% exceeds {drawdown.limit}% limit. Trading halted.</div>}
                     {!drawdown.halted && <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
                       <Btn onClick={() => exec(selA, "BUY")} full>BUY</Btn>
                       {cfg.shorts && <Btn onClick={() => exec(selA, "SHORT")} v="danger" full>SHORT</Btn>}
@@ -2987,13 +3002,13 @@ RULES:
                   </div>
                 </div>
 
-                {selA.geoHits.length > 0 && <div className="card" style={{ marginBottom: 10 }}><div className="label" style={{ color: T.warn }}>GEO FACTORS</div>{selA.geoHits.map(g => <div key={g.id} className="row"><div style={{ minWidth: 0 }}><div style={{ fontWeight: 600, fontSize: 10 }}>{g.title}</div><div style={{ fontSize: 8, color: T.t4 }}>{g.desc}</div></div><div style={{ textAlign: "right", flexShrink: 0, marginLeft: 8 }}><SevBadge s={g.sev} /><div style={{ fontSize: 8, color: g.dir === "bullish" ? T.acc : T.danger, marginTop: 2, fontWeight: 700 }}>{g.dir.toUpperCase()}</div></div></div>)}</div>}
+                {selA.geoHits.length > 0 && <div className="card" style={{ marginBottom: 10 }}><div className="label" style={{ color: T.warn }}>GEO FACTORS</div>{selA.geoHits.map(g => <div key={g.id} className="row"><div style={{ minWidth: 0 }}><div style={{ fontWeight: 600, fontSize: 12 }}>{g.title}</div><div style={{ fontSize: 12, color: T.t4 }}>{g.desc}</div></div><div style={{ textAlign: "right", flexShrink: 0, marginLeft: 8 }}><SevBadge s={g.sev} /><div style={{ fontSize: 12, color: g.dir === "bullish" ? T.acc : T.danger, marginTop: 2, fontWeight: 700 }}>{g.dir.toUpperCase()}</div></div></div>)}</div>}
 
                 {/* ═══ PRICE HISTORY & STATISTICAL ANALYSIS ═══ */}
                 {selH && <div className="card" style={{ marginBottom: 10 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <div className="label" style={{ color: T.acc2, marginBottom: 0, fontSize: 9 }}>PRICE HISTORY & STATISTICAL ANALYSIS</div>
-                    <span style={{ fontSize: 8, color: T.t4 }}>{selH.length} data points</span>
+                    <div className="label" style={{ color: T.acc2, marginBottom: 0, fontSize: 12 }}>PRICE HISTORY & STATISTICAL ANALYSIS</div>
+                    <span style={{ fontSize: 12, color: T.t4 }}>{selH.length} data points</span>
                   </div>
 
                   {/* Multi-period returns chart */}
@@ -3011,7 +3026,7 @@ RULES:
                     return <>
                       {/* Returns bar chart */}
                       <div style={{ marginBottom: 10 }}>
-                        <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>PERIOD RETURNS</div>
+                        <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>PERIOD RETURNS</div>
                         <svg viewBox="0 0 400 22" style={{ width: "100%", height: "auto" }}>
                           {periods.map((p, i) => {
                             const maxAbs = Math.max(...periods.map(x => Math.abs(x.ret)), 1);
@@ -3020,8 +3035,8 @@ RULES:
                             const y = p.ret >= 0 ? 11 - bh : 11;
                             return <g key={i}>
                               <rect x={x} y={y} width={w} height={bh} rx="1" fill={p.ret >= 0 ? T.acc : T.danger} opacity="0.2" />
-                              <text x={x + w / 2} y={p.ret >= 0 ? y - 1 : y + bh + 3.5} textAnchor="middle" fill={p.ret >= 0 ? T.acc : T.danger} fontSize="4" fontWeight="700">{p.ret > 0 ? "+" : ""}{p.ret}%</text>
-                              <text x={x + w / 2} y="21" textAnchor="middle" fill={T.t4} fontSize="4">{p.d}D</text>
+                              <text x={x + w / 2} y={p.ret >= 0 ? y - 1 : y + bh + 3.5} textAnchor="middle" fill={p.ret >= 0 ? T.acc : T.danger} fontSize="6" fontWeight="700">{p.ret > 0 ? "+" : ""}{p.ret}%</text>
+                              <text x={x + w / 2} y="21" textAnchor="middle" fill={T.t4} fontSize="6">{p.d}D</text>
                             </g>;
                           })}
                           <line x1="0" y1="11" x2="400" y2="11" stroke="rgba(255,255,255,.03)" strokeWidth="0.2" />
@@ -3030,9 +3045,9 @@ RULES:
 
                       {/* History data table */}
                       <div style={{ marginBottom: 8 }}>
-                        <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>PERIOD STATISTICS</div>
+                        <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>PERIOD STATISTICS</div>
                         <div className="scroll-x">
-                          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 8 }}>
+                          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                             <thead><tr>
                               {["Period", "Return", "High", "Low", "Max DD", "Avg Vol (M)"].map(h => <th key={h} style={{ padding: "2px 4px", textAlign: "left", color: T.t3, fontWeight: 700, borderBottom: `1px solid ${T.bd}`, whiteSpace: "nowrap" }}>{h}</th>)}
                             </tr></thead>
@@ -3052,9 +3067,9 @@ RULES:
 
                   {/* Daily price history table (last 20 days) */}
                   <div style={{ marginBottom: 10 }}>
-                    <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>DAILY PRICE LOG (LAST 20 SESSIONS)</div>
+                    <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>DAILY PRICE LOG (LAST 20 SESSIONS)</div>
                     <div className="scroll-x" style={{ maxHeight: 220, overflow: "auto" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 8 }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                         <thead style={{ position: "sticky", top: 0, background: T.s1 }}><tr>
                           {["Date", "Open", "High", "Low", "Close", "Chg%", "Vol", "RSI", "SMA20"].map(h => <th key={h} style={{ padding: "2px 4px", textAlign: "left", color: T.t3, fontWeight: 700, borderBottom: `1px solid ${T.bd}`, whiteSpace: "nowrap" }}>{h}</th>)}
                         </tr></thead>
@@ -3099,7 +3114,7 @@ RULES:
                     const proj7dBull = +(avgWin * winRate / 100 * 7 + avgLoss * (100 - winRate) / 100 * 7).toFixed(2);
 
                     return <>
-                      <div style={{ fontSize: 8, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>RETURN DISTRIBUTION</div>
+                      <div style={{ fontSize: 12, color: T.t3, fontWeight: 700, letterSpacing: 0.6, marginBottom: 2 }}>RETURN DISTRIBUTION</div>
 
                       {/* Distribution histogram */}
                       <svg viewBox="0 0 400 20" style={{ width: "100%", height: "auto", marginBottom: 3 }}>
@@ -3108,8 +3123,8 @@ RULES:
                           const x = i * bw + 2; const w = bw - 4;
                           return <g key={i}>
                             <rect x={x} y={17 - bh} width={w} height={bh} rx="1" fill={b.bin >= 0 ? T.acc : T.danger} opacity="0.15" />
-                            <text x={x + w / 2} y={17 - bh - 1} textAnchor="middle" fill={T.t4} fontSize="4">{b.count}</text>
-                            <text x={x + w / 2} y="20" textAnchor="middle" fill={T.t4} fontSize="4">{b.bin > 0 ? "+" : ""}{b.bin}%</text>
+                            <text x={x + w / 2} y={17 - bh - 1} textAnchor="middle" fill={T.t4} fontSize="6">{b.count}</text>
+                            <text x={x + w / 2} y="20" textAnchor="middle" fill={T.t4} fontSize="6">{b.bin > 0 ? "+" : ""}{b.bin}%</text>
                           </g>;
                         })}
                       </svg>
@@ -3127,15 +3142,15 @@ RULES:
                           { l: "Worst", v: `${worstDay}%`, c: T.danger },
                           { l: "Streak", v: `${maxConsWin}W/${maxConsLoss}L`, c: T.t2 },
                         ].map((s, i) => <div key={i} style={{ background: T.s2, borderRadius: 2, padding: "2px 3px", border: `1px solid ${T.bd}` }}>
-                          <div style={{ fontSize: 8, color: T.t4 }}>{s.l}</div>
-                          <div style={{ fontSize: 8, fontWeight: 700, color: s.c }}>{s.v}</div>
+                          <div style={{ fontSize: 12, color: T.t4 }}>{s.l}</div>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: s.c }}>{s.v}</div>
                         </div>)}
                       </div>
 
                       {/* Historical projection */}
                       <div style={{ padding: "4px 6px", borderRadius: 4, background: "rgba(0,201,255,.03)", border: `1px solid rgba(0,201,255,.08)` }}>
-                        <div style={{ fontSize: 8, fontWeight: 700, color: T.acc2, letterSpacing: 0.6, marginBottom: 2 }}>PROJECTION ({rets.length}d)</div>
-                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 8 }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: T.acc2, letterSpacing: 0.6, marginBottom: 2 }}>PROJECTION ({rets.length}d)</div>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 12 }}>
                           <div><span style={{ color: T.t3 }}>7D avg path: </span><span style={{ fontWeight: 700, color: proj7d >= 0 ? T.acc : T.danger }}>{proj7d > 0 ? "+" : ""}{proj7d}%</span></div>
                           <div><span style={{ color: T.t3 }}>30D avg path: </span><span style={{ fontWeight: 700, color: proj30d >= 0 ? T.acc : T.danger }}>{proj30d > 0 ? "+" : ""}{proj30d}%</span></div>
                           <div><span style={{ color: T.t3 }}>7D EV (w/l weighted): </span><span style={{ fontWeight: 700, color: proj7dBull >= 0 ? T.acc : T.danger }}>{proj7dBull > 0 ? "+" : ""}{proj7dBull}%</span></div>
@@ -3151,14 +3166,14 @@ RULES:
               </div> : <div>
                 <div style={{ textAlign: "center", padding: "16px 0", color: T.t3, marginBottom: 12 }}>
                   <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>Select an asset to analyze</div>
-                  <div style={{ fontSize: 9, color: T.t4 }}>Pick from your watchlist or browse all assets below</div>
+                  <div style={{ fontSize: 12, color: T.t4 }}>Pick from your watchlist or browse all assets below</div>
                 </div>
                 {watch.length > 0 && <div style={{ marginBottom: 12 }}>
                   <div className="label" style={{ color: T.warn }}>WATCHLIST</div>
                   <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
                     {watch.map(id => { const a = anl[id]; return a ? <div key={id} onClick={() => setSel(id)} style={{ padding: "6px 10px", borderRadius: 5, cursor: "pointer", background: T.s2, border: `1px solid ${T.bd}`, minWidth: 80 }}>
-                      <div style={{ fontWeight: 800, fontSize: 10 }}>{id}</div>
-                      <div style={{ fontSize: 8, color: T.t3 }}>${a.price.toLocaleString()} <span style={{ color: a.dR >= 0 ? T.acc : T.danger }}>{a.dR >= 0 ? "+" : ""}{a.dR}%</span></div>
+                      <div style={{ fontWeight: 800, fontSize: 12 }}>{id}</div>
+                      <div style={{ fontSize: 12, color: T.t3 }}>${a.price.toLocaleString()} <span style={{ color: a.dR >= 0 ? T.acc : T.danger }}>{a.dR >= 0 ? "+" : ""}{a.dR}%</span></div>
                     </div> : null; })}
                   </div>
                 </div>}
@@ -3166,8 +3181,8 @@ RULES:
                 <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
                   {Object.values(anl).filter(a => a.rec !== "HOLD").sort((a, b) => b.conf - a.conf).slice(0, 12).map(a => (
                     <div key={a.id} onClick={() => setSel(a.id)} style={{ padding: "6px 10px", borderRadius: 5, cursor: "pointer", background: a.rec.includes("BUY") ? "rgba(0,232,123,.04)" : "rgba(255,45,85,.04)", border: `1px solid ${a.rec.includes("BUY") ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}`, minWidth: 80 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", gap: 6 }}><span style={{ fontWeight: 800, fontSize: 10 }}>{a.id}</span><RecPill r={a.rec} /></div>
-                      <div style={{ fontSize: 8, color: T.t3 }}>${a.price.toLocaleString()} · {a.conf}%</div>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: 6 }}><span style={{ fontWeight: 800, fontSize: 12 }}>{a.id}</span><RecPill r={a.rec} /></div>
+                      <div style={{ fontSize: 12, color: T.t3 }}>${a.price.toLocaleString()} · {a.conf}%</div>
                     </div>
                   ))}
                 </div>
@@ -3177,51 +3192,51 @@ RULES:
             {tab === "debt" && <div>
               {(() => { const D = DEBT_DATA[debtCountry]; return <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <div style={{ fontSize: 9, fontWeight: 800, color: T.purple }}>⚡ ECONOMIC MACHINE</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: T.purple }}>⚡ ECONOMIC MACHINE</div>
                 <div style={{ display: "flex", gap: 2 }}>
                   {Object.entries(DEBT_DATA).map(([k, v]) => (
-                    <div key={k} onClick={() => setDebtCountry(k)} style={{ padding: "2px 6px", borderRadius: 3, fontSize: 8, fontWeight: 700, cursor: "pointer", background: debtCountry === k ? "rgba(123,97,255,.12)" : "rgba(255,255,255,.03)", color: debtCountry === k ? T.purple : T.t4, border: `1px solid ${debtCountry === k ? "rgba(123,97,255,.25)" : T.bd}` }}>{k}</div>
+                    <div key={k} onClick={() => setDebtCountry(k)} style={{ padding: "2px 6px", borderRadius: 3, fontSize: 11, fontWeight: 700, cursor: "pointer", background: debtCountry === k ? "rgba(123,97,255,.12)" : "rgba(255,255,255,.03)", color: debtCountry === k ? T.purple : T.t4, border: `1px solid ${debtCountry === k ? "rgba(123,97,255,.25)" : T.bd}` }}>{k}</div>
                   ))}
                 </div>
               </div>
-              <div style={{ fontSize: 8, color: T.t3, marginBottom: 8 }}>{D.name} · {D.currency}</div>
+              <div style={{ fontSize: 12, color: T.t3, marginBottom: 8 }}>{D.name} · {D.currency}</div>
               <div className="g2" style={{ marginBottom: 8, gap: 6 }}>
                 <div className="card" style={{ textAlign: "center", padding: "6px" }}>
-                  <div style={{ fontSize: 8, color: T.t4 }}>CYCLE</div>
+                  <div style={{ fontSize: 12, color: T.t4 }}>CYCLE</div>
                   <CycleGauge pos={D.pos} size={100} />
-                  <div style={{ fontSize: 9, fontWeight: 800, color: T.warn }}>{D.phase}</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: T.warn }}>{D.phase}</div>
                 </div>
                 <div>
                   <div className="g2" style={{ marginBottom: 6, gap: 3 }}>
-                    {[{ l: "RATE", v: `${D.fedFunds}%`, c: T.danger }, { l: "2Y10Y", v: `${D.spread2y10y}%`, c: D.spread2y10y < 0 ? T.danger : T.acc }, { l: "HY", v: `${D.hySpread}%`, c: T.warn }, { l: "D/GDP", v: `${D.debtGdp}%`, c: D.debtGdp > 100 ? T.danger : T.warn }].map((s, i) => <div key={i} style={{ background: T.s2, borderRadius: 3, padding: "3px 5px", border: `1px solid ${T.bd}`, textAlign: "center" }}><div style={{ fontSize: 8, color: T.t4 }}>{s.l}</div><div style={{ fontSize: 9, fontWeight: 700, color: s.c }}>{s.v}</div></div>)}
+                    {[{ l: "RATE", v: `${D.fedFunds}%`, c: T.danger }, { l: "2Y10Y", v: `${D.spread2y10y}%`, c: D.spread2y10y < 0 ? T.danger : T.acc }, { l: "HY", v: `${D.hySpread}%`, c: T.warn }, { l: "D/GDP", v: `${D.debtGdp}%`, c: D.debtGdp > 100 ? T.danger : T.warn }].map((s, i) => <div key={i} style={{ background: T.s2, borderRadius: 3, padding: "3px 5px", border: `1px solid ${T.bd}`, textAlign: "center" }}><div style={{ fontSize: 12, color: T.t4 }}>{s.l}</div><div style={{ fontSize: 12, fontWeight: 700, color: s.c }}>{s.v}</div></div>)}
                   </div>
-                  <div style={{ padding: "4px 6px", background: T.s2, borderRadius: 3, border: `1px solid ${T.bd}` }}><div style={{ fontSize: 8, color: T.t4 }}>LONG-TERM</div><div style={{ fontSize: 9, fontWeight: 800, color: T.danger }}>{D.longPhase}</div></div>
+                  <div style={{ padding: "4px 6px", background: T.s2, borderRadius: 3, border: `1px solid ${T.bd}` }}><div style={{ fontSize: 12, color: T.t4 }}>LONG-TERM</div><div style={{ fontSize: 12, fontWeight: 800, color: T.danger }}>{D.longPhase}</div></div>
                 </div>
               </div>
-              <div className="card" style={{ marginBottom: 8, padding: "4px 6px" }}>{D.indicators.map((ind, i) => <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2px 0", borderBottom: i < D.indicators.length - 1 ? `1px solid ${T.bd}` : "none", fontSize: 8 }}><div><span style={{ fontWeight: 600 }}>{ind.name}</span> <span style={{ color: T.acc2 }}>{ind.value}</span> <span style={{ fontSize: 8, color: T.t4 }}>{ind.detail}</span></div><Pill c={ind.sig === "WARN" || ind.sig === "TIGHT" || ind.sig === "CRITICAL" ? T.danger : ind.sig === "CAUTION" || ind.sig === "ELEVATED" ? T.warn : ind.sig === "LOOSE" ? T.acc : T.t2} bg={ind.sig === "WARN" || ind.sig === "TIGHT" || ind.sig === "CRITICAL" ? "rgba(255,45,85,.08)" : ind.sig === "CAUTION" || ind.sig === "ELEVATED" ? "rgba(245,166,35,.08)" : "rgba(255,255,255,.03)"}>{ind.sig}</Pill></div>)}</div>
+              <div className="card" style={{ marginBottom: 8, padding: "4px 6px" }}>{D.indicators.map((ind, i) => <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2px 0", borderBottom: i < D.indicators.length - 1 ? `1px solid ${T.bd}` : "none", fontSize: 12 }}><div><span style={{ fontWeight: 600 }}>{ind.name}</span> <span style={{ color: T.acc2 }}>{ind.value}</span> <span style={{ fontSize: 12, color: T.t4 }}>{ind.detail}</span></div><Pill c={ind.sig === "WARN" || ind.sig === "TIGHT" || ind.sig === "CRITICAL" ? T.danger : ind.sig === "CAUTION" || ind.sig === "ELEVATED" ? T.warn : ind.sig === "LOOSE" ? T.acc : T.t2} bg={ind.sig === "WARN" || ind.sig === "TIGHT" || ind.sig === "CRITICAL" ? "rgba(255,45,85,.08)" : ind.sig === "CAUTION" || ind.sig === "ELEVATED" ? "rgba(245,166,35,.08)" : "rgba(255,255,255,.03)"}>{ind.sig}</Pill></div>)}</div>
 
               {/* Scenario simulator inline */}
               <div className="card" style={{ marginBottom: 8, padding: "4px 6px" }}>
                 <div style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 8, fontWeight: 700, color: T.purple }}>SCENARIO</span>
-                  <select value={scenAsset} onChange={e => { setScenAsset(e.target.value); setSel(e.target.value); }} style={{ fontSize: 8, padding: "1px 3px" }}><option value="">Asset</option>{all.map(a => <option key={a.id} value={a.id}>{a.id}</option>)}</select>
-                  {[-20, -10, -5, 5, 10, 25].map(p => <span key={p} onClick={() => scenAsset && runScen(scenAsset, p)} style={{ padding: "1px 5px", borderRadius: 2, fontSize: 8, fontWeight: 700, cursor: "pointer", background: p > 0 ? "rgba(0,232,123,.06)" : "rgba(255,45,85,.06)", color: p > 0 ? T.acc : T.danger, border: `1px solid ${p > 0 ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}` }}>{p > 0 ? "+" : ""}{p}%</span>)}
+                  <span style={{ fontSize: 12, fontWeight: 700, color: T.purple }}>SCENARIO</span>
+                  <select value={scenAsset} onChange={e => { setScenAsset(e.target.value); setSel(e.target.value); }} style={{ fontSize: 12, padding: "1px 3px" }}><option value="">Asset</option>{all.map(a => <option key={a.id} value={a.id}>{a.id}</option>)}</select>
+                  {[-20, -10, -5, 5, 10, 25].map(p => <span key={p} onClick={() => scenAsset && runScen(scenAsset, p)} style={{ padding: "1px 5px", borderRadius: 2, fontSize: 11, fontWeight: 700, cursor: "pointer", background: p > 0 ? "rgba(0,232,123,.06)" : "rgba(255,45,85,.06)", color: p > 0 ? T.acc : T.danger, border: `1px solid ${p > 0 ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}` }}>{p > 0 ? "+" : ""}{p}%</span>)}
                 </div>
                 {scenario && <div style={{ marginTop: 4 }}>
-                  <div style={{ fontSize: 10, fontWeight: 800, color: scenario.pi >= 0 ? T.acc : T.danger, marginBottom: 3 }}>Portfolio: {scenario.pi >= 0 ? "+" : ""}${scenario.pi.toLocaleString()}</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: scenario.pi >= 0 ? T.acc : T.danger, marginBottom: 3 }}>Portfolio: {scenario.pi >= 0 ? "+" : ""}${scenario.pi.toLocaleString()}</div>
                   <HBarChart items={scenario.imp.map(x => ({ label: x.id, v: x.pct }))} w={300} barH={8} />
                 </div>}
               </div>
 
               {/* Quadrants compact */}
               <div className="card" style={{ marginBottom: 8, padding: "4px 6px" }}>
-                <div style={{ fontSize: 8, fontWeight: 700, color: T.warn, marginBottom: 4 }}>4 QUADRANTS</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: T.warn, marginBottom: 4 }}>4 QUADRANTS</div>
                 <div className="g2" style={{ gap: 3 }}>
                   {Object.entries(QUADRANTS).map(([k, q]) => (
                     <div key={k} style={{ padding: "4px 6px", borderRadius: 4, border: `1px solid ${q.color}15`, background: `${q.color}05` }}>
-                      <div style={{ fontSize: 8, fontWeight: 700, color: q.color }}>{q.name}</div>
-                      <div style={{ fontSize: 8, color: T.t3, marginBottom: 3 }}>{q.bestFor}</div>
-                      <div style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>{q.assets.slice(0, 5).map(id => <span key={id} style={{ fontSize: 8, color: q.color, opacity: 0.7 }}>{id}</span>)}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: q.color }}>{q.name}</div>
+                      <div style={{ fontSize: 12, color: T.t3, marginBottom: 3 }}>{q.bestFor}</div>
+                      <div style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>{q.assets.slice(0, 5).map(id => <span key={id} style={{ fontSize: 12, color: q.color, opacity: 0.7 }}>{id}</span>)}</div>
                     </div>
                   ))}
                 </div>
@@ -3229,12 +3244,12 @@ RULES:
 
               {/* All Weather compact */}
               <div className="card" style={{ marginBottom: 8, padding: "4px 6px" }}>
-                <div style={{ fontSize: 8, fontWeight: 700, color: T.acc2, marginBottom: 4 }}>ALL WEATHER</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: T.acc2, marginBottom: 4 }}>ALL WEATHER</div>
                 <div style={{ display: "flex", gap: 3 }}>
                   {Object.values(ALL_WEATHER).map((aw, i) => (
                     <div key={i} style={{ flex: 1, padding: "3px", borderRadius: 3, border: `1px solid ${aw.color}15`, background: `${aw.color}05`, textAlign: "center" }}>
-                      <div style={{ fontSize: 11, fontWeight: 800, color: aw.color }}>{aw.pct}%</div>
-                      <div style={{ fontSize: 8, color: T.t3 }}>{aw.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 800, color: aw.color }}>{aw.pct}%</div>
+                      <div style={{ fontSize: 12, color: T.t3 }}>{aw.label}</div>
                     </div>
                   ))}
                 </div>
@@ -3242,11 +3257,11 @@ RULES:
 
               {/* Rules compact */}
               <div className="card" style={{ padding: "4px 6px" }}>
-                <div style={{ fontSize: 8, fontWeight: 700, color: T.acc, marginBottom: 3 }}>3 RULES</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: T.acc, marginBottom: 3 }}>3 RULES</div>
                 {THREE_RULES.map((r, i) => (
                   <div key={i} style={{ display: "flex", gap: 4, alignItems: "center", padding: "2px 0", borderBottom: i < 2 ? `1px solid ${T.bd}` : "none" }}>
-                    <span style={{ fontSize: 10 }}>{r.icon}</span>
-                    <div><span style={{ fontSize: 8, fontWeight: 700, color: T.acc }}>{r.rule}</span> <span style={{ fontSize: 8, color: T.t4 }}>{r.desc}</span></div>
+                    <span style={{ fontSize: 12 }}>{r.icon}</span>
+                    <div><span style={{ fontSize: 12, fontWeight: 700, color: T.acc }}>{r.rule}</span> <span style={{ fontSize: 12, color: T.t4 }}>{r.desc}</span></div>
                   </div>
                 ))}
               </div>
@@ -3254,15 +3269,15 @@ RULES:
             </div>}
 
             {tab === "corr" && <div>
-              <div className="label" style={{ color: T.acc2, fontSize: 10, marginBottom: 12 }}>◫ CORRELATION HEATMAP</div>
+              <div className="label" style={{ color: T.acc2, fontSize: 12, marginBottom: 12 }}>◫ CORRELATION HEATMAP</div>
               <div className="card scroll-x"><CorrHeatmap matrix={corr} ids={all.map(a => a.id)} maxCorr={cfg.maxCorr} /></div>
-              <div style={{ marginTop: 8, fontSize: 9, color: T.t3 }}>Bordered cells exceed max correlation ({cfg.maxCorr}).</div>
+              <div style={{ marginTop: 8, fontSize: 12, color: T.t3 }}>Bordered cells exceed max correlation ({cfg.maxCorr}).</div>
             </div>}
 
             {tab === "geo" && <div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <div className="label" style={{ color: T.warn, fontSize: 10, marginBottom: 0 }}>⚑ GEOPOLITICAL & CONFLICT INTELLIGENCE</div>
-                <span style={{ fontSize: 8, color: T.t4 }}>{GEO.length} events · {conflictData.feeds.length} intel reports</span>
+                <div className="label" style={{ color: T.warn, fontSize: 12, marginBottom: 0 }}>⚑ GEOPOLITICAL & CONFLICT INTELLIGENCE</div>
+                <span style={{ fontSize: 12, color: T.t4 }}>{GEO.length} events · {conflictData.feeds.length} intel reports</span>
               </div>
 
               {/* ═══ INTERACTIVE WORLD MAP ═══ */}
@@ -3305,7 +3320,7 @@ RULES:
                         const cData = WORLD.find(w => w.c === l.c);
                         const heat = cData ? (rCounts[cData.r] || 0) / maxC : 0;
                         const isSel = cData && conflictData.geoFilter === cData.r;
-                        return <text key={`lbl${l.c}`} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="middle" fill={isSel ? "rgba(0,201,255,.5)" : heat > 0.5 ? "rgba(255,200,200,.22)" : "rgba(255,255,255,.12)"} fontSize="4.5" fontWeight="400" style={{ pointerEvents: "none" }}>{l.n}</text>;
+                        return <text key={`lbl${l.c}`} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="middle" fill={isSel ? "rgba(0,201,255,.5)" : heat > 0.5 ? "rgba(255,200,200,.22)" : "rgba(255,255,255,.12)"} fontSize="5.5" fontWeight="400" style={{ pointerEvents: "none" }}>{l.n}</text>;
                       })}
                       {/* Conflict pins - minimal */}
                       {pins.map((p, i) => <g key={`pin${i}`}>
@@ -3314,11 +3329,11 @@ RULES:
                         <circle cx={p.x} cy={p.y} r={p.sev === "CRITICAL" ? "1" : "0.7"} fill={p.sev === "CRITICAL" ? T.danger : p.sev === "HIGH" ? T.warn : T.t3} opacity="0.8" />
                       </g>)}
                       {/* Coordinate labels */}
-                      <text x="32" y="253" fill="rgba(255,255,255,.06)" fontSize="4">0°</text>
-                      <text x="32" y="188" fill="rgba(255,255,255,.04)" fontSize="4">23.4°N</text>
-                      <text x="32" y="318" fill="rgba(255,255,255,.04)" fontSize="4">23.4°S</text>
+                      <text x="32" y="253" fill="rgba(255,255,255,.06)" fontSize="6">0°</text>
+                      <text x="32" y="188" fill="rgba(255,255,255,.04)" fontSize="6">23.4°N</text>
+                      <text x="32" y="318" fill="rgba(255,255,255,.04)" fontSize="6">23.4°S</text>
                     </svg>
-                    {conflictData.geoFilter !== "all" && !GEO_CATS.find(c => c.k === conflictData.geoFilter) && <div style={{ fontSize: 8, color: T.acc2, fontWeight: 600, marginTop: 2, padding: "2px 6px", background: "rgba(0,201,255,.04)", borderRadius: 3, display: "inline-block" }}>
+                    {conflictData.geoFilter !== "all" && !GEO_CATS.find(c => c.k === conflictData.geoFilter) && <div style={{ fontSize: 12, color: T.acc2, fontWeight: 600, marginTop: 2, padding: "2px 6px", background: "rgba(0,201,255,.04)", borderRadius: 3, display: "inline-block" }}>
                       {regionNames[conflictData.geoFilter] || conflictData.geoFilter} <span onClick={() => setConflictData(p => ({ ...p, geoFilter: "all" }))} style={{ cursor: "pointer", color: T.t4, marginLeft: 4 }}>✕</span>
                     </div>}
                   </>;
@@ -3328,7 +3343,7 @@ RULES:
               {/* Category filters */}
               <div style={{ display: "flex", gap: 3, marginBottom: 10, flexWrap: "wrap" }}>
                 {GEO_CATS.map(c => (
-                  <div key={c.k} onClick={() => setConflictData(p => ({ ...p, geoFilter: c.k }))} style={{ padding: "3px 8px", borderRadius: 4, fontSize: 8, fontWeight: 700, cursor: "pointer", background: conflictData.geoFilter === c.k ? `${c.c}15` : "rgba(255,255,255,.03)", color: conflictData.geoFilter === c.k ? c.c : T.t4, border: `1px solid ${conflictData.geoFilter === c.k ? `${c.c}30` : T.bd}` }}>
+                  <div key={c.k} onClick={() => setConflictData(p => ({ ...p, geoFilter: c.k }))} style={{ padding: "3px 8px", borderRadius: 4, fontSize: 11, fontWeight: 700, cursor: "pointer", background: conflictData.geoFilter === c.k ? `${c.c}15` : "rgba(255,255,255,.03)", color: conflictData.geoFilter === c.k ? c.c : T.t4, border: `1px solid ${conflictData.geoFilter === c.k ? `${c.c}30` : T.bd}` }}>
                     {c.l} {c.k !== "all" && <span style={{ opacity: 0.6 }}>({GEO.filter(g => g.cat === c.k).length})</span>}
                   </div>
                 ))}
@@ -3345,18 +3360,18 @@ RULES:
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 3, flexWrap: "wrap" }}>
                       <SevBadge s={g.sev} />
-                      <span style={{ fontWeight: 700, fontSize: 10 }}>{g.title}</span>
+                      <span style={{ fontWeight: 700, fontSize: 12 }}>{g.title}</span>
                       <Pill c={T.t4}>{g.region}</Pill>
                       {g.cat && <Pill c={g.cat === "conflict" ? T.danger : g.cat === "sanctions" ? T.warn : g.cat === "defense" ? T.purple : T.acc2} bg={g.cat === "conflict" ? "rgba(255,45,85,.06)" : "rgba(255,255,255,.03)"}>{g.cat}</Pill>}
                     </div>
-                    <div style={{ fontSize: 8, color: T.t2, marginBottom: 4, lineHeight: 1.4 }}>{g.desc}</div>
+                    <div style={{ fontSize: 12, color: T.t2, marginBottom: 4, lineHeight: 1.4 }}>{g.desc}</div>
                     <div style={{ display: "flex", gap: 3, flexWrap: "wrap" }}>{g.impact.map(id => { const a = anl[id]; return <Pill key={id} c={T.acc2} bg="rgba(0,201,255,.06)" onClick={() => { if (a) { setSel(id); setTab("analysis"); } }}>
-                      {id}{a ? <span style={{ marginLeft: 3, fontSize: 8, color: a.dR >= 0 ? T.acc : T.danger }}>${a.price > 100 ? Math.round(a.price).toLocaleString() : a.price.toFixed(2)} {a.dR >= 0 ? "▲" : "▼"}{Math.abs(a.dR)}%</span> : null}
+                      {id}{a ? <span style={{ marginLeft: 3, fontSize: 12, color: a.dR >= 0 ? T.acc : T.danger }}>${a.price > 100 ? Math.round(a.price).toLocaleString() : a.price.toFixed(2)} {a.dR >= 0 ? "▲" : "▼"}{Math.abs(a.dR)}%</span> : null}
                     </Pill>; })}</div>
                   </div>
                   <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: g.dir === "bullish" ? T.acc : g.dir === "bearish" ? T.danger : T.warn }}>{g.dir === "bullish" ? "▲" : g.dir === "bearish" ? "▼" : "◆"}</div>
-                    <div style={{ fontSize: 8, color: T.t4 }}>{g.date}</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: g.dir === "bullish" ? T.acc : g.dir === "bearish" ? T.danger : T.warn }}>{g.dir === "bullish" ? "▲" : g.dir === "bearish" ? "▼" : "◆"}</div>
+                    <div style={{ fontSize: 12, color: T.t4 }}>{g.date}</div>
                   </div>
                 </div>
               </div>)}
@@ -3364,10 +3379,10 @@ RULES:
               {/* Conflict Intelligence Feed */}
               <div style={{ marginTop: 12, paddingTop: 10, borderTop: `1px solid ${T.bd}` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <div className="label" style={{ color: T.danger, fontSize: 9, marginBottom: 0 }}>🔴 CONFLICT INTELLIGENCE FEED</div>
-                  {conflictData.ts && <span style={{ fontSize: 8, color: T.t4 }}>Updated: {new Date(conflictData.ts).toLocaleTimeString()} · Sources: OSINT, ACLED, Reuters</span>}
+                  <div className="label" style={{ color: T.danger, fontSize: 12, marginBottom: 0 }}>🔴 CONFLICT INTELLIGENCE FEED</div>
+                  {conflictData.ts && <span style={{ fontSize: 12, color: T.t4 }}>Updated: {new Date(conflictData.ts).toLocaleTimeString()} · Sources: OSINT, ACLED, Reuters</span>}
                 </div>
-                {conflictData.loading && <div style={{ textAlign: "center", padding: 12, color: T.t3, fontSize: 8 }}>Fetching conflict data...</div>}
+                {conflictData.loading && <div style={{ textAlign: "center", padding: 12, color: T.t3, fontSize: 12 }}>Fetching conflict data...</div>}
                 {conflictData.feeds.map((f, i) => {
                   // Auto-detect affected assets from title + desc
                   const text = `${f.title} ${f.desc}`.toUpperCase();
@@ -3380,19 +3395,19 @@ RULES:
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 6 }}>
                       <div style={{ flex: 1 }}>
                         <div style={{ display: "flex", gap: 4, alignItems: "center", marginBottom: 2 }}>
-                          <span style={{ fontSize: 8, fontWeight: 700, color: T.danger, letterSpacing: 0.5 }}>{f.source}</span>
+                          <span style={{ fontSize: 12, fontWeight: 700, color: T.danger, letterSpacing: 0.5 }}>{f.source}</span>
                           <SevBadge s={f.sev} />
-                          {f.fatalities > 0 && <span style={{ fontSize: 8, color: T.danger }}>☠ {f.fatalities}</span>}
+                          {f.fatalities > 0 && <span style={{ fontSize: 12, color: T.danger }}>☠ {f.fatalities}</span>}
                         </div>
-                        <div style={{ fontSize: 9, fontWeight: 600, color: T.t1, marginBottom: 2 }}>{f.title}</div>
-                        <div style={{ fontSize: 8, color: T.t3, lineHeight: 1.3, marginBottom: linked.length ? 3 : 0 }}>{f.desc}</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: T.t1, marginBottom: 2 }}>{f.title}</div>
+                        <div style={{ fontSize: 12, color: T.t3, lineHeight: 1.3, marginBottom: linked.length ? 3 : 0 }}>{f.desc}</div>
                         {linked.length > 0 && <div style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                           {linked.slice(0, 6).map(id => <Pill key={id} c={T.acc2} bg="rgba(0,201,255,.06)" onClick={() => { if (anl[id]) { setSel(id); setTab("analysis"); } }}>{id}</Pill>)}
                         </div>}
                       </div>
                       <div style={{ flexShrink: 0, textAlign: "right" }}>
-                        <div style={{ fontSize: 8, color: T.t4 }}>{f.date}</div>
-                        {f.region && <div style={{ fontSize: 8, color: T.t4 }}>{f.region}</div>}
+                        <div style={{ fontSize: 12, color: T.t4 }}>{f.date}</div>
+                        {f.region && <div style={{ fontSize: 12, color: T.t4 }}>{f.region}</div>}
                       </div>
                     </div>
                   </div>);
@@ -3401,87 +3416,87 @@ RULES:
             </div>}
 
             {tab === "news" && <div>
-              <div className="label" style={{ color: T.acc2, fontSize: 10, marginBottom: 12 }}>◎ NEWS & SENTIMENT</div>
+              <div className="label" style={{ color: T.acc2, fontSize: 12, marginBottom: 12 }}>◎ NEWS & SENTIMENT</div>
               {NEWS.map(n => <div key={n.id} className="card" style={{ marginBottom: 6 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-                  <div style={{ flex: 1, minWidth: 0 }}><div style={{ fontWeight: 600, fontSize: 10, marginBottom: 4 }}>{n.t}</div><SentBar value={n.sent} w={80} h={5} /><div style={{ display: "flex", gap: 3, flexWrap: "wrap", marginTop: 4 }}><Pill>{n.cat}</Pill><span style={{ fontSize: 8, color: T.t4 }}>{n.time}</span>{n.impact.map(id => { const a = anl[id]; return <Pill key={id} c={T.acc2} bg="rgba(0,201,255,.07)" onClick={() => { if (a) { setSel(id); setTab("analysis"); } }}>
-                    {id}{a ? <span style={{ marginLeft: 3, fontSize: 8, color: a.dR >= 0 ? T.acc : T.danger }}>{a.dR >= 0 ? "▲" : "▼"}{Math.abs(a.dR)}%</span> : null}
+                  <div style={{ flex: 1, minWidth: 0 }}><div style={{ fontWeight: 600, fontSize: 12, marginBottom: 4 }}>{n.t}</div><SentBar value={n.sent} w={80} h={5} /><div style={{ display: "flex", gap: 3, flexWrap: "wrap", marginTop: 4 }}><Pill>{n.cat}</Pill><span style={{ fontSize: 12, color: T.t4 }}>{n.time}</span>{n.impact.map(id => { const a = anl[id]; return <Pill key={id} c={T.acc2} bg="rgba(0,201,255,.07)" onClick={() => { if (a) { setSel(id); setTab("analysis"); } }}>
+                    {id}{a ? <span style={{ marginLeft: 3, fontSize: 12, color: a.dR >= 0 ? T.acc : T.danger }}>{a.dR >= 0 ? "▲" : "▼"}{Math.abs(a.dR)}%</span> : null}
                   </Pill>; })}</div></div>
-                  <div style={{ textAlign: "right", flexShrink: 0 }}><div style={{ fontSize: 15, fontWeight: 800, color: n.sent > 0.3 ? T.acc : n.sent < -0.3 ? T.danger : T.warn }}>{n.sent > 0 ? "+" : ""}{(n.sent * 100).toFixed(0)}</div><div style={{ fontSize: 8, color: T.t4 }}>SENT</div></div>
+                  <div style={{ textAlign: "right", flexShrink: 0 }}><div style={{ fontSize: 15, fontWeight: 800, color: n.sent > 0.3 ? T.acc : n.sent < -0.3 ? T.danger : T.warn }}>{n.sent > 0 ? "+" : ""}{(n.sent * 100).toFixed(0)}</div><div style={{ fontSize: 12, color: T.t4 }}>SENT</div></div>
                 </div>
               </div>)}
             </div>}
 
             {tab === "settings" && settingsTab === "backtest" && <div>
-              <div className="label" style={{ color: T.acc, fontSize: 10, marginBottom: 12 }}>↻ BACKTEST</div>
+              <div className="label" style={{ color: T.acc, fontSize: 12, marginBottom: 12 }}>↻ BACKTEST</div>
               {selA?.bt ? <div>
                 <div className="g4" style={{ marginBottom: 12 }}><Stat l="SIGNALS" v={selA.bt.total} c={T.acc2} /><Stat l="GOLDEN WR" v={selA.bt.gcWR ? `${selA.bt.gcWR}%` : "—"} c={T.acc} /><Stat l="DEATH WR" v={selA.bt.dcWR ? `${selA.bt.dcWR}%` : "—"} c={T.danger} /><Stat l="AVG 10D" v={selA.bt.avgRet ? `${selA.bt.avgRet}%` : "—"} c={selA.bt.avgRet > 0 ? T.acc : T.danger} /></div>
-                <div className="card"><div className="label">RECENT SIGNALS</div>{selA.bt.signals.length === 0 ? <div style={{ color: T.t4, fontSize: 9, padding: 8 }}>No signals</div> : selA.bt.signals.map((s, i) => <div key={i} className="row" style={{ flexWrap: "wrap", gap: 4 }}><div style={{ display: "flex", gap: 4, alignItems: "center" }}><Pill c={s.sig === "GOLDEN" ? T.acc : T.danger} bg={s.sig === "GOLDEN" ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}>{s.sig}</Pill><span style={{ color: T.t3, fontSize: 9 }}>{s.date}</span></div><div style={{ display: "flex", gap: 8, fontSize: 9 }}><span style={{ color: T.t3 }}>5D:<span style={{ color: s.f5 > 0 ? T.acc : T.danger, fontWeight: 600 }}>{s.f5 ?? "—"}%</span></span><span style={{ color: T.t3 }}>10D:<span style={{ color: s.f10 > 0 ? T.acc : T.danger, fontWeight: 600 }}>{s.f10 ?? "—"}%</span></span></div></div>)}</div>
+                <div className="card"><div className="label">RECENT SIGNALS</div>{selA.bt.signals.length === 0 ? <div style={{ color: T.t4, fontSize: 12, padding: 8 }}>No signals</div> : selA.bt.signals.map((s, i) => <div key={i} className="row" style={{ flexWrap: "wrap", gap: 4 }}><div style={{ display: "flex", gap: 4, alignItems: "center" }}><Pill c={s.sig === "GOLDEN" ? T.acc : T.danger} bg={s.sig === "GOLDEN" ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}>{s.sig}</Pill><span style={{ color: T.t3, fontSize: 12 }}>{s.date}</span></div><div style={{ display: "flex", gap: 8, fontSize: 12 }}><span style={{ color: T.t3 }}>5D:<span style={{ color: s.f5 > 0 ? T.acc : T.danger, fontWeight: 600 }}>{s.f5 ?? "—"}%</span></span><span style={{ color: T.t3 }}>10D:<span style={{ color: s.f10 > 0 ? T.acc : T.danger, fontWeight: 600 }}>{s.f10 ?? "—"}%</span></span></div></div>)}</div>
               </div> : <div style={{ color: T.t4, padding: 16 }}>Select an asset</div>}
             </div>}
 
             {tab === "scenario" && <div>
-              <div style={{ fontSize: 9, fontWeight: 800, color: T.purple, marginBottom: 8 }}>⧫ SCENARIO SIMULATOR</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: T.purple, marginBottom: 8 }}>⧫ SCENARIO SIMULATOR</div>
               <div className="card" style={{ marginBottom: 8, padding: "4px 6px" }}>
                 <div style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 8, color: T.t3 }}>If</span>
-                  <select value={scenAsset} onChange={e => { setScenAsset(e.target.value); setSel(e.target.value); }} style={{ fontSize: 8, padding: "2px 4px" }}><option value="">Pick asset</option>{all.map(a => <option key={a.id} value={a.id}>{a.id} — {a.name}</option>)}</select>
-                  <span style={{ fontSize: 8, color: T.t3 }}>moves</span>
-                  {[-20, -10, -5, 5, 10, 15, 25].map(p => <span key={p} onClick={() => scenAsset && runScen(scenAsset, p)} style={{ padding: "2px 6px", borderRadius: 3, fontSize: 8, fontWeight: 700, cursor: "pointer", background: p > 0 ? "rgba(0,232,123,.06)" : "rgba(255,45,85,.06)", color: p > 0 ? T.acc : T.danger, border: `1px solid ${p > 0 ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}` }}>{p > 0 ? "+" : ""}{p}%</span>)}
+                  <span style={{ fontSize: 12, color: T.t3 }}>If</span>
+                  <select value={scenAsset} onChange={e => { setScenAsset(e.target.value); setSel(e.target.value); }} style={{ fontSize: 12, padding: "2px 4px" }}><option value="">Pick asset</option>{all.map(a => <option key={a.id} value={a.id}>{a.id} — {a.name}</option>)}</select>
+                  <span style={{ fontSize: 12, color: T.t3 }}>moves</span>
+                  {[-20, -10, -5, 5, 10, 15, 25].map(p => <span key={p} onClick={() => scenAsset && runScen(scenAsset, p)} style={{ padding: "2px 6px", borderRadius: 3, fontSize: 11, fontWeight: 700, cursor: "pointer", background: p > 0 ? "rgba(0,232,123,.06)" : "rgba(255,45,85,.06)", color: p > 0 ? T.acc : T.danger, border: `1px solid ${p > 0 ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}` }}>{p > 0 ? "+" : ""}{p}%</span>)}
                 </div>
               </div>
               {scenario && <div>
-                <div className="card" style={{ marginBottom: 6, padding: "4px 8px", borderColor: scenario.pi < 0 ? "rgba(255,45,85,.12)" : "rgba(0,232,123,.08)" }}>
-                  <div style={{ fontSize: 8, color: T.t4 }}>PORTFOLIO IMPACT</div>
+                <div className="card" style={{ marginBottom: 6, padding: "6px 10px", borderColor: scenario.pi < 0 ? "rgba(255,45,85,.12)" : "rgba(0,232,123,.08)" }}>
+                  <div style={{ fontSize: 12, color: T.t4 }}>PORTFOLIO IMPACT</div>
                   <div style={{ fontSize: 14, fontWeight: 800, color: scenario.pi >= 0 ? T.acc : T.danger }}>{scenario.pi >= 0 ? "+" : ""}${scenario.pi.toLocaleString()}</div>
                 </div>
                 <div className="card" style={{ padding: "4px 6px" }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: T.t3, marginBottom: 3 }}>CASCADE ({scenario.imp.length} assets)</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: T.t3, marginBottom: 3 }}>CASCADE ({scenario.imp.length} assets)</div>
                   <HBarChart items={scenario.imp.map(x => ({ label: x.id, v: x.pct }))} w={300} barH={8} />
                 </div>
               </div>}
             </div>}
 
             {tab === "watch" && <div>
-              <div className="label" style={{ color: T.warn, fontSize: 10, marginBottom: 12 }}>★ WATCHLIST</div>
+              <div className="label" style={{ color: T.warn, fontSize: 12, marginBottom: 12 }}>★ WATCHLIST</div>
               <div className="card" style={{ marginBottom: 10 }}><div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>{all.filter(a => !watch.includes(a.id)).map(a => <Btn key={a.id} v="ghost" onClick={() => setWatch(w => [...w, a.id])}>+ {a.id}</Btn>)}</div></div>
               {watch.map(id => { const a = anl[id]; if (!a) return null; return <div key={id} className="card" style={{ marginBottom: 6 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}><b style={{ fontSize: 12 }}>{id}</b><span style={{ color: T.t3, fontSize: 9 }}>{a.name}</span><RecPill r={a.rec} /></div>
-                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}><span style={{ fontWeight: 600 }}>${a.price.toLocaleString()}</span><span style={{ color: a.dR >= 0 ? T.acc : T.danger, fontWeight: 700, fontSize: 10 }}>{a.dR >= 0 ? "+" : ""}{a.dR}%</span><span onClick={() => setWatch(w => w.filter(x => x !== id))} style={{ cursor: "pointer", color: T.danger, fontSize: 12 }}>✕</span></div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}><b style={{ fontSize: 12 }}>{id}</b><span style={{ color: T.t3, fontSize: 12 }}>{a.name}</span><RecPill r={a.rec} /></div>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}><span style={{ fontWeight: 600 }}>${a.price.toLocaleString()}</span><span style={{ color: a.dR >= 0 ? T.acc : T.danger, fontWeight: 700, fontSize: 12 }}>{a.dR >= 0 ? "+" : ""}{a.dR}%</span><span onClick={() => setWatch(w => w.filter(x => x !== id))} style={{ cursor: "pointer", color: T.danger, fontSize: 12 }}>✕</span></div>
                 </div>
                 {pd[id] && <div style={{ marginTop: 4 }}><PriceChart data={pd[id].slice(-30)} w={580} h={50} /></div>}
               </div>; })}
             </div>}
 
             {tab === "settings" && settingsTab === "alerts" && <div>
-              <div className="label" style={{ color: T.warn, fontSize: 10, marginBottom: 12 }}>⚡ ALERTS</div>
-              <div className="card" style={{ marginBottom: 12 }}>{alerts.map(al => <div key={al.id} className="row" style={{ fontSize: 10, flexWrap: "wrap", gap: 4 }}><div><b>{al.asset}</b> <span style={{ color: T.t3 }}>{al.cond.replace("_", " ")} {al.val}</span>{al.and && <span style={{ color: T.purple }}> & {al.and.replace("_", " ")}</span>}</div><div style={{ display: "flex", gap: 4, alignItems: "center" }}><Pill c={al.on ? T.acc : T.t4} bg={al.on ? "rgba(0,232,123,.1)" : "rgba(255,255,255,.03)"}>{al.on ? "ON" : "OFF"}</Pill><span onClick={() => setAlerts(a => a.map(x => x.id === al.id ? { ...x, on: !x.on } : x))} style={{ cursor: "pointer", fontSize: 8, color: T.t3 }}>toggle</span><span onClick={() => setAlerts(a => a.filter(x => x.id !== al.id))} style={{ cursor: "pointer", color: T.danger }}>✕</span></div></div>)}</div>
+              <div className="label" style={{ color: T.warn, fontSize: 12, marginBottom: 12 }}>⚡ ALERTS</div>
+              <div className="card" style={{ marginBottom: 12 }}>{alerts.map(al => <div key={al.id} className="row" style={{ fontSize: 12, flexWrap: "wrap", gap: 4 }}><div><b>{al.asset}</b> <span style={{ color: T.t3 }}>{al.cond.replace("_", " ")} {al.val}</span>{al.and && <span style={{ color: T.purple }}> & {al.and.replace("_", " ")}</span>}</div><div style={{ display: "flex", gap: 4, alignItems: "center" }}><Pill c={al.on ? T.acc : T.t4} bg={al.on ? "rgba(0,232,123,.1)" : "rgba(255,255,255,.03)"}>{al.on ? "ON" : "OFF"}</Pill><span onClick={() => setAlerts(a => a.map(x => x.id === al.id ? { ...x, on: !x.on } : x))} style={{ cursor: "pointer", fontSize: 12, color: T.t3 }}>toggle</span><span onClick={() => setAlerts(a => a.filter(x => x.id !== al.id))} style={{ cursor: "pointer", color: T.danger }}>✕</span></div></div>)}</div>
               <div className="card"><div className="label">ADD</div><div style={{ display: "flex", gap: 5, alignItems: "center", flexWrap: "wrap", marginTop: 4 }}><select id="na"><option value="">Asset</option>{all.map(a => <option key={a.id} value={a.id}>{a.id}</option>)}</select><select id="nc"><option value="price_above">price above</option><option value="price_below">price below</option><option value="vol_below">vol below</option></select><input id="nv" type="number" placeholder="val" className="ci" style={{ width: 60 }} /><select id="nw"><option value="">None</option><option value="trend_bull">& bull</option><option value="trend_bear">& bear</option></select><Btn v="purple" onClick={() => { const a = document.getElementById("na").value, c = document.getElementById("nc").value, v = +document.getElementById("nv").value, w = document.getElementById("nw").value; if (a && v) setAlerts(p => [...p, { id: Date.now(), asset: a, cond: c, val: v, and: w || null, on: true, label: `${a} ${c} ${v}` }]); }}>ADD</Btn></div></div>
             </div>}
 
             {tab === "trades" && <div>
-              <div className="label" style={{ color: T.acc, fontSize: 10, marginBottom: 12 }}>☰ TRADES</div>
-              {trades.length === 0 ? <div className="card" style={{ textAlign: "center", color: T.t4, padding: 24 }}>No trades</div> : trades.map(t => <div key={t.id} className="card" style={{ marginBottom: 5 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 }}><div style={{ display: "flex", alignItems: "center", gap: 6 }}><Pill c={t.action === "BUY" ? T.acc : T.danger} bg={t.action === "BUY" ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}>{t.action}</Pill><b>{t.asset}</b></div><div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 9, flexWrap: "wrap" }}><span>@${t.price}</span><span style={{ color: T.danger }}>SL:${t.stop}</span><span style={{ color: T.acc }}>TP:${t.tp}</span><Pill c={t.status === "OPEN" ? T.acc : T.t3} bg={t.status === "OPEN" ? "rgba(0,232,123,.08)" : "rgba(255,255,255,.03)"}>{t.status}</Pill>{t.status === "OPEN" && <Btn v="ghost" onClick={() => closeTrade(t.id, "Manual")}>CLOSE</Btn>}</div></div></div>)}
+              <div className="label" style={{ color: T.acc, fontSize: 12, marginBottom: 12 }}>☰ TRADES</div>
+              {trades.length === 0 ? <div className="card" style={{ textAlign: "center", color: T.t4, padding: 24 }}>No trades</div> : trades.map(t => <div key={t.id} className="card" style={{ marginBottom: 5 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 }}><div style={{ display: "flex", alignItems: "center", gap: 6 }}><Pill c={t.action === "BUY" ? T.acc : T.danger} bg={t.action === "BUY" ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}>{t.action}</Pill><b>{t.asset}</b></div><div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 12, flexWrap: "wrap" }}><span>@${t.price}</span><span style={{ color: T.danger }}>SL:${t.stop}</span><span style={{ color: T.acc }}>TP:${t.tp}</span><Pill c={t.status === "OPEN" ? T.acc : T.t3} bg={t.status === "OPEN" ? "rgba(0,232,123,.08)" : "rgba(255,255,255,.03)"}>{t.status}</Pill>{t.status === "OPEN" && <Btn v="ghost" onClick={() => closeTrade(t.id, "Manual")}>CLOSE</Btn>}</div></div></div>)}
             </div>}
 
             {tab === "journal" && <div>
-              <div className="label" style={{ color: T.purple, fontSize: 10, marginBottom: 12 }}>✎ PAIN + REFLECTION</div>
+              <div className="label" style={{ color: T.purple, fontSize: 12, marginBottom: 12 }}>✎ PAIN + REFLECTION</div>
               {journal.length === 0 ? <div className="card" style={{ textAlign: "center", color: T.t4, padding: 24 }}>Close trades to build entries</div> : journal.map(j => <div key={j.id} className="card" style={{ marginBottom: 10, borderColor: j.pnl >= 0 ? "rgba(0,232,123,.12)" : "rgba(255,45,85,.12)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 4 }}><div style={{ display: "flex", gap: 5, alignItems: "center" }}><b>{j.asset}</b><Pill c={j.action === "BUY" ? T.acc : T.danger} bg={j.action === "BUY" ? "rgba(0,232,123,.1)" : "rgba(255,45,85,.1)"}>{j.action}</Pill></div><div style={{ fontSize: 16, fontWeight: 800, color: j.pnl >= 0 ? T.acc : T.danger }}>{j.pnl >= 0 ? "+" : ""}{j.pnl}%</div></div>
-                <div style={{ display: "flex", gap: 10, fontSize: 9, color: T.t3, marginBottom: 8, flexWrap: "wrap" }}><span>Entry: ${j.entry}</span><span>Exit: ${j.exit}</span></div>
-                {[{ k: "reflection", l: "Pain + Reflection = Progress:", ph: "What was painful? Diagnose the root cause systematically." }, { k: "principle", l: "Which Dalio Principle applies?", ph: "Systematic? Holy Grail? Risk Parity? Follow Trends? Think Different?" }, { k: "lesson", l: "New codified rule:", ph: "Write a rule you'll follow next time. Add it to your system." }].map(({ k, l, ph }) => <div key={k} style={{ marginBottom: 5 }}><div style={{ fontSize: 8, color: T.purple, fontWeight: 700, marginBottom: 2 }}>{l}</div><textarea value={j[k]} onChange={e => setJournal(p => p.map(x => x.id === j.id ? { ...x, [k]: e.target.value } : x))} placeholder={ph} /></div>)}
+                <div style={{ display: "flex", gap: 10, fontSize: 12, color: T.t3, marginBottom: 8, flexWrap: "wrap" }}><span>Entry: ${j.entry}</span><span>Exit: ${j.exit}</span></div>
+                {[{ k: "reflection", l: "Pain + Reflection = Progress:", ph: "What was painful? Diagnose the root cause systematically." }, { k: "principle", l: "Which Dalio Principle applies?", ph: "Systematic? Holy Grail? Risk Parity? Follow Trends? Think Different?" }, { k: "lesson", l: "New codified rule:", ph: "Write a rule you'll follow next time. Add it to your system." }].map(({ k, l, ph }) => <div key={k} style={{ marginBottom: 5 }}><div style={{ fontSize: 12, color: T.purple, fontWeight: 700, marginBottom: 2 }}>{l}</div><textarea value={j[k]} onChange={e => setJournal(p => p.map(x => x.id === j.id ? { ...x, [k]: e.target.value } : x))} placeholder={ph} /></div>)}
               </div>)}
             </div>}
 
             {tab === "settings" && settingsTab === "api" && <div>
-              <div className="label" style={{ color: T.purple, fontSize: 10, marginBottom: 12 }}>⬡ API CONFIGURATION & STATUS</div>
+              <div className="label" style={{ color: T.purple, fontSize: 12, marginBottom: 12 }}>⬡ API CONFIGURATION & STATUS</div>
 
               {/* API Keys Configuration */}
               <div className="card" style={{ marginBottom: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                  <div className="label" style={{ color: T.acc, fontSize: 9, marginBottom: 0 }}>DATA SOURCE APIs</div>
-                  <span style={{ fontSize: 8, color: T.t4 }}>Green = connected · Yellow = key needed · Red = error</span>
+                  <div className="label" style={{ color: T.acc, fontSize: 12, marginBottom: 0 }}>DATA SOURCE APIs</div>
+                  <span style={{ fontSize: 12, color: T.t4 }}>Green = connected · Yellow = key needed · Red = error</span>
                 </div>
 
                 {[
@@ -3497,24 +3512,24 @@ RULES:
                       <div style={{ flex: 1, minWidth: 180 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 3 }}>
                           <span style={{ fontSize: 12 }}>{api.icon}</span>
-                          <span style={{ fontWeight: 800, fontSize: 11 }}>{api.name}</span>
+                          <span style={{ fontWeight: 800, fontSize: 12 }}>{api.name}</span>
                           {apiKeys[api.id].free && <Pill c={T.acc} bg="rgba(0,232,123,.08)">FREE</Pill>}
                           <Pill c={apiKeys[api.id].status === "ok" ? T.acc : apiKeys[api.id].status === "default" ? T.acc2 : apiKeys[api.id].status === "error" ? T.danger : T.t4}
                             bg={apiKeys[api.id].status === "ok" ? "rgba(0,232,123,.1)" : apiKeys[api.id].status === "default" ? "rgba(0,201,255,.08)" : apiKeys[api.id].status === "error" ? "rgba(255,45,85,.1)" : "rgba(255,255,255,.03)"}>
                             {apiKeys[api.id].status === "ok" ? "✓ CONNECTED" : apiKeys[api.id].status === "default" ? "DEFAULT" : apiKeys[api.id].status === "error" ? "ERROR" : "NOT SET"}
                           </Pill>
                         </div>
-                        <div style={{ fontSize: 8, color: T.t3, marginBottom: 4 }}>{api.desc}</div>
-                        <div style={{ fontSize: 8, color: T.t4 }}>→ {api.url}</div>
+                        <div style={{ fontSize: 12, color: T.t3, marginBottom: 4 }}>{api.desc}</div>
+                        <div style={{ fontSize: 12, color: T.t4 }}>→ {api.url}</div>
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 200 }}>
                         {api.fields.map(f => (
-                          <input key={f.k} type={f.k.includes("secret") ? "password" : "text"} className="ci" placeholder={f.ph} value={apiKeys[api.id][f.k] || ""} onChange={e => setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], [f.k]: e.target.value } }))} style={{ fontSize: 9 }} />
+                          <input key={f.k} type={f.k.includes("secret") ? "password" : "text"} className="ci" placeholder={f.ph} value={apiKeys[api.id][f.k] || ""} onChange={e => setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], [f.k]: e.target.value } }))} style={{ fontSize: 12 }} />
                         ))}
                         <div style={{ display: "flex", gap: 4 }}>
                           <div className="tg" onClick={() => setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], enabled: !prev[api.id].enabled } }))} style={{ padding: 0 }}>
                             <div className="tt" style={{ background: apiKeys[api.id].enabled ? T.acc : "rgba(255,255,255,.08)" }}><div className="th" style={{ left: apiKeys[api.id].enabled ? 15 : 2 }} /></div>
-                            <span style={{ fontSize: 8, color: T.t3 }}>{apiKeys[api.id].enabled ? "ON" : "OFF"}</span>
+                            <span style={{ fontSize: 12, color: T.t3 }}>{apiKeys[api.id].enabled ? "ON" : "OFF"}</span>
                           </div>
                           <Btn v="ghost" onClick={async () => {
                             setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], status: "checking" } }));
@@ -3536,15 +3551,15 @@ RULES:
               <div className="card" style={{ marginBottom: 10, padding: "8px 12px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <div>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: T.purple }}>🧠 AI Chat Assistant</div>
-                    <div style={{ fontSize: 8, color: T.t3, marginTop: 2 }}>Context-aware AI that sees your portfolio, current page, and all asset data</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: T.purple }}>🧠 AI Chat Assistant</div>
+                    <div style={{ fontSize: 12, color: T.t3, marginTop: 2 }}>Context-aware AI that sees your portfolio, current page, and all asset data</div>
                   </div>
                   <div onClick={() => setAiEnabled(p => !p)} style={{ width: 36, height: 18, borderRadius: 9, background: aiEnabled ? T.purple : "rgba(255,255,255,.08)", cursor: "pointer", position: "relative", transition: ".2s" }}>
                     <div style={{ width: 14, height: 14, borderRadius: 7, background: "#fff", position: "absolute", top: 2, left: aiEnabled ? 20 : 2, transition: ".2s", boxShadow: "0 1px 3px rgba(0,0,0,.3)" }} />
                   </div>
                 </div>
                 {aiEnabled && <div style={{ marginTop: 8, padding: "6px 8px", background: "rgba(123,97,255,.04)", borderRadius: 4, border: `1px solid rgba(123,97,255,.1)` }}>
-                  <div style={{ fontSize: 8, color: T.t3, marginBottom: 4 }}>Active provider: <span style={{ color: T.purple, fontWeight: 700 }}>{AI_PROVIDERS[aiProvider]?.name}</span></div>
+                  <div style={{ fontSize: 12, color: T.t3, marginBottom: 4 }}>Active provider: <span style={{ color: T.purple, fontWeight: 700 }}>{AI_PROVIDERS[aiProvider]?.name}</span></div>
                   <div style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                     {Object.entries(AI_PROVIDERS).map(([k, v]) => (
                       <span key={k} onClick={() => setAiProvider(k)} style={{ padding: "2px 6px", borderRadius: 3, fontSize: 7, cursor: "pointer", background: aiProvider === k ? "rgba(123,97,255,.15)" : "rgba(255,255,255,.03)", color: aiProvider === k ? T.purple : T.t4, border: `1px solid ${aiProvider === k ? "rgba(123,97,255,.2)" : T.bd}`, fontWeight: aiProvider === k ? 700 : 400 }}>{v.name}</span>
@@ -3555,7 +3570,7 @@ RULES:
 
               {/* AI & Broker APIs */}
               <div className="card" style={{ marginBottom: 12 }}>
-                <div className="label" style={{ color: T.purple, fontSize: 9, marginBottom: 10 }}>AI & BROKER APIs</div>
+                <div className="label" style={{ color: T.purple, fontSize: 12, marginBottom: 10 }}>AI & BROKER APIs</div>
                 {[
                   { id: "anthropic", name: "Anthropic (Claude)", desc: "AI trade analysis via Claude Sonnet. Built into this artifact — no key needed when running inside Claude. For standalone deployment, get key at console.anthropic.com", icon: "🧠", fields: [{ k: "key", l: "API Key (for standalone only)", ph: "sk-ant-xxxxx" }] },
                   { id: "binance", name: "Binance", desc: "Crypto trading execution. Create API key at binance.com/en/my/settings/api-management. Enable spot trading.", icon: "◈", fields: [{ k: "key", l: "API Key", ph: "xxxxx" }, { k: "secret", l: "API Secret", ph: "xxxxx" }] },
@@ -3567,24 +3582,24 @@ RULES:
                       <div style={{ flex: 1, minWidth: 180 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 3 }}>
                           <span style={{ fontSize: 12 }}>{api.icon}</span>
-                          <span style={{ fontWeight: 800, fontSize: 11 }}>{api.name}</span>
+                          <span style={{ fontWeight: 800, fontSize: 12 }}>{api.name}</span>
                           <Pill c={apiKeys[api.id].status === "ok" ? T.acc : apiKeys[api.id].status === "error" ? T.danger : T.t4}
                             bg={apiKeys[api.id].status === "ok" ? "rgba(0,232,123,.1)" : apiKeys[api.id].status === "error" ? "rgba(255,45,85,.1)" : "rgba(255,255,255,.03)"}>
                             {apiKeys[api.id].status === "ok" ? "✓ CONNECTED" : apiKeys[api.id].status === "error" ? "ERROR" : "NOT SET"}
                           </Pill>
                         </div>
-                        <div style={{ fontSize: 8, color: T.t3 }}>{api.desc}</div>
+                        <div style={{ fontSize: 12, color: T.t3 }}>{api.desc}</div>
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 200 }}>
                         {api.fields.map(f => (
                           <div key={f.k}>
-                            <div style={{ fontSize: 8, color: T.t4, marginBottom: 1 }}>{f.l}</div>
-                            <input type="password" className="ci" placeholder={f.ph} value={apiKeys[api.id][f.k] || ""} onChange={e => setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], [f.k]: e.target.value } }))} style={{ fontSize: 9 }} />
+                            <div style={{ fontSize: 12, color: T.t4, marginBottom: 1 }}>{f.l}</div>
+                            <input type="password" className="ci" placeholder={f.ph} value={apiKeys[api.id][f.k] || ""} onChange={e => setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], [f.k]: e.target.value } }))} style={{ fontSize: 12 }} />
                           </div>
                         ))}
                         <div className="tg" onClick={() => setApiKeys(prev => ({ ...prev, [api.id]: { ...prev[api.id], enabled: !prev[api.id].enabled } }))} style={{ padding: 0 }}>
                           <div className="tt" style={{ background: apiKeys[api.id].enabled ? T.acc : "rgba(255,255,255,.08)" }}><div className="th" style={{ left: apiKeys[api.id].enabled ? 15 : 2 }} /></div>
-                          <span style={{ fontSize: 8, color: T.t3 }}>{apiKeys[api.id].enabled ? "Enabled" : "Disabled"}</span>
+                          <span style={{ fontSize: 12, color: T.t3 }}>{apiKeys[api.id].enabled ? "Enabled" : "Disabled"}</span>
                         </div>
                       </div>
                     </div>
@@ -3594,12 +3609,12 @@ RULES:
 
               {/* Connection status summary */}
               <div className="card" style={{ marginBottom: 12 }}>
-                <div className="label" style={{ color: T.acc2, fontSize: 9, marginBottom: 8 }}>CONNECTION STATUS</div>
+                <div className="label" style={{ color: T.acc2, fontSize: 12, marginBottom: 8 }}>CONNECTION STATUS</div>
                 <div className="g5">
                   {Object.entries(apiKeys).map(([id, v]) => (
                     <div key={id} style={{ textAlign: "center", padding: 6, borderRadius: 4, background: v.status === "ok" ? "rgba(0,232,123,.06)" : v.status === "default" ? "rgba(0,201,255,.05)" : v.status === "error" ? "rgba(255,45,85,.06)" : "rgba(255,255,255,.02)", border: `1px solid ${v.status === "ok" ? "rgba(0,232,123,.12)" : v.status === "error" ? "rgba(255,45,85,.12)" : T.bd}` }}>
-                      <div style={{ fontSize: 10, color: v.status === "ok" ? T.acc : v.status === "default" ? T.acc2 : v.status === "error" ? T.danger : T.t4 }}>{v.status === "ok" ? "✓" : v.status === "default" ? "◈" : v.status === "error" ? "✗" : "—"}</div>
-                      <div style={{ fontSize: 8, color: T.t3, marginTop: 2 }}>{id}</div>
+                      <div style={{ fontSize: 12, color: v.status === "ok" ? T.acc : v.status === "default" ? T.acc2 : v.status === "error" ? T.danger : T.t4 }}>{v.status === "ok" ? "✓" : v.status === "default" ? "◈" : v.status === "error" ? "✗" : "—"}</div>
+                      <div style={{ fontSize: 12, color: T.t3, marginTop: 2 }}>{id}</div>
                     </div>
                   ))}
                 </div>
@@ -3622,8 +3637,8 @@ RULES:
 
               {/* Quick Setup Guide */}
               <div className="card" style={{ marginBottom: 12, borderColor: "rgba(0,201,255,.12)" }}>
-                <div className="label" style={{ color: T.acc2, fontSize: 9, marginBottom: 8 }}>QUICK SETUP GUIDE</div>
-                <div style={{ fontSize: 9, color: T.t2, lineHeight: 1.6 }}>
+                <div className="label" style={{ color: T.acc2, fontSize: 12, marginBottom: 8 }}>QUICK SETUP GUIDE</div>
+                <div style={{ fontSize: 12, color: T.t2, lineHeight: 1.6 }}>
                   <div style={{ marginBottom: 8 }}><b style={{ color: T.acc }}>Minimum (works out of the box):</b> CoinGecko + Fear & Greed — both free, no keys needed. Already enabled by default.</div>
                   <div style={{ marginBottom: 8 }}><b style={{ color: T.warn }}>Recommended:</b> Add Alpha Vantage (free, 25 calls/day) for US stock data and Finnhub (free, 60 calls/min) for real-time prices.</div>
                   <div style={{ marginBottom: 8 }}><b style={{ color: T.purple }}>Full power:</b> Add Polygon.io for comprehensive market data, NewsAPI for live sentiment, and connect a broker (Alpaca paper trading is free).</div>
@@ -3633,7 +3648,7 @@ RULES:
 
               {/* API Output */}
               <div className="card" style={{ marginBottom: 10 }}><div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}><span className="label">/portfolio/summary</span><Pill c={T.acc} bg="rgba(0,232,123,.08)">LIVE</Pill></div><pre className="pre">{JSON.stringify(api, null, 2)}</pre></div>
-              <div className="card"><div className="label">AI LOG</div>{log.length === 0 ? <div style={{ color: T.t4, fontSize: 9, padding: 8 }}>No actions</div> : <div className="pre" style={{ maxHeight: 200 }}>{log.slice(0, 25).map(l => <div key={l.id} style={{ padding: "2px 0", borderBottom: `1px solid ${T.bd}` }}><span style={{ color: T.purple }}>[{new Date(l.ts).toLocaleTimeString()}]</span> {l.m}</div>)}</div>}</div>
+              <div className="card"><div className="label">AI LOG</div>{log.length === 0 ? <div style={{ color: T.t4, fontSize: 12, padding: 8 }}>No actions</div> : <div className="pre" style={{ maxHeight: 200 }}>{log.slice(0, 25).map(l => <div key={l.id} style={{ padding: "2px 0", borderBottom: `1px solid ${T.bd}` }}><span style={{ color: T.purple }}>[{new Date(l.ts).toLocaleTimeString()}]</span> {l.m}</div>)}</div>}</div>
             </div>}
 
           </div>
@@ -3651,11 +3666,11 @@ RULES:
           {/* Header */}
           <div style={{ padding: "10px 14px", background: "rgba(123,97,255,.1)", borderBottom: `1px solid ${T.purple}25`, display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
             <div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: T.purple }}>🧠 Dalios AI</div>
-              <div style={{ fontSize: 8, color: T.t3 }}>{AI_PROVIDERS[aiProvider]?.name} · {tab}{selA ? ` · ${selA.id}` : ""}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: T.purple }}>🧠 Dalios AI</div>
+              <div style={{ fontSize: 12, color: T.t3 }}>{AI_PROVIDERS[aiProvider]?.name} · {tab}{selA ? ` · ${selA.id}` : ""}</div>
             </div>
             <div style={{ display: "flex", gap: 4 }}>
-              <span onClick={() => setChatMsgs([{ role: "assistant", text: "Chat cleared. Ask me anything about your portfolio or any asset." }])} style={{ fontSize: 8, color: T.t4, cursor: "pointer", padding: "3px 8px", borderRadius: 4, background: "rgba(255,255,255,.05)", border: `1px solid ${T.bd}` }}>Clear</span>
+              <span onClick={() => setChatMsgs([{ role: "assistant", text: "Chat cleared. Ask me anything about your portfolio or any asset." }])} style={{ fontSize: 12, color: T.t4, cursor: "pointer", padding: "3px 8px", borderRadius: 4, background: "rgba(255,255,255,.05)", border: `1px solid ${T.bd}` }}>Clear</span>
               <span onClick={() => setChatOpen(false)} style={{ fontSize: 14, color: T.t4, cursor: "pointer", padding: "0 4px" }}>✕</span>
             </div>
           </div>
@@ -3663,16 +3678,16 @@ RULES:
           <div ref={el => { if (el) el.scrollTop = el.scrollHeight; }} style={{ flex: 1, overflow: "auto", padding: "10px 12px", display: "flex", flexDirection: "column", gap: 8 }}>
             {chatMsgs.map((m, i) => (
               <div key={i} style={{ alignSelf: m.role === "user" ? "flex-end" : "flex-start", maxWidth: "85%", padding: "8px 12px", borderRadius: m.role === "user" ? "12px 12px 2px 12px" : "12px 12px 12px 2px", background: m.role === "user" ? "rgba(123,97,255,.15)" : "rgba(255,255,255,.04)", border: `1px solid ${m.role === "user" ? "rgba(123,97,255,.25)" : T.bd}` }}>
-                <div style={{ fontSize: 9, color: m.role === "user" ? T.purple : T.t1, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{m.text}</div>
+                <div style={{ fontSize: 12, color: m.role === "user" ? T.purple : T.t1, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{m.text}</div>
               </div>
             ))}
             {chatLoading && <div style={{ alignSelf: "flex-start", padding: "8px 12px", borderRadius: "12px 12px 12px 2px", background: "rgba(255,255,255,.04)", border: `1px solid ${T.bd}` }}>
-              <div style={{ fontSize: 10, color: T.t3 }}>● ● ●</div>
+              <div style={{ fontSize: 12, color: T.t3 }}>● ● ●</div>
             </div>}
           </div>
           {/* Input */}
           <div style={{ padding: "8px 10px", borderTop: `1px solid ${T.bd}`, display: "flex", gap: 6, flexShrink: 0, background: "rgba(255,255,255,.02)" }}>
-            <input value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } }} placeholder={selA ? `Ask about ${selA.id}...` : "Ask anything..."} style={{ flex: 1, background: "rgba(255,255,255,.05)", border: `1px solid ${T.bd}`, borderRadius: 8, padding: "8px 12px", color: T.t1, fontSize: 10, outline: "none", fontFamily: "inherit" }} />
+            <input value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } }} placeholder={selA ? `Ask about ${selA.id}...` : "Ask anything..."} style={{ flex: 1, background: "rgba(255,255,255,.05)", border: `1px solid ${T.bd}`, borderRadius: 8, padding: "8px 12px", color: T.t1, fontSize: 12, outline: "none", fontFamily: "inherit" }} />
             <div onClick={sendChat} style={{ padding: "8px 12px", borderRadius: 8, background: chatInput.trim() ? `linear-gradient(135deg, ${T.purple}, ${T.acc2})` : "rgba(255,255,255,.05)", cursor: chatInput.trim() ? "pointer" : "default", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <span style={{ fontSize: 12, color: chatInput.trim() ? "#fff" : T.t4 }}>▶</span>
             </div>
