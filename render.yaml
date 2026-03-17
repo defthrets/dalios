@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: dalios-principals
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npx vite preview --port $PORT --host 0.0.0.0
+    envVars:
+      - key: NODE_VERSION
+        value: 20
