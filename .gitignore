@@ -1,0 +1,35 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+data/storage/*.db
+data/cache/*
+logs/*
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.pytest_cache/
+.venv/
+venv/
+
+# Broker credentials - NEVER commit these
+data/broker_credentials.json
+data/broker_credentials.json.backup
+*.credentials
+*.secrets
+
+# User portfolio/equity data — per-user, should not be tracked
+data/paper_portfolio.json
+data/real_equity.json
+data/paper_config.json
+data/trading_mode.json
+data/agent_config.json
+
+# Environment files with secrets
+.env
+# Note: .env is gitignored but .env.template is tracked
+
+# Log files
+*.log
+ui.log
