@@ -597,19 +597,19 @@ a:hover { color: var(--primary); text-decoration: underline; }
   color: var(--primary);
 }
 
-/* ── 3D Cash Stack Logo (GTA-style) ── */
-/* Block dimensions: W=44 x H=28 x D=28 — chunky cube-ish bundle */
+/* ── 3D Cash Stack Logo ── */
+/* Box: W=48  H=30  D=12 — proper joined rectangular prism */
 .cash3d {
   width: 68px;
-  height: 68px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 .cash3d-scene {
-  width: 60px;
-  height: 56px;
+  width: 48px;
+  height: 30px;
   perspective: 200px;
   position: relative;
 }
@@ -630,50 +630,40 @@ a:hover { color: var(--primary); text-decoration: underline; }
   backface-visibility: visible;
 }
 
-/* Front & back bill faces — 44w x 28h */
-.cash3d-front {
-  width: 44px; height: 28px;
-  top: 14px; left: 8px;
-  transform: translateZ(14px);
-}
+/* Front & back bill faces — 48w x 30h */
+.cash3d-front,
 .cash3d-back {
-  width: 44px; height: 28px;
-  top: 14px; left: 8px;
-  transform: translateZ(-14px) rotateY(180deg);
+  width: 48px; height: 30px;
+  top: 0; left: 0;
 }
+.cash3d-front { transform: translateZ(6px); }
+.cash3d-back  { transform: rotateY(180deg) translateZ(6px); }
 
-/* Left & right edges — 28 deep x 28 tall (nearly square!) */
+/* Left & right edges — 12 deep x 30 tall */
 .cash3d-right {
-  width: 28px; height: 28px;
-  top: 14px; left: 38px;
-  transform-origin: left center;
-  transform: rotateY(90deg) translateZ(-14px);
+  width: 12px; height: 30px;
+  top: 0; left: 18px;
+  transform: rotateY(90deg) translateZ(24px);
 }
 .cash3d-left {
-  width: 28px; height: 28px;
-  top: 14px; left: 8px;
-  transform-origin: left center;
-  transform: rotateY(-90deg) translateZ(14px);
+  width: 12px; height: 30px;
+  top: 0; left: 18px;
+  transform: rotateY(-90deg) translateZ(24px);
 }
 
-/* Top & bottom edges — 44 wide x 28 deep */
+/* Top & bottom edges — 48 wide x 12 deep */
 .cash3d-top {
-  width: 44px; height: 28px;
-  top: 0px; left: 8px;
-  transform: rotateX(90deg) translateZ(14px);
+  width: 48px; height: 12px;
+  top: 9px; left: 0;
+  transform: rotateX(90deg) translateZ(15px);
 }
 .cash3d-bottom {
-  width: 44px; height: 28px;
-  top: 28px; left: 8px;
-  transform: rotateX(-90deg) translateZ(14px);
-}
-.cash3d-top,
-.cash3d-bottom {
-  background: linear-gradient(180deg, rgba(0,212,255,0.1) 0%, rgba(0,40,50,0.3) 100%);
-  border: 1px solid rgba(0,212,255,0.5);
+  width: 48px; height: 12px;
+  top: 9px; left: 0;
+  transform: rotateX(-90deg) translateZ(15px);
 }
 
-/* Bill face design — holographic translucent */
+/* Bill face design — blue holographic */
 .bill-face {
   width: 100%; height: 100%;
   background: linear-gradient(135deg, rgba(0,212,255,0.08) 0%, rgba(0,255,170,0.12) 50%, rgba(0,212,255,0.08) 100%);
@@ -691,7 +681,7 @@ a:hover { color: var(--primary); text-decoration: underline; }
 }
 .bill-oval {
   position: absolute;
-  width: 15px; height: 15px;
+  width: 14px; height: 14px;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(0,255,170,0.35);
@@ -702,7 +692,7 @@ a:hover { color: var(--primary); text-decoration: underline; }
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Georgia', serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   color: rgba(0,212,255,0.9);
   text-shadow: 0 0 6px rgba(0,212,255,0.6), 0 0 12px rgba(0,255,170,0.3);
@@ -711,16 +701,16 @@ a:hover { color: var(--primary); text-decoration: underline; }
   position: absolute;
   bottom: 1px; right: 3px;
   font-family: 'Courier New', monospace;
-  font-size: 6px;
+  font-size: 5px;
   font-weight: bold;
   color: rgba(0,212,255,0.5);
 }
 
-/* Stack edge — vertical bill lines (left/right) — holographic */
+/* Stack edge — vertical bill lines (left/right) */
 .stack-edge {
   width: 100%; height: 100%;
   background: repeating-linear-gradient(
-    0deg,
+    90deg,
     rgba(0,30,40,0.4) 0px,
     rgba(0,212,255,0.25) 0.8px,
     rgba(0,30,40,0.4) 1.6px
@@ -732,7 +722,7 @@ a:hover { color: var(--primary); text-decoration: underline; }
 .stack-edge-h {
   width: 100%; height: 100%;
   background: repeating-linear-gradient(
-    90deg,
+    0deg,
     rgba(0,30,40,0.4) 0px,
     rgba(0,212,255,0.25) 0.8px,
     rgba(0,30,40,0.4) 1.6px
@@ -740,8 +730,8 @@ a:hover { color: var(--primary); text-decoration: underline; }
   border: 1px solid rgba(0,212,255,0.5);
 }
 
-/* ── Money Band — wraps vertically (short way around) ── */
-/* Band is 12px wide strip, centered horizontally on the stack */
+/* ── Money Band — wraps vertically around the stack ── */
+/* Band is 10px wide strip, centered horizontally */
 .band-face {
   position: absolute;
   backface-visibility: visible;
@@ -749,45 +739,30 @@ a:hover { color: var(--primary); text-decoration: underline; }
   border: 1px solid rgba(0,255,170,0.6);
   box-shadow: 0 0 6px rgba(0,255,170,0.3), inset 0 0 4px rgba(0,255,170,0.15);
 }
-/* Front band strip */
 .band-front {
-  width: 12px; height: 28px;
-  top: 14px; left: 24px;
-  transform: translateZ(14.5px);
+  width: 10px; height: 30px;
+  top: 0; left: 19px;
+  transform: translateZ(6.2px);
 }
-/* Back band strip */
 .band-back {
-  width: 12px; height: 28px;
-  top: 14px; left: 24px;
-  transform: translateZ(-14.5px) rotateY(180deg);
+  width: 10px; height: 30px;
+  top: 0; left: 19px;
+  transform: rotateY(180deg) translateZ(6.2px);
 }
-/* Top band strip — connects front to back over the top */
 .band-top {
-  width: 12px; height: 29px;
-  top: -0.5px; left: 24px;
-  transform: rotateX(90deg) translateZ(14.5px);
+  width: 10px; height: 12px;
+  top: 9px; left: 19px;
+  transform: rotateX(90deg) translateZ(15px);
 }
-/* Bottom band strip — connects front to back under the bottom */
 .band-bottom {
-  width: 12px; height: 29px;
-  top: 27.5px; left: 24px;
-  transform: rotateX(-90deg) translateZ(14.5px);
+  width: 10px; height: 12px;
+  top: 9px; left: 19px;
+  transform: rotateX(-90deg) translateZ(15px);
 }
 .band-front::after,
 .band-back::after {
-  content: '$';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Georgia', serif;
-  font-size: 10px;
-  font-weight: bold;
-  color: rgba(0,255,170,0.7);
-  text-shadow: 0 0 4px rgba(0,255,170,0.5);
+  display: none;
 }
-
-/* Subtle holographic glow — no hard edges */
-/* No scanline overlay — keep it clean */
 
 /* Glitch effect */
 @keyframes cashGlitch {
