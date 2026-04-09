@@ -1,0 +1,300 @@
+name: Build & Release All Platforms
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.0
+  workflow_dispatch:  # Manual trigger from GitHub Actions tab
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+
+jobs:
+  # ── Windows Build ──
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install pywebview pyinstaller
+          pip install -r requirements.txt
+
+      - name: Build Windows exe
+        run: |
+          pyinstaller `
+            --name "DALIOS" `
+            --onedir `
+            --windowed `
+            --icon "ui/static/favicon.ico" `
+            --add-data "ui;ui" `
+            --add-data "config;config" `
+            --add-data "api;api" `
+            --add-data "agents;agents" `
+            --add-data "data;data" `
+            --add-data "notifications;notifications" `
+            --add-data "engines;engines" `
+            --add-data "trading;trading" `
+            --add-data "backtesting;backtesting" `
+            --hidden-import "uvicorn.logging" `
+            --hidden-import "uvicorn.loops" `
+            --hidden-import "uvicorn.loops.auto" `
+            --hidden-import "uvicorn.protocols" `
+            --hidden-import "uvicorn.protocols.http" `
+            --hidden-import "uvicorn.protocols.http.auto" `
+            --hidden-import "uvicorn.protocols.websockets" `
+            --hidden-import "uvicorn.protocols.websockets.auto" `
+            --hidden-import "uvicorn.lifespan" `
+            --hidden-import "uvicorn.lifespan.on" `
+            --hidden-import "uvicorn.lifespan.off" `
+            --hidden-import "api" `
+            --hidden-import "api.server" `
+            --hidden-import "api.state" `
+            --hidden-import "api.brokers" `
+            --hidden-import "api.scanners" `
+            --hidden-import "api.signals" `
+            --hidden-import "api.portfolio" `
+            --hidden-import "api.websocket" `
+            --hidden-import "api.auth" `
+            --hidden-import "api.utils" `
+            --hidden-import "api.agent" `
+            --hidden-import "agents" `
+            --hidden-import "agents.dalio_agent" `
+            --hidden-import "data" `
+            --hidden-import "data.storage" `
+            --hidden-import "data.storage.models" `
+            --hidden-import "config" `
+            --hidden-import "config.settings" `
+            --hidden-import "config.assets" `
+            --hidden-import "notifications" `
+            --hidden-import "engines" `
+            --hidden-import "trading" `
+            --hidden-import "backtesting" `
+            --hidden-import "sqlalchemy.dialects.sqlite" `
+            --hidden-import "multiprocessing" `
+            --collect-submodules "webview" `
+            --collect-submodules "uvicorn" `
+            --noconfirm `
+            --clean `
+            desktop.py
+
+      - name: Zip Windows build
+        run: Compress-Archive -Path dist/DALIOS -DestinationPath DALIOS-windows.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DALIOS-windows
+          path: DALIOS-windows.zip
+
+  # ── Linux Build ──
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-webkit2-4.1
+
+      - name: Install dependencies
+        run: |
+          pip install pywebview pyinstaller
+          pip install -r requirements.txt
+
+      - name: Build Linux binary
+        run: |
+          pyinstaller \
+            --name "DALIOS" \
+            --onedir \
+            --windowed \
+            --icon "ui/static/favicon.ico" \
+            --add-data "ui:ui" \
+            --add-data "config:config" \
+            --add-data "api:api" \
+            --add-data "agents:agents" \
+            --add-data "data:data" \
+            --add-data "notifications:notifications" \
+            --add-data "engines:engines" \
+            --add-data "trading:trading" \
+            --add-data "backtesting:backtesting" \
+            --hidden-import "uvicorn.logging" \
+            --hidden-import "uvicorn.loops" \
+            --hidden-import "uvicorn.loops.auto" \
+            --hidden-import "uvicorn.protocols" \
+            --hidden-import "uvicorn.protocols.http" \
+            --hidden-import "uvicorn.protocols.http.auto" \
+            --hidden-import "uvicorn.protocols.websockets" \
+            --hidden-import "uvicorn.protocols.websockets.auto" \
+            --hidden-import "uvicorn.lifespan" \
+            --hidden-import "uvicorn.lifespan.on" \
+            --hidden-import "uvicorn.lifespan.off" \
+            --hidden-import "api" \
+            --hidden-import "api.server" \
+            --hidden-import "api.state" \
+            --hidden-import "api.brokers" \
+            --hidden-import "api.scanners" \
+            --hidden-import "api.signals" \
+            --hidden-import "api.portfolio" \
+            --hidden-import "api.websocket" \
+            --hidden-import "api.auth" \
+            --hidden-import "api.utils" \
+            --hidden-import "api.agent" \
+            --hidden-import "agents" \
+            --hidden-import "agents.dalio_agent" \
+            --hidden-import "data" \
+            --hidden-import "data.storage" \
+            --hidden-import "data.storage.models" \
+            --hidden-import "config" \
+            --hidden-import "config.settings" \
+            --hidden-import "config.assets" \
+            --hidden-import "notifications" \
+            --hidden-import "engines" \
+            --hidden-import "trading" \
+            --hidden-import "backtesting" \
+            --hidden-import "sqlalchemy.dialects.sqlite" \
+            --hidden-import "multiprocessing" \
+            --collect-submodules "webview" \
+            --collect-submodules "uvicorn" \
+            --noconfirm \
+            --clean \
+            desktop.py
+
+      - name: Tar Linux build
+        run: tar -czf DALIOS-linux.tar.gz -C dist DALIOS
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DALIOS-linux
+          path: DALIOS-linux.tar.gz
+
+  # ── macOS Build ──
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install pywebview pyinstaller Pillow
+          pip install -r requirements.txt
+
+      - name: Build macOS app
+        run: |
+          pyinstaller \
+            --name "DALIOS" \
+            --onedir \
+            --windowed \
+            --icon "ui/static/favicon.ico" \
+            --add-data "ui:ui" \
+            --add-data "config:config" \
+            --add-data "api:api" \
+            --add-data "agents:agents" \
+            --add-data "data:data" \
+            --add-data "notifications:notifications" \
+            --add-data "engines:engines" \
+            --add-data "trading:trading" \
+            --add-data "backtesting:backtesting" \
+            --hidden-import "uvicorn.logging" \
+            --hidden-import "uvicorn.loops" \
+            --hidden-import "uvicorn.loops.auto" \
+            --hidden-import "uvicorn.protocols" \
+            --hidden-import "uvicorn.protocols.http" \
+            --hidden-import "uvicorn.protocols.http.auto" \
+            --hidden-import "uvicorn.protocols.websockets" \
+            --hidden-import "uvicorn.protocols.websockets.auto" \
+            --hidden-import "uvicorn.lifespan" \
+            --hidden-import "uvicorn.lifespan.on" \
+            --hidden-import "uvicorn.lifespan.off" \
+            --hidden-import "api" \
+            --hidden-import "api.server" \
+            --hidden-import "api.state" \
+            --hidden-import "api.brokers" \
+            --hidden-import "api.scanners" \
+            --hidden-import "api.signals" \
+            --hidden-import "api.portfolio" \
+            --hidden-import "api.websocket" \
+            --hidden-import "api.auth" \
+            --hidden-import "api.utils" \
+            --hidden-import "api.agent" \
+            --hidden-import "agents" \
+            --hidden-import "agents.dalio_agent" \
+            --hidden-import "data" \
+            --hidden-import "data.storage" \
+            --hidden-import "data.storage.models" \
+            --hidden-import "config" \
+            --hidden-import "config.settings" \
+            --hidden-import "config.assets" \
+            --hidden-import "notifications" \
+            --hidden-import "engines" \
+            --hidden-import "trading" \
+            --hidden-import "backtesting" \
+            --hidden-import "sqlalchemy.dialects.sqlite" \
+            --hidden-import "multiprocessing" \
+            --collect-submodules "webview" \
+            --collect-submodules "uvicorn" \
+            --osx-bundle-identifier "com.dalios.trading" \
+            --noconfirm \
+            --clean \
+            desktop.py
+
+      - name: Zip macOS build
+        run: cd dist && zip -r ../DALIOS-macos.zip DALIOS.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DALIOS-macos
+          path: DALIOS-macos.zip
+
+  # ── Create GitHub Release ──
+  release:
+    needs: [build-windows, build-linux, build-macos]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "DALIOS ${{ github.ref_name }}"
+          body: |
+            ## DALIOS ${{ github.ref_name }}
+
+            Download the version for your platform:
+
+            | Platform | File | Instructions |
+            |----------|------|-------------|
+            | **Windows** | `DALIOS-windows.zip` | Unzip → double-click `DALIOS.exe` |
+            | **Linux** | `DALIOS-linux.tar.gz` | `tar xzf` → run `./DALIOS` |
+            | **macOS** | `DALIOS-macos.zip` | Unzip → open `DALIOS.app` (right-click → Open if blocked) |
+
+            ---
+            Built automatically by GitHub Actions.
+          files: |
+            artifacts/DALIOS-windows/DALIOS-windows.zip
+            artifacts/DALIOS-linux/DALIOS-linux.tar.gz
+            artifacts/DALIOS-macos/DALIOS-macos.zip
+          draft: false
+          prerelease: false
