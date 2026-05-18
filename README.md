@@ -135,3 +135,7 @@ Educational and research purposes only. Not financial advice. Algorithmic signal
 **Website:** [defthrets.github.io/dalios-website](https://defthrets.github.io/dalios-website)
 
 ---
+
+## Security
+
+Credentials encrypted at rest via Fernet (AES-128-GCM). Set `DALIO_CRED_KEY` or a key auto-generates at `data/.cred_key`.
